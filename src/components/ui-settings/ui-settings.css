@@ -1,0 +1,202 @@
+.ui-settings__launcher {
+  position: fixed;
+  z-index: 40;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.58rem 0.9rem;
+  border: 1px solid rgba(123, 89, 52, 0.48);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.94);
+  box-shadow: 0 0.55rem 1.4rem rgba(54, 43, 25, 0.14);
+  color: var(--color-green-dark);
+  font: 700 0.78rem/1 Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  backdrop-filter: blur(0.7rem);
+}
+
+.ui-settings__launcher:hover,
+.ui-settings__launcher:focus-visible {
+  border-color: var(--color-gold-dark);
+  background: #fffdf7;
+  outline: 2px solid transparent;
+  transform: translateY(-1px);
+}
+
+.ui-settings__dialog {
+  width: min(24rem, calc(100vw - 2rem));
+  padding: 1.35rem;
+  border: 1px solid rgba(123, 89, 52, 0.45);
+  border-radius: 1.25rem;
+  background: rgba(255, 250, 241, 0.98);
+  box-shadow: 0 1.6rem 4rem rgba(36, 31, 23, 0.28);
+  color: var(--color-ink);
+}
+
+.ui-settings__dialog::backdrop {
+  background: rgba(26, 29, 24, 0.48);
+  backdrop-filter: blur(0.2rem);
+}
+
+.ui-settings__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ui-settings__title {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.ui-settings__close {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(123, 89, 52, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink);
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ui-settings__description {
+  margin: 0.65rem 0 1rem;
+  color: var(--color-muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.ui-settings__controls {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.ui-settings__field {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 1fr) minmax(8.5rem, 1.2fr);
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.ui-settings__label {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.ui-settings__select {
+  width: 100%;
+  min-height: 2.35rem;
+  padding: 0.45rem 2rem 0.45rem 0.65rem;
+  border: 1px solid rgba(123, 89, 52, 0.38);
+  border-radius: 0.65rem;
+  background: #fffdf8;
+  color: var(--color-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ui-settings__select:focus-visible,
+.ui-settings__close:focus-visible,
+.ui-settings__reset:focus-visible {
+  outline: 2px solid var(--color-gold-dark);
+  outline-offset: 2px;
+}
+
+.ui-settings__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(123, 89, 52, 0.2);
+}
+
+.ui-settings__reset {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(123, 89, 52, 0.4);
+  border-radius: 0.65rem;
+  background: transparent;
+  color: var(--color-green-dark);
+  font: 700 0.78rem/1.1 inherit;
+  cursor: pointer;
+}
+
+html[data-ui-text-size='small'] {
+  font-size: 90%;
+}
+
+html[data-ui-text-size='large'] {
+  font-size: 112.5%;
+}
+
+html[data-ui-theme='light'] body {
+  background: linear-gradient(135deg, #fffaf1 0%, #ffffff 52%, #f5faf7 100%);
+}
+
+html[data-ui-theme='contrast'] {
+  --color-ink: #101010;
+  --color-muted: #333333;
+  --color-green: #244f2b;
+  --color-green-dark: #123118;
+  --color-brown: #6a3516;
+  --color-brown-dark: #351706;
+}
+
+html[data-ui-theme='contrast'] body {
+  background: #ffffff;
+}
+
+html[data-ui-theme='contrast'] .project-node,
+html[data-ui-theme='contrast'] .ui-settings__dialog,
+html[data-ui-theme='contrast'] .ui-settings__launcher {
+  border-color: #111111;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+html[data-ui-theme='contrast'] .ecosystem-hub__core {
+  border-color: #111111;
+  box-shadow: none;
+}
+
+html[data-ui-density='compact'] .page-shell {
+  padding-top: 0.45rem;
+}
+
+html[data-ui-density='compact'] .hero {
+  margin-bottom: 0.45rem;
+}
+
+html[data-ui-density='compact'] .ecosystem {
+  gap: 0.75rem;
+}
+
+html[data-ui-motion='reduced'] *,
+html[data-ui-motion='reduced'] *::before,
+html[data-ui-motion='reduced'] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (max-width: 45rem) {
+  .ui-settings__launcher {
+    top: 0.65rem;
+    right: 0.65rem;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.7rem;
+  }
+
+  .ui-settings__field {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
