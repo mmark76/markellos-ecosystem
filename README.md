@@ -35,7 +35,7 @@ npm run format:check
 npm run build
 ```
 
-The same checks run automatically through GitHub Actions on pull requests and pushes to `main`.
+The same checks are configured in GitHub Actions for pull requests and pushes to `main`.
 
 ## Production build
 
