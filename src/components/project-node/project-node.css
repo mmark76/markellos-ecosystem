@@ -152,10 +152,14 @@
   line-height: 1.08;
 }
 
-.project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label,
-.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+.project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label {
   font-size: 0.72rem;
   line-height: 1.08;
+}
+
+.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+  font-size: 0.66rem;
+  line-height: 1.06;
 }
 
 .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
