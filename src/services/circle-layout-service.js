@@ -11,7 +11,6 @@ export const DEFAULT_CIRCLE_LAYOUT = Object.freeze({
   'apps:chess-pgn-audio-player': { left: 36.56, top: 82.41 },
   'blogs:mnemonic-techniques': { left: 82.29, top: 43.08 },
   'blogs:chess-reflections': { left: 3.31, top: 38.74 },
-  'blogs:markellos-chess-mnemonic-system': { left: 51.21, top: 83.58 },
   'blogs:personal-thoughts-and-writings': { left: 44.42, top: 6.41 },
   'blogs:core': { left: 43.23, top: 45.91 },
   'apps:memory-palaces': { left: 49.3, top: 4.08 },
