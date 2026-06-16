@@ -21,7 +21,7 @@ const VALID_OPTIONS = Object.freeze({
   titleSize: ['extra-small', 'small', 'default', 'large'],
   titleLayout: ['one-line', 'two-lines'],
   density: ['compact', 'comfortable', 'spacious'],
-  font: ['classic', 'readable'],
+  font: ['classic', 'readable', 'humanist', 'book', 'high-legibility'],
   background: ['decorative', 'minimal', 'plain'],
   positionMode: ['locked', 'editable'],
   motion: ['standard', 'reduced'],
