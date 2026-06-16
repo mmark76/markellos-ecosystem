@@ -18,6 +18,11 @@ export function createHero() {
     attributes: { id: 'main-title' },
   });
 
-  hero.append(eyebrow, title);
+  const subtitle = createElement('p', {
+    classNames: ['hero__subtitle'],
+    text: 'All in one place!',
+  });
+
+  hero.append(eyebrow, title, subtitle);
   return hero;
 }
