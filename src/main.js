@@ -12,7 +12,7 @@ import { createUiSettings } from './components/ui-settings/ui-settings.js';
 import { ecosystemGroups } from './data/projects.js';
 import { clearConsent } from './services/consent-service.js';
 import { applyUiSettings } from './services/ui-settings-service.js';
-import { createElement } from './utils/dom.js';
+import { createElement, focusFirstInteractive } from './utils/dom.js';
 
 applyUiSettings();
 
@@ -26,7 +26,7 @@ function appendCookieBanner({ resetConsent = false } = {}) {
   const existingBanner = app.querySelector('.cookie-banner');
 
   if (existingBanner) {
-    existingBanner.querySelector('button')?.focus();
+    focusFirstInteractive(existingBanner);
     return existingBanner;
   }
 
@@ -38,7 +38,7 @@ function appendCookieBanner({ resetConsent = false } = {}) {
 
   if (banner) {
     app.append(banner);
-    banner.querySelector('button')?.focus();
+    focusFirstInteractive(banner);
   }
 
   return banner;
