@@ -40,6 +40,7 @@ const CONTROL_DEFINITIONS = [
     label: 'Title size',
     type: 'select',
     options: [
+      ['extra-small', 'Extra small'],
       ['small', 'Small'],
       ['default', 'Default'],
       ['large', 'Large'],
