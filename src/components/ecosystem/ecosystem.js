@@ -6,10 +6,11 @@ const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 const connectionPoints = {
   blogs: [
-    [50, 50, 50, 8],
-    [50, 50, 12, 50],
-    [50, 50, 88, 50],
-    [50, 50, 50, 92],
+    [50, 38, 50, 67],
+    [50, 67, 14, 91],
+    [50, 67, 38, 91],
+    [50, 67, 62, 91],
+    [50, 67, 86, 91],
   ],
   apps: [
     [50, 38, 28, 10],
@@ -33,7 +34,8 @@ function createConnections(groupId) {
 
   connectionPoints[groupId].forEach(([x1, y1, x2, y2], index) => {
     const line = document.createElementNS(SVG_NAMESPACE, 'line');
-    const isSecondaryConnection = groupId === 'apps' && index >= 5;
+    const isSecondaryConnection =
+      (groupId === 'blogs' && index >= 1) || (groupId === 'apps' && index >= 5);
 
     line.classList.add(
       isSecondaryConnection
