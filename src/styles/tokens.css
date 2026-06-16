@@ -1,0 +1,20 @@
+:root {
+  --color-background: #f3eadc;
+  --color-paper: rgba(255, 250, 241, 0.82);
+  --color-ink: #263027;
+  --color-muted: #6d6a5d;
+  --color-green: #4e6840;
+  --color-green-dark: #26351f;
+  --color-brown: #7b5934;
+  --color-brown-dark: #372516;
+  --color-line: rgba(83, 72, 52, 0.24);
+
+  --shadow-hub: 0 1.5rem 4.375rem rgba(45, 35, 23, 0.18);
+  --radius-card: 1.75rem;
+
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+}
