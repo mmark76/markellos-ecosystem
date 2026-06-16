@@ -1,5 +1,6 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
+import test from 'node:test';
+import { URL } from 'node:url';
 import { ecosystemGroups } from '../src/data/projects.js';
 
 test('ecosystem data contains unique group and project identifiers', () => {
