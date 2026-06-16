@@ -16,3 +16,34 @@ export function createElement(tagName, options = {}) {
 
   return element;
 }
+
+export function openModalDialog(dialog) {
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+  } else {
+    dialog.setAttribute('open', '');
+  }
+}
+
+export function closeModalDialog(dialog, returnFocusTo) {
+  if (typeof dialog.close === 'function') {
+    dialog.close();
+  } else {
+    dialog.removeAttribute('open');
+    returnFocusTo?.focus();
+  }
+}
+
+export function restoreFocusWhenDialogCloses(dialog, returnFocusTo) {
+  const restoreFocus = () => returnFocusTo?.focus();
+  dialog.addEventListener('close', restoreFocus);
+  return restoreFocus;
+}
+
+export function focusFirstInteractive(container) {
+  const firstInteractive = container.querySelector(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+  );
+  firstInteractive?.focus();
+  return firstInteractive ?? null;
+}
