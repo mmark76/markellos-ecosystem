@@ -29,9 +29,18 @@
 
 .project-node__label {
   display: block;
+  max-width: 100%;
   font-size: 0.92rem;
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.16;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
+.project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label {
+  font-size: 0.8rem;
+  line-height: 1.12;
 }
 
 .ecosystem-hub--apps .project-node--bottom-main {
@@ -46,6 +55,7 @@
 .ecosystem-hub--apps .project-node--bottom-main .project-node__label {
   font-size: 1rem;
   font-weight: 800;
+  overflow-wrap: normal;
 }
 
 .ecosystem-hub--apps .project-node--sub-1,
@@ -53,7 +63,7 @@
 .ecosystem-hub--apps .project-node--sub-3 {
   width: 6.75rem;
   height: 6.75rem;
-  padding: var(--space-3);
+  padding: 0.75rem;
   border-color: rgba(97, 80, 45, 0.2);
   background: rgba(255, 252, 246, 0.94);
   box-shadow: 0 0.7rem 1.75rem rgba(47, 39, 27, 0.1);
@@ -62,9 +72,10 @@
 .ecosystem-hub--apps .project-node--sub-1 .project-node__label,
 .ecosystem-hub--apps .project-node--sub-2 .project-node__label,
 .ecosystem-hub--apps .project-node--sub-3 .project-node__label {
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 650;
-  line-height: 1.12;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 45rem) {
@@ -81,6 +92,18 @@
     border-width: 1px;
     border-radius: var(--radius-card);
     transform: none !important;
+  }
+
+  .project-node__label,
+  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
+  .project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label,
+  .ecosystem-hub--apps .project-node--bottom-main .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-1 .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-2 .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-3 .project-node__label {
+    font-size: 0.92rem;
+    line-height: 1.18;
+    overflow-wrap: normal;
   }
 
   .project-node:hover,
