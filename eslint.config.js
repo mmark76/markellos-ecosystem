@@ -15,4 +15,11 @@ export default [
       },
     },
   },
+  {
+    files: ['tests/**/*.js', 'vite.config.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+  },
 ];
