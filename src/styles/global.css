@@ -48,6 +48,12 @@ noscript {
   text-align: center;
 }
 
+@media (min-width: 68rem) and (max-height: 52rem) {
+  body {
+    padding-bottom: 3.4rem;
+  }
+}
+
 @media (max-width: 45rem) {
   body {
     padding-bottom: 7rem;
