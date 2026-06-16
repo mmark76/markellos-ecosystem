@@ -42,6 +42,10 @@ html[data-ui-title-layout='one-line'] .hero__title-line + .hero__title-line {
   margin-left: 0.24em;
 }
 
+html[data-ui-title-size='extra-small'] .hero__title {
+  font-size: clamp(1.45rem, 3vw, 3rem);
+}
+
 .hero__divider {
   position: relative;
   display: block;
@@ -122,5 +126,9 @@ html[data-ui-title-layout='one-line'] .hero__title-line + .hero__title-line {
 
   html[data-ui-title-layout='one-line'] .hero__title {
     font-size: clamp(1.35rem, 7.2vw, 2.3rem);
+  }
+
+  html[data-ui-title-layout='one-line'][data-ui-title-size='extra-small'] .hero__title {
+    font-size: clamp(1.05rem, 5.2vw, 1.7rem);
   }
 }
