@@ -57,23 +57,17 @@
   stroke-width: 1.05;
 }
 
-.ecosystem-hub__connection-joint {
-  fill: #f7eddc;
-  stroke: var(--color-gold-dark);
-  stroke-width: 1.05;
-}
-
 .ecosystem-hub__core {
   position: absolute;
   z-index: 2;
   top: 44%;
   left: 50%;
   display: grid;
-  width: clamp(13rem, 16vw, 14.5rem);
-  height: clamp(13rem, 16vw, 14.5rem);
+  width: clamp(12.25rem, 14.5vw, 13.25rem);
+  height: clamp(12.25rem, 14.5vw, 13.25rem);
   place-items: center;
   align-content: center;
-  padding: 1.35rem;
+  padding: 1.25rem;
   border: 3px solid rgba(199, 154, 66, 0.88);
   border-radius: 50%;
   box-shadow:
@@ -138,12 +132,12 @@
 }
 
 .ecosystem-hub__description {
-  max-width: 11.5rem;
-  margin: 0.6rem auto 0;
+  max-width: 11rem;
+  margin: 0.55rem auto 0;
   color: rgba(255, 250, 240, 0.78);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 0.8rem;
-  line-height: 1.35;
+  font-size: 0.78rem;
+  line-height: 1.32;
 }
 
 .ecosystem-hub--blogs .project-node--blog-sub-1 {
@@ -198,21 +192,21 @@
 }
 
 .ecosystem-hub--apps .project-node--sub-1 {
-  top: 88%;
-  left: 45%;
+  top: 90%;
+  left: 42%;
 }
 
 .ecosystem-hub--apps .project-node--sub-2 {
-  top: 88%;
+  top: 90%;
   left: 65%;
 }
 
 .ecosystem-hub--apps .project-node--sub-3 {
-  top: 88%;
-  left: 85%;
+  top: 90%;
+  left: 88%;
 }
 
-@media (min-width: 68rem) and (max-height: 52rem) {
+@media (min-width: 68rem) and (max-height: 56rem) {
   .ecosystem {
     min-height: 31rem;
     max-width: 78rem;
@@ -234,32 +228,32 @@
 
   .ecosystem-hub__core {
     top: 44%;
-    width: 10.8rem;
-    height: 10.8rem;
-    padding: 0.95rem;
+    width: 9.8rem;
+    height: 9.8rem;
+    padding: 0.85rem;
     border-width: 2px;
   }
 
   .ecosystem-hub__icon {
     margin-bottom: 0.2rem;
-    font-size: 1.55rem;
+    font-size: 1.45rem;
   }
 
   .ecosystem-hub__title {
-    font-size: 1.22rem;
+    font-size: 1.12rem;
     letter-spacing: 0.08em;
   }
 
   .ecosystem-hub__ornament {
     width: 3rem;
-    margin-top: 0.42rem;
+    margin-top: 0.38rem;
   }
 
   .ecosystem-hub__description {
-    max-width: 8.8rem;
-    margin-top: 0.42rem;
-    font-size: 0.64rem;
-    line-height: 1.24;
+    max-width: 8.3rem;
+    margin-top: 0.38rem;
+    font-size: 0.6rem;
+    line-height: 1.2;
   }
 }
 
