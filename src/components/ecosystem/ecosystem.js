@@ -4,25 +4,30 @@ import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
-const connectionPoints = {
+const connectionPaths = {
   blogs: [
-    [50, 38, 50, 67],
-    [50, 67, 14, 91],
-    [50, 67, 38, 91],
-    [50, 67, 62, 91],
-    [50, 67, 86, 91],
+    { type: 'primary', d: 'M 50 38 C 50 48, 50 57, 50 67' },
+    { type: 'secondary', d: 'M 50 67 C 50 76, 14 79, 14 91' },
+    { type: 'secondary', d: 'M 50 67 C 50 77, 38 80, 38 91' },
+    { type: 'secondary', d: 'M 50 67 C 50 77, 62 80, 62 91' },
+    { type: 'secondary', d: 'M 50 67 C 50 76, 86 79, 86 91' },
   ],
   apps: [
-    [50, 38, 28, 10],
-    [50, 38, 72, 10],
-    [50, 38, 10, 38],
-    [50, 38, 90, 38],
-    [50, 38, 24, 67],
-    [50, 38, 62, 67],
-    [62, 67, 40, 91],
-    [62, 67, 62, 91],
-    [62, 67, 84, 91],
+    { type: 'primary', d: 'M 50 38 C 43 25, 35 16, 28 10' },
+    { type: 'primary', d: 'M 50 38 C 57 25, 65 16, 72 10' },
+    { type: 'primary', d: 'M 50 38 C 35 38, 22 38, 10 38' },
+    { type: 'primary', d: 'M 50 38 C 65 38, 78 38, 90 38' },
+    { type: 'primary', d: 'M 50 38 C 44 50, 34 59, 24 67' },
+    { type: 'primary', d: 'M 50 38 C 54 50, 58 59, 62 67' },
+    { type: 'secondary', d: 'M 62 67 C 62 77, 40 80, 40 91' },
+    { type: 'secondary', d: 'M 62 67 C 62 78, 62 82, 62 91' },
+    { type: 'secondary', d: 'M 62 67 C 62 77, 84 80, 84 91' },
   ],
+};
+
+const junctionPoints = {
+  blogs: [{ x: 50, y: 75 }],
+  apps: [{ x: 62, y: 75 }],
 };
 
 function createConnections(groupId) {
@@ -32,22 +37,22 @@ function createConnections(groupId) {
   svg.setAttribute('preserveAspectRatio', 'none');
   svg.setAttribute('aria-hidden', 'true');
 
-  connectionPoints[groupId].forEach(([x1, y1, x2, y2], index) => {
-    const line = document.createElementNS(SVG_NAMESPACE, 'line');
-    const isSecondaryConnection =
-      (groupId === 'blogs' && index >= 1) || (groupId === 'apps' && index >= 6);
+  connectionPaths[groupId].forEach(({ type, d }) => {
+    const path = document.createElementNS(SVG_NAMESPACE, 'path');
+    path.classList.add(`ecosystem-hub__connection--${type}`);
+    path.setAttribute('d', d);
+    path.setAttribute('vector-effect', 'non-scaling-stroke');
+    svg.append(path);
+  });
 
-    line.classList.add(
-      isSecondaryConnection
-        ? 'ecosystem-hub__connection--secondary'
-        : 'ecosystem-hub__connection--primary',
-    );
-    line.setAttribute('x1', x1);
-    line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2);
-    line.setAttribute('y2', y2);
-    line.setAttribute('vector-effect', 'non-scaling-stroke');
-    svg.append(line);
+  junctionPoints[groupId].forEach(({ x, y }) => {
+    const circle = document.createElementNS(SVG_NAMESPACE, 'circle');
+    circle.classList.add('ecosystem-hub__connection-joint');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', '0.7');
+    circle.setAttribute('vector-effect', 'non-scaling-stroke');
+    svg.append(circle);
   });
 
   return svg;
@@ -71,6 +76,10 @@ function createHub(group) {
     createElement('h2', {
       classNames: ['ecosystem-hub__title'],
       text: group.title,
+    }),
+    createElement('span', {
+      classNames: ['ecosystem-hub__ornament'],
+      attributes: { 'aria-hidden': 'true' },
     }),
     createElement('p', {
       classNames: ['ecosystem-hub__description'],
