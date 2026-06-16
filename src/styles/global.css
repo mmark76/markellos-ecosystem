@@ -1,6 +1,7 @@
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  padding-bottom: 5rem;
   background:
     radial-gradient(circle at 50% 8%, rgba(255, 249, 230, 0.95), transparent 34%),
     radial-gradient(circle at 0% 70%, rgba(90, 117, 65, 0.22), transparent 36%),
@@ -42,4 +43,10 @@ noscript {
   display: block;
   padding: var(--space-4);
   text-align: center;
+}
+
+@media (max-width: 45rem) {
+  body {
+    padding-bottom: 7rem;
+  }
 }
