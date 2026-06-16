@@ -1,4 +1,5 @@
 import './ui-settings.css';
+import { resetCircleLayout } from '../../services/circle-layout-service.js';
 import {
   DEFAULT_UI_SETTINGS,
   getUiSettings,
@@ -11,6 +12,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'theme',
     label: 'Colour theme',
+    type: 'select',
     options: [
       ['natural', 'Natural'],
       ['light', 'Light'],
@@ -22,6 +24,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'textSize',
     label: 'Text size',
+    type: 'select',
     options: [
       ['small', 'Small'],
       ['default', 'Default'],
@@ -32,6 +35,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'titleSize',
     label: 'Title size',
+    type: 'select',
     options: [
       ['small', 'Small'],
       ['default', 'Default'],
@@ -39,17 +43,27 @@ const CONTROL_DEFINITIONS = [
     ],
   },
   {
-    key: 'nodeSize',
+    key: 'circleScale',
     label: 'Circle size',
+    type: 'range',
+    min: 70,
+    max: 135,
+    step: 5,
+    suffix: '%',
+  },
+  {
+    key: 'positionMode',
+    label: 'Move circles',
+    type: 'select',
     options: [
-      ['small', 'Small'],
-      ['default', 'Default'],
-      ['large', 'Large'],
+      ['locked', 'Locked'],
+      ['editable', 'Drag to reposition'],
     ],
   },
   {
     key: 'density',
     label: 'Layout spacing',
+    type: 'select',
     options: [
       ['compact', 'Compact'],
       ['comfortable', 'Comfortable'],
@@ -59,6 +73,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'font',
     label: 'Font style',
+    type: 'select',
     options: [
       ['classic', 'Classic'],
       ['readable', 'Readable'],
@@ -67,6 +82,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'background',
     label: 'Background detail',
+    type: 'select',
     options: [
       ['decorative', 'Decorative'],
       ['minimal', 'Minimal'],
@@ -76,6 +92,7 @@ const CONTROL_DEFINITIONS = [
   {
     key: 'motion',
     label: 'Motion',
+    type: 'select',
     options: [
       ['standard', 'Standard'],
       ['reduced', 'Reduced'],
@@ -83,16 +100,7 @@ const CONTROL_DEFINITIONS = [
   },
 ];
 
-function createControl(definition, currentValue) {
-  const field = createElement('label', {
-    classNames: ['ui-settings__field'],
-  });
-
-  const label = createElement('span', {
-    classNames: ['ui-settings__label'],
-    text: definition.label,
-  });
-
+function createSelectControl(definition, currentValue) {
   const select = createElement('select', {
     classNames: ['ui-settings__select'],
     attributes: {
@@ -110,8 +118,56 @@ function createControl(definition, currentValue) {
     select.append(option);
   });
 
-  field.append(label, select);
-  return { field, select };
+  return { input: select };
+}
+
+function createRangeControl(definition, currentValue) {
+  const group = createElement('div', {
+    classNames: ['ui-settings__range-group'],
+  });
+
+  const output = createElement('output', {
+    classNames: ['ui-settings__range-value'],
+    text: `${currentValue}${definition.suffix}`,
+  });
+
+  const range = createElement('input', {
+    classNames: ['ui-settings__range'],
+    attributes: {
+      type: 'range',
+      name: definition.key,
+      min: definition.min,
+      max: definition.max,
+      step: definition.step,
+      value: currentValue,
+      'aria-label': definition.label,
+    },
+  });
+
+  range.addEventListener('input', () => {
+    output.textContent = `${range.value}${definition.suffix}`;
+  });
+
+  group.append(range, output);
+  return { input: range, element: group, output };
+}
+
+function createControl(definition, currentValue) {
+  const field = createElement('label', {
+    classNames: ['ui-settings__field'],
+  });
+
+  const label = createElement('span', {
+    classNames: ['ui-settings__label'],
+    text: definition.label,
+  });
+
+  const control = definition.type === 'range'
+    ? createRangeControl(definition, currentValue)
+    : createSelectControl(definition, currentValue);
+
+  field.append(label, control.element ?? control.input);
+  return { field, ...control };
 }
 
 export function createUiSettings() {
@@ -161,7 +217,7 @@ export function createUiSettings() {
 
   const description = createElement('p', {
     classNames: ['ui-settings__description'],
-    text: 'Adjust the appearance and behaviour of the page. Preferences are saved on this device.',
+    text: 'Adjust the page appearance. Enable “Drag to reposition” to move circles directly on the desktop layout.',
   });
 
   const controls = new Map();
@@ -171,7 +227,7 @@ export function createUiSettings() {
 
   CONTROL_DEFINITIONS.forEach((definition) => {
     const control = createControl(definition, currentSettings[definition.key]);
-    controls.set(definition.key, control.select);
+    controls.set(definition.key, control);
     controlsContainer.append(control.field);
   });
 
@@ -179,25 +235,35 @@ export function createUiSettings() {
     classNames: ['ui-settings__actions'],
   });
 
-  const resetButton = createElement('button', {
+  const resetPositionsButton = createElement('button', {
     classNames: ['ui-settings__reset'],
-    text: 'Reset defaults',
+    text: 'Reset circle positions',
     attributes: { type: 'button' },
   });
 
-  actions.append(resetButton);
+  const resetButton = createElement('button', {
+    classNames: ['ui-settings__reset'],
+    text: 'Reset all settings',
+    attributes: { type: 'button' },
+  });
+
+  actions.append(resetPositionsButton, resetButton);
   dialog.append(header, description, controlsContainer, actions);
   wrapper.append(launcher, dialog);
 
   function readControls() {
     return Object.fromEntries(
-      [...controls.entries()].map(([key, select]) => [key, select.value]),
+      [...controls.entries()].map(([key, control]) => [key, control.input.value]),
     );
   }
 
   function updateControls(settings) {
-    controls.forEach((select, key) => {
-      select.value = settings[key];
+    controls.forEach((control, key) => {
+      control.input.value = settings[key];
+
+      if (control.output) {
+        control.output.textContent = `${settings[key]}%`;
+      }
     });
   }
 
@@ -221,14 +287,20 @@ export function createUiSettings() {
   launcher.addEventListener('click', openDialog);
   closeButton.addEventListener('click', closeDialog);
 
-  controls.forEach((select) => {
-    select.addEventListener('change', () => {
+  controls.forEach((control) => {
+    const eventName = control.input.type === 'range' ? 'input' : 'change';
+    control.input.addEventListener(eventName, () => {
       saveUiSettings(readControls());
     });
   });
 
+  resetPositionsButton.addEventListener('click', () => {
+    resetCircleLayout();
+  });
+
   resetButton.addEventListener('click', () => {
     const defaults = resetUiSettings();
+    resetCircleLayout();
     updateControls(defaults);
   });
 
