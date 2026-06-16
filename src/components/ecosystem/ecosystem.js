@@ -73,16 +73,22 @@ function createHub(group) {
     classNames: ['ecosystem-hub__core'],
   });
 
+  const title = createElement('h2', {
+    classNames: ['ecosystem-hub__title'],
+    text: group.title,
+  });
+
+  if (group.id === 'blogs') {
+    title.style.fontSize = 'clamp(1.5rem, 2.15vw, 2.2rem)';
+  }
+
   core.append(
     createElement('span', {
       classNames: ['ecosystem-hub__icon'],
       text: group.icon,
       attributes: { 'aria-hidden': 'true' },
     }),
-    createElement('h2', {
-      classNames: ['ecosystem-hub__title'],
-      text: group.title,
-    }),
+    title,
     createElement('span', {
       classNames: ['ecosystem-hub__ornament'],
       attributes: { 'aria-hidden': 'true' },
