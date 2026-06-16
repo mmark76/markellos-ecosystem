@@ -8,7 +8,7 @@ export function createFooter() {
 
   const copyright = createElement('p', {
     classNames: ['site-footer__copyright'],
-    text: `© ${new Date().getFullYear()} Markellos Ecosystem. All rights reserved.`,
+    text: `© ${new Date().getFullYear()} Markellos Markides. All rights reserved.`,
   });
 
   const navigation = createElement('nav', {
