@@ -181,10 +181,10 @@ function downloadSettings() {
     uiSettings: getUiSettings(),
     circleLayout: getCircleLayout(),
   };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+  const blob = new globalThis.Blob([JSON.stringify(payload, null, 2)], {
     type: 'application/json',
   });
-  const url = URL.createObjectURL(blob);
+  const url = globalThis.URL.createObjectURL(blob);
   const link = document.createElement('a');
 
   link.href = url;
@@ -192,7 +192,7 @@ function downloadSettings() {
   document.body.append(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  globalThis.URL.revokeObjectURL(url);
 }
 
 export function createUiSettings() {
