@@ -10,10 +10,39 @@ import { createFooter } from './components/footer/footer.js';
 import { createHero } from './components/hero/hero.js';
 import { createUiSettings } from './components/ui-settings/ui-settings.js';
 import { ecosystemGroups } from './data/projects.js';
+import { clearConsent } from './services/consent-service.js';
 import { applyUiSettings } from './services/ui-settings-service.js';
 import { createElement } from './utils/dom.js';
 
 applyUiSettings();
+
+function appendCookieBanner({ resetConsent = false } = {}) {
+  const app = document.querySelector('#app');
+
+  if (!app) {
+    throw new Error('Application root element was not found.');
+  }
+
+  const existingBanner = app.querySelector('.cookie-banner');
+
+  if (existingBanner) {
+    existingBanner.querySelector('button')?.focus();
+    return existingBanner;
+  }
+
+  if (resetConsent) {
+    clearConsent();
+  }
+
+  const banner = createCookieBanner({ force: resetConsent });
+
+  if (banner) {
+    app.append(banner);
+    banner.querySelector('button')?.focus();
+  }
+
+  return banner;
+}
 
 function renderApp() {
   const app = document.querySelector('#app');
@@ -28,12 +57,11 @@ function renderApp() {
 
   main.append(createHero(), createEcosystem(ecosystemGroups));
   app.replaceChildren(main, createFooter(), createUiSettings());
-
-  const cookieBanner = createCookieBanner();
-
-  if (cookieBanner) {
-    app.append(cookieBanner);
-  }
+  appendCookieBanner();
 }
+
+globalThis.addEventListener?.('markellos:open-cookie-preferences', () => {
+  appendCookieBanner({ resetConsent: true });
+});
 
 renderApp();
