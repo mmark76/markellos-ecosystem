@@ -1,12 +1,12 @@
 .page-shell {
-  width: min(90rem, 94vw);
+  width: min(96rem, 96vw);
   margin: 0 auto;
-  padding: 2.75rem 0 4rem;
+  padding: 1.5rem 0 4rem;
 }
 
 @media (max-width: 45rem) {
   .page-shell {
-    width: min(100% - 1.75rem, 45rem);
-    padding-top: 1.75rem;
+    width: min(100% - 1.5rem, 45rem);
+    padding-top: 1.25rem;
   }
 }
