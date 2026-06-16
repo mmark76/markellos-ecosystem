@@ -81,6 +81,14 @@
   color: var(--color-gold-dark);
 }
 
+html[data-ui-theme='dark'] .site-footer__copyright {
+  color: #d7d0c3;
+}
+
+html[data-ui-theme='dark'] .site-footer::after {
+  background: #20241f;
+}
+
 @media (min-width: 68rem) and (max-height: 52rem) {
   .site-footer {
     gap: 0.12rem;
