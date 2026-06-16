@@ -5,13 +5,13 @@ const SETTINGS_KEY = 'markellos-ecosystem:ui-settings';
 export const DEFAULT_UI_SETTINGS = Object.freeze({
   theme: 'natural',
   textSize: 'default',
-  titleSize: 'default',
-  titleLayout: 'two-lines',
-  circleScale: 100,
+  titleSize: 'extra-small',
+  titleLayout: 'one-line',
+  circleScale: 125,
   density: 'comfortable',
   font: 'classic',
   background: 'decorative',
-  positionMode: 'locked',
+  positionMode: 'editable',
   motion: 'standard',
 });
 
