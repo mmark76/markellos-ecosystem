@@ -6,10 +6,11 @@ export const DEFAULT_UI_SETTINGS = Object.freeze({
   theme: 'natural',
   textSize: 'default',
   titleSize: 'default',
-  nodeSize: 'default',
+  circleScale: 100,
   density: 'comfortable',
   font: 'classic',
   background: 'decorative',
+  positionMode: 'locked',
   motion: 'standard',
 });
 
@@ -17,16 +18,30 @@ const VALID_OPTIONS = Object.freeze({
   theme: ['natural', 'light', 'sepia', 'dark', 'contrast'],
   textSize: ['small', 'default', 'large', 'extra-large'],
   titleSize: ['small', 'default', 'large'],
-  nodeSize: ['small', 'default', 'large'],
   density: ['compact', 'comfortable', 'spacious'],
   font: ['classic', 'readable'],
   background: ['decorative', 'minimal', 'plain'],
+  positionMode: ['locked', 'editable'],
   motion: ['standard', 'reduced'],
 });
+
+function normalizeCircleScale(value) {
+  const numericValue = Number(value);
+
+  if (!Number.isFinite(numericValue)) {
+    return DEFAULT_UI_SETTINGS.circleScale;
+  }
+
+  return Math.min(135, Math.max(70, Math.round(numericValue / 5) * 5));
+}
 
 function normalizeSettings(settings = {}) {
   return Object.fromEntries(
     Object.entries(DEFAULT_UI_SETTINGS).map(([key, fallback]) => {
+      if (key === 'circleScale') {
+        return [key, normalizeCircleScale(settings[key])];
+      }
+
       const value = settings[key];
       return [key, VALID_OPTIONS[key].includes(value) ? value : fallback];
     }),
@@ -58,11 +73,12 @@ export function applyUiSettings(settings = getUiSettings()) {
   root.dataset.uiTheme = normalizedSettings.theme;
   root.dataset.uiTextSize = normalizedSettings.textSize;
   root.dataset.uiTitleSize = normalizedSettings.titleSize;
-  root.dataset.uiNodeSize = normalizedSettings.nodeSize;
   root.dataset.uiDensity = normalizedSettings.density;
   root.dataset.uiFont = normalizedSettings.font;
   root.dataset.uiBackground = normalizedSettings.background;
+  root.dataset.uiPositionMode = normalizedSettings.positionMode;
   root.dataset.uiMotion = normalizedSettings.motion;
+  root.style.setProperty('--ui-circle-scale', String(normalizedSettings.circleScale / 100));
 
   return normalizedSettings;
 }
