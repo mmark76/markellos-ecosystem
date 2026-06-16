@@ -92,7 +92,7 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics-flashcards',
-        title: 'ChessMnemonics Flashcards',
+        title: 'Memory Palaces Trainer',
         icon: '▥',
         url: 'https://chessmnemonics.net/flashcards/index.html',
         position: 'sub-1',
