@@ -18,7 +18,7 @@ export const DEFAULT_UI_SETTINGS = Object.freeze({
 const VALID_OPTIONS = Object.freeze({
   theme: ['natural', 'light', 'sepia', 'dark', 'contrast'],
   textSize: ['small', 'default', 'large', 'extra-large'],
-  titleSize: ['small', 'default', 'large'],
+  titleSize: ['extra-small', 'small', 'default', 'large'],
   titleLayout: ['one-line', 'two-lines'],
   density: ['compact', 'comfortable', 'spacious'],
   font: ['classic', 'readable'],
