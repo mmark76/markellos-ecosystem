@@ -6,56 +6,9 @@
   padding: 1.5rem 0 4rem;
 }
 
-.page-shell::before,
-.page-shell::after {
-  position: absolute;
-  z-index: -1;
-  width: 13rem;
-  height: 18rem;
-  background:
-    radial-gradient(ellipse 1.15rem 2.35rem at 20% 18%, rgba(57, 82, 48, 0.48) 0 54%, transparent 57%),
-    radial-gradient(ellipse 1.05rem 2.2rem at 40% 30%, rgba(112, 128, 73, 0.45) 0 54%, transparent 57%),
-    radial-gradient(ellipse 1.15rem 2.4rem at 27% 43%, rgba(62, 91, 51, 0.46) 0 54%, transparent 57%),
-    radial-gradient(ellipse 1rem 2.1rem at 50% 55%, rgba(142, 142, 76, 0.34) 0 54%, transparent 57%),
-    radial-gradient(ellipse 1.1rem 2.25rem at 36% 68%, rgba(67, 95, 56, 0.42) 0 54%, transparent 57%),
-    linear-gradient(69deg, transparent 48.8%, rgba(124, 101, 48, 0.48) 49.3% 50.2%, transparent 50.7%);
-  content: '';
-  filter: drop-shadow(0 0.65rem 1.2rem rgba(72, 55, 26, 0.08));
-  pointer-events: none;
-}
-
-.page-shell::before {
-  top: -1.75rem;
-  left: -3rem;
-  transform: rotate(-18deg);
-}
-
-.page-shell::after {
-  right: -2.5rem;
-  bottom: 2rem;
-  transform: rotate(164deg) scale(0.9);
-}
-
-@media (max-width: 67.5rem) {
-  .page-shell::before,
-  .page-shell::after {
-    opacity: 0.55;
-    transform: scale(0.78) rotate(-18deg);
-  }
-
-  .page-shell::after {
-    transform: scale(0.78) rotate(164deg);
-  }
-}
-
 @media (max-width: 45rem) {
   .page-shell {
     width: min(100% - 1.5rem, 45rem);
     padding-top: 1.25rem;
-  }
-
-  .page-shell::before,
-  .page-shell::after {
-    display: none;
   }
 }
