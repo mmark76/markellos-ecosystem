@@ -14,8 +14,23 @@ export function createHero() {
 
   const title = createElement('h1', {
     classNames: ['hero__title'],
-    text: 'MARKELLOS ECOSYSTEM',
     attributes: { id: 'main-title' },
+  });
+
+  title.append(
+    createElement('span', {
+      classNames: ['hero__title-line'],
+      text: 'MARKELLOS',
+    }),
+    createElement('span', {
+      classNames: ['hero__title-line'],
+      text: 'ECOSYSTEM',
+    }),
+  );
+
+  const divider = createElement('span', {
+    classNames: ['hero__divider'],
+    attributes: { 'aria-hidden': 'true' },
   });
 
   const subtitle = createElement('p', {
@@ -23,6 +38,6 @@ export function createHero() {
     text: 'All in one place!',
   });
 
-  hero.append(eyebrow, title, subtitle);
+  hero.append(eyebrow, title, divider, subtitle);
   return hero;
 }
