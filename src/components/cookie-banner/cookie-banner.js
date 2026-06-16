@@ -2,8 +2,8 @@ import './cookie-banner.css';
 import { CONSENT_LEVELS, getConsent, saveConsent } from '../../services/consent-service.js';
 import { createElement } from '../../utils/dom.js';
 
-export function createCookieBanner() {
-  if (getConsent()) {
+export function createCookieBanner({ force = false } = {}) {
+  if (!force && getConsent()) {
     return null;
   }
 
