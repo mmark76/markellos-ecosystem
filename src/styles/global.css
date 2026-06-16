@@ -44,8 +44,93 @@ body::after {
 
 noscript {
   display: block;
-  padding: var(--space-4);
+}
+
+.no-script-page {
+  width: min(58rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.no-script-page__header {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
   text-align: center;
+}
+
+.no-script-page__eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--color-green);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.no-script-page h1,
+.no-script-page h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.no-script-page h1 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 500;
+}
+
+.no-script-page__header > p:last-child {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.no-script-page__groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.no-script-page__group {
+  padding: var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-node);
+}
+
+.no-script-page__group h2 {
+  margin: 0 0 var(--space-4);
+  color: var(--color-green-dark);
+  font-size: 1.35rem;
+}
+
+.no-script-page__group ul {
+  display: grid;
+  margin: 0;
+  padding-left: 1.25rem;
+  gap: var(--space-3);
+}
+
+.no-script-page__group a,
+.no-script-page__footer a {
+  color: var(--color-green-dark);
+  text-underline-offset: 0.2em;
+}
+
+.no-script-page__group a:hover,
+.no-script-page__group a:focus-visible,
+.no-script-page__footer a:hover,
+.no-script-page__footer a:focus-visible {
+  color: var(--color-gold-dark);
+}
+
+.no-script-page__footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+  font-size: 0.9rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -68,5 +153,13 @@ noscript {
 @media (max-width: 45rem) {
   body {
     padding-bottom: 7rem;
+  }
+
+  .no-script-page {
+    padding-top: 1.5rem;
+  }
+
+  .no-script-page__groups {
+    grid-template-columns: 1fr;
   }
 }
