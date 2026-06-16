@@ -6,11 +6,10 @@ const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 const connectionPaths = {
   blogs: [
-    { type: 'primary', d: 'M 50 38 C 50 48, 50 57, 50 67' },
-    { type: 'secondary', d: 'M 50 67 C 50 76, 14 79, 14 91' },
-    { type: 'secondary', d: 'M 50 67 C 50 77, 38 80, 38 91' },
-    { type: 'secondary', d: 'M 50 67 C 50 77, 62 80, 62 91' },
-    { type: 'secondary', d: 'M 50 67 C 50 76, 86 79, 86 91' },
+    { type: 'primary', d: 'M 50 38 C 50 28, 50 19, 50 10' },
+    { type: 'primary', d: 'M 50 38 C 38 38, 25 38, 14 38' },
+    { type: 'primary', d: 'M 50 38 C 62 38, 75 38, 86 38' },
+    { type: 'primary', d: 'M 50 38 C 50 48, 50 58, 50 67' },
   ],
   apps: [
     { type: 'primary', d: 'M 50 38 C 43 25, 35 16, 28 10' },
@@ -26,7 +25,7 @@ const connectionPaths = {
 };
 
 const junctionPoints = {
-  blogs: [{ x: 50, y: 75 }],
+  blogs: [],
   apps: [{ x: 62, y: 75 }],
 };
 
