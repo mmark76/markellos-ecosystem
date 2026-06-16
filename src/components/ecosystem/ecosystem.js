@@ -1,6 +1,7 @@
 import './ecosystem.css';
 import { getCircleLayout, saveCirclePosition } from '../../services/circle-layout-service.js';
 import { createElement } from '../../utils/dom.js';
+import { shouldPreventCircleLinkClick } from '../../utils/interaction.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
@@ -170,8 +171,12 @@ function enableDragging(circle, hub, onMove) {
 
   if (circle.matches('a')) {
     circle.addEventListener('click', (event) => {
-      if (document.documentElement.dataset.uiPositionMode === 'editable') {
+      if (shouldPreventCircleLinkClick(
+        document.documentElement.dataset.uiPositionMode,
+        moved,
+      )) {
         event.preventDefault();
+        moved = false;
       }
     });
   }
@@ -228,7 +233,6 @@ function createHub(group) {
 
   const refreshConnections = () => updateConnections(hub);
   circles.forEach((circle) => enableDragging(circle, hub, refreshConnections));
-
   globalThis.requestAnimationFrame?.(refreshConnections);
   globalThis.addEventListener?.('resize', refreshConnections);
   globalThis.addEventListener?.('markellos:ui-settings-changed', () => {
