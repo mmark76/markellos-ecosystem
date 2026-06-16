@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f3eadc"/>
+  <circle cx="150" cy="315" r="92" fill="none" stroke="#9c6d22" stroke-width="8"/>
+  <path d="M100 385V245h28l42 66 42-66h28v140h-28v-89l-42 61-42-61v89z" fill="#294b36"/>
+  <text x="310" y="290" font-family="Georgia, serif" font-size="78" fill="#294b36">Markellos Ecosystem</text>
+  <text x="312" y="365" font-family="Arial, sans-serif" font-size="34" fill="#6c6254">Blogs, apps and websites in one place</text>
+  <line x1="312" y1="405" x2="1040" y2="405" stroke="#c79a42" stroke-width="3"/>
+</svg>
