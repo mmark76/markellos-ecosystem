@@ -81,6 +81,13 @@ body {
   text-wrap: wrap;
 }
 
+.project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
+  max-width: 5.4rem;
+  font-size: 0.68rem;
+  line-height: 1.04;
+  text-wrap: wrap;
+}
+
 .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
   font-size: 0.69rem;
   line-height: 1.06;
@@ -117,6 +124,11 @@ body {
     font-size: 0.58rem;
   }
 
+  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
+    max-width: 4.6rem;
+    font-size: 0.55rem;
+  }
+
   .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
     font-size: 0.56rem;
   }
@@ -140,6 +152,7 @@ body {
   }
 
   .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
+  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
   .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
     max-width: none;
     font-size: 0.92rem;
