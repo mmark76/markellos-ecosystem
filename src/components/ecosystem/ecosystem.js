@@ -31,8 +31,15 @@ function createConnections(groupId) {
   svg.setAttribute('preserveAspectRatio', 'none');
   svg.setAttribute('aria-hidden', 'true');
 
-  connectionPoints[groupId].forEach(([x1, y1, x2, y2]) => {
+  connectionPoints[groupId].forEach(([x1, y1, x2, y2], index) => {
     const line = document.createElementNS(SVG_NAMESPACE, 'line');
+    const isSecondaryConnection = groupId === 'apps' && index >= 5;
+
+    line.classList.add(
+      isSecondaryConnection
+        ? 'ecosystem-hub__connection--secondary'
+        : 'ecosystem-hub__connection--primary',
+    );
     line.setAttribute('x1', x1);
     line.setAttribute('y1', y1);
     line.setAttribute('x2', x2);
