@@ -152,7 +152,37 @@ noscript {
 
 @media (max-width: 45rem) {
   body {
-    padding-bottom: 7rem;
+    padding-bottom: 0;
+  }
+
+  body .site-footer {
+    position: static;
+  }
+
+  body .cookie-banner {
+    right: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    left: 1rem;
+    width: auto;
+    max-height: calc(100dvh - 2rem - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  body .cookie-banner__actions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body .cookie-banner__button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  body .ui-settings__dialog {
+    max-height: calc(100dvh - 1rem);
+    overflow-wrap: anywhere;
   }
 
   .no-script-page {
@@ -161,5 +191,23 @@ noscript {
 
   .no-script-page__groups {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 20rem) {
+  body .cookie-banner__actions {
+    grid-template-columns: 1fr;
+  }
+
+  body .ui-settings__dialog {
+    width: calc(100vw - 1rem);
+    padding: 0.85rem;
+  }
+
+  body .ui-settings__launcher {
+    top: 0.4rem;
+    right: 0.4rem;
+    max-width: calc(100vw - 0.8rem);
+    white-space: normal;
   }
 }
