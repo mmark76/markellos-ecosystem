@@ -167,6 +167,97 @@
   line-height: 1.08;
 }
 
+@media (min-width: 68rem) and (max-height: 52rem) {
+  .project-node {
+    width: 6.25rem;
+    height: 6.25rem;
+    gap: 0.18rem;
+    padding: 0.55rem;
+  }
+
+  .project-node__icon {
+    font-size: 1.05rem;
+  }
+
+  .project-node__label {
+    font-size: 0.63rem;
+    line-height: 1.06;
+  }
+
+  .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label {
+    font-size: 0.57rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--root-main,
+  .ecosystem-hub--apps .project-node--bottom-main {
+    width: 6.85rem;
+    height: 6.85rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--root-main .project-node__icon,
+  .ecosystem-hub--apps .project-node--bottom-main .project-node__icon {
+    font-size: 1.22rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--root-main .project-node__label,
+  .ecosystem-hub--apps .project-node--bottom-main .project-node__label {
+    font-size: 0.66rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--blog-sub-1,
+  .ecosystem-hub--blogs .project-node--blog-sub-2,
+  .ecosystem-hub--blogs .project-node--blog-sub-3,
+  .ecosystem-hub--blogs .project-node--blog-sub-4,
+  .ecosystem-hub--apps .project-node--sub-1,
+  .ecosystem-hub--apps .project-node--sub-2,
+  .ecosystem-hub--apps .project-node--sub-3 {
+    width: 6rem;
+    height: 6rem;
+    padding: 0.5rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__icon,
+  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__icon,
+  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__icon,
+  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__icon,
+  .ecosystem-hub--apps .project-node--sub-1 .project-node__icon,
+  .ecosystem-hub--apps .project-node--sub-2 .project-node__icon,
+  .ecosystem-hub--apps .project-node--sub-3 .project-node__icon {
+    font-size: 1rem;
+  }
+
+  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__label,
+  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__label,
+  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__label,
+  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-1 .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-2 .project-node__label,
+  .ecosystem-hub--apps .project-node--sub-3 .project-node__label {
+    font-size: 0.56rem;
+  }
+
+  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
+  .project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label {
+    font-size: 0.49rem;
+  }
+
+  .project-node[data-project-id='chessmnemonics'] .project-node__label {
+    font-size: 0.64rem;
+  }
+
+  .project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label {
+    font-size: 0.55rem;
+  }
+
+  .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+    font-size: 0.52rem;
+  }
+
+  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
+    font-size: 0.62rem;
+  }
+}
+
 @media (max-width: 45rem) {
   .project-node,
   .ecosystem-hub--blogs .project-node--root-main,
