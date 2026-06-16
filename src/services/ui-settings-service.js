@@ -5,14 +5,22 @@ const SETTINGS_KEY = 'markellos-ecosystem:ui-settings';
 export const DEFAULT_UI_SETTINGS = Object.freeze({
   theme: 'natural',
   textSize: 'default',
+  titleSize: 'default',
+  nodeSize: 'default',
   density: 'comfortable',
+  font: 'classic',
+  background: 'decorative',
   motion: 'standard',
 });
 
 const VALID_OPTIONS = Object.freeze({
-  theme: ['natural', 'light', 'contrast'],
-  textSize: ['small', 'default', 'large'],
-  density: ['comfortable', 'compact'],
+  theme: ['natural', 'light', 'sepia', 'dark', 'contrast'],
+  textSize: ['small', 'default', 'large', 'extra-large'],
+  titleSize: ['small', 'default', 'large'],
+  nodeSize: ['small', 'default', 'large'],
+  density: ['compact', 'comfortable', 'spacious'],
+  font: ['classic', 'readable'],
+  background: ['decorative', 'minimal', 'plain'],
   motion: ['standard', 'reduced'],
 });
 
@@ -49,7 +57,11 @@ export function applyUiSettings(settings = getUiSettings()) {
 
   root.dataset.uiTheme = normalizedSettings.theme;
   root.dataset.uiTextSize = normalizedSettings.textSize;
+  root.dataset.uiTitleSize = normalizedSettings.titleSize;
+  root.dataset.uiNodeSize = normalizedSettings.nodeSize;
   root.dataset.uiDensity = normalizedSettings.density;
+  root.dataset.uiFont = normalizedSettings.font;
+  root.dataset.uiBackground = normalizedSettings.background;
   root.dataset.uiMotion = normalizedSettings.motion;
 
   return normalizedSettings;
