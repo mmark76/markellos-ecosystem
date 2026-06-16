@@ -20,14 +20,6 @@
   line-height: 0.94;
 }
 
-.hero__subtitle {
-  max-width: 45rem;
-  margin: var(--space-4) auto 0;
-  color: var(--color-muted);
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-  letter-spacing: 0.04em;
-}
-
 @media (max-width: 45rem) {
   .hero__title {
     letter-spacing: 0.08em;
