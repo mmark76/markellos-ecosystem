@@ -26,13 +26,6 @@ export const ecosystemGroups = [
         url: 'https://mnemonic-techniques.blogspot.com/',
         position: 'blog-sub-3',
       },
-      {
-        id: 'markellos-chess-mnemonic-system',
-        title: 'Markellos Chess Mnemonic System',
-        icon: '♜',
-        url: 'https://markellos-chess-mnemonic-system.blogspot.com/',
-        position: 'blog-sub-4',
-      },
     ],
   },
   {
