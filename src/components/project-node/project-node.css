@@ -1,0 +1,51 @@
+.project-node {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  width: 9.375rem;
+  min-height: 9.375rem;
+  place-items: center;
+  padding: var(--space-4);
+  border: 1px solid rgba(97, 80, 45, 0.28);
+  border-radius: 50%;
+  background: var(--color-paper);
+  box-shadow: 0 1rem 2.625rem rgba(47, 39, 27, 0.13);
+  color: var(--color-ink);
+  text-align: center;
+  text-decoration: none;
+  backdrop-filter: blur(0.75rem);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.project-node:hover,
+.project-node:focus-visible {
+  border-color: rgba(45, 125, 168, 0.64);
+  box-shadow: 0 1.5rem 3.75rem rgba(47, 39, 27, 0.22);
+  outline: none;
+}
+
+.project-node__label {
+  display: block;
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+@media (max-width: 45rem) {
+  .project-node {
+    position: static;
+    width: auto;
+    min-height: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-card);
+    transform: none !important;
+  }
+
+  .project-node:hover,
+  .project-node:focus-visible {
+    transform: translateY(-0.25rem) !important;
+  }
+}
