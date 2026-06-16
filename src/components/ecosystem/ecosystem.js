@@ -29,6 +29,13 @@ const junctionPoints = {
   apps: [{ x: 62, y: 75 }],
 };
 
+const blogNodePositions = [
+  { top: '10%', left: '50%' },
+  { top: '38%', left: '14%' },
+  { top: '38%', left: '86%' },
+  { top: '67%', left: '50%' },
+];
+
 function createConnections(groupId) {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
   svg.classList.add('ecosystem-hub__connections');
@@ -86,7 +93,15 @@ function createHub(group) {
     }),
   );
 
-  hub.append(createConnections(group.id), core, ...group.projects.map(createProjectNode));
+  const projectNodes = group.projects.map(createProjectNode);
+
+  if (group.id === 'blogs') {
+    projectNodes.forEach((node, index) => {
+      Object.assign(node.style, blogNodePositions[index]);
+    });
+  }
+
+  hub.append(createConnections(group.id), core, ...projectNodes);
   return hub;
 }
 
