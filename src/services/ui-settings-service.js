@@ -6,6 +6,7 @@ export const DEFAULT_UI_SETTINGS = Object.freeze({
   theme: 'natural',
   textSize: 'default',
   titleSize: 'default',
+  titleLayout: 'two-lines',
   circleScale: 100,
   density: 'comfortable',
   font: 'classic',
@@ -18,6 +19,7 @@ const VALID_OPTIONS = Object.freeze({
   theme: ['natural', 'light', 'sepia', 'dark', 'contrast'],
   textSize: ['small', 'default', 'large', 'extra-large'],
   titleSize: ['small', 'default', 'large'],
+  titleLayout: ['one-line', 'two-lines'],
   density: ['compact', 'comfortable', 'spacious'],
   font: ['classic', 'readable'],
   background: ['decorative', 'minimal', 'plain'],
@@ -73,6 +75,7 @@ export function applyUiSettings(settings = getUiSettings()) {
   root.dataset.uiTheme = normalizedSettings.theme;
   root.dataset.uiTextSize = normalizedSettings.textSize;
   root.dataset.uiTitleSize = normalizedSettings.titleSize;
+  root.dataset.uiTitleLayout = normalizedSettings.titleLayout;
   root.dataset.uiDensity = normalizedSettings.density;
   root.dataset.uiFont = normalizedSettings.font;
   root.dataset.uiBackground = normalizedSettings.background;
