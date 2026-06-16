@@ -65,15 +65,6 @@ const CONTROL_DEFINITIONS = [
     suffix: '%',
   },
   {
-    key: 'positionMode',
-    label: 'Move circles',
-    type: 'select',
-    options: [
-      ['locked', 'Locked'],
-      ['editable', 'Drag to reposition'],
-    ],
-  },
-  {
     key: 'density',
     label: 'Layout spacing',
     type: 'select',
@@ -251,7 +242,7 @@ export function createUiSettings() {
 
   const description = createElement('p', {
     classNames: ['ui-settings__description'],
-    text: 'Adjust the page appearance. Enable “Drag to reposition” to move circles across the page area.',
+    text: 'Adjust the page appearance.',
   });
 
   const controls = new Map();
