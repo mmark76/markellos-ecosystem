@@ -114,13 +114,21 @@ function enableDragging(circle, hub, onMove) {
     }
 
     const hubRect = hub.getBoundingClientRect();
+    const pageShell = hub.closest('.page-shell') ?? document.documentElement;
+    const dragRect = pageShell.getBoundingClientRect();
     const circleRect = circle.getBoundingClientRect();
-    const halfWidth = (circleRect.width / 2 / hubRect.width) * 100;
-    const halfHeight = (circleRect.height / 2 / hubRect.height) * 100;
-    const requestedLeft = ((event.clientX - hubRect.left) / hubRect.width) * 100;
-    const requestedTop = ((event.clientY - hubRect.top) / hubRect.height) * 100;
-    const left = Math.min(100 - halfWidth, Math.max(halfWidth, requestedLeft));
-    const top = Math.min(100 - halfHeight, Math.max(halfHeight, requestedTop));
+    const halfWidth = circleRect.width / 2;
+    const halfHeight = circleRect.height / 2;
+    const centerX = Math.min(
+      dragRect.right - halfWidth,
+      Math.max(dragRect.left + halfWidth, event.clientX),
+    );
+    const centerY = Math.min(
+      dragRect.bottom - halfHeight,
+      Math.max(dragRect.top + halfHeight, event.clientY),
+    );
+    const left = ((centerX - hubRect.left) / hubRect.width) * 100;
+    const top = ((centerY - hubRect.top) / hubRect.height) * 100;
 
     circle.style.left = `${left}%`;
     circle.style.top = `${top}%`;
