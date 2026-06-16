@@ -17,16 +17,16 @@ const connectionPaths = {
     { type: 'primary', d: 'M 50 44 C 35 44, 22 44, 10 44' },
     { type: 'primary', d: 'M 50 44 C 65 44, 78 44, 90 44' },
     { type: 'primary', d: 'M 50 44 C 43 55, 33 64, 24 70' },
-    { type: 'primary', d: 'M 50 44 C 56 55, 62 63, 65 70' },
-    { type: 'secondary', d: 'M 65 70 C 62 79, 53 84, 45 88' },
-    { type: 'secondary', d: 'M 65 70 C 65 78, 65 83, 65 88' },
-    { type: 'secondary', d: 'M 65 70 C 70 79, 78 84, 85 88' },
+    { type: 'primary', d: 'M 50 44 C 56 53, 62 59, 65 64' },
+    { type: 'secondary', d: 'M 65 64 C 61 75, 53 84, 44 91' },
+    { type: 'secondary', d: 'M 65 64 C 65 75, 65 84, 65 91' },
+    { type: 'secondary', d: 'M 65 64 C 70 75, 78 84, 86 91' },
   ],
 };
 
 const junctionPoints = {
   blogs: [],
-  apps: [{ x: 65, y: 76 }],
+  apps: [{ x: 65, y: 72 }],
 };
 
 function createConnections(groupId) {
