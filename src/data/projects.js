@@ -85,6 +85,12 @@ export const ecosystemGroups = [
         url: 'https://forum.chessmnemonics.net/',
         position: 'sub-3',
       },
+      {
+        id: 'chessmnemonics-app',
+        title: 'ChessMnemonics App',
+        url: 'https://chessmnemonics.net/app.html',
+        position: 'sub-4',
+      },
     ],
   },
 ];
