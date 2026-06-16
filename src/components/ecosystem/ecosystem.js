@@ -11,7 +11,6 @@ const connectionEdges = {
     ['core', 'personal-thoughts-and-writings', 'primary'],
     ['core', 'chess-reflections', 'primary'],
     ['core', 'mnemonic-techniques', 'primary'],
-    ['core', 'markellos-chess-mnemonic-system', 'primary'],
   ],
   apps: [
     ['core', 'organize-your-pc', 'primary'],
@@ -171,10 +170,12 @@ function enableDragging(circle, hub, onMove) {
 
   if (circle.matches('a')) {
     circle.addEventListener('click', (event) => {
-      if (shouldPreventCircleLinkClick(
-        document.documentElement.dataset.uiPositionMode,
-        moved,
-      )) {
+      if (
+        shouldPreventCircleLinkClick(
+          document.documentElement.dataset.uiPositionMode,
+          moved,
+        )
+      ) {
         event.preventDefault();
         moved = false;
       }
