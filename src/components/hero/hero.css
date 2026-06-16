@@ -30,6 +30,18 @@
   display: block;
 }
 
+html[data-ui-title-layout='one-line'] .hero__title {
+  white-space: nowrap;
+}
+
+html[data-ui-title-layout='one-line'] .hero__title-line {
+  display: inline;
+}
+
+html[data-ui-title-layout='one-line'] .hero__title-line + .hero__title-line {
+  margin-left: 0.24em;
+}
+
 .hero__divider {
   position: relative;
   display: block;
@@ -106,5 +118,9 @@
 
   .hero__title {
     letter-spacing: 0.055em;
+  }
+
+  html[data-ui-title-layout='one-line'] .hero__title {
+    font-size: clamp(1.35rem, 7.2vw, 2.3rem);
   }
 }
