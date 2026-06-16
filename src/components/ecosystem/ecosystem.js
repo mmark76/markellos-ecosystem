@@ -1,7 +1,10 @@
 import './ecosystem.css';
 import { getCircleLayout, saveCirclePosition } from '../../services/circle-layout-service.js';
 import { createElement } from '../../utils/dom.js';
-import { shouldPreventCircleLinkClick } from '../../utils/interaction.js';
+import {
+  hasExceededDragThreshold,
+  shouldPreventCircleLinkClick,
+} from '../../utils/interaction.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
@@ -99,6 +102,7 @@ function applySavedPosition(circle, circleId, layout) {
 
 function enableDragging(circle, hub, onMove) {
   let activePointerId = null;
+  let pointerStart = null;
   let moved = false;
 
   function canDrag(event) {
@@ -111,6 +115,23 @@ function enableDragging(circle, hub, onMove) {
   function moveCircle(event) {
     if (event.pointerId !== activePointerId) {
       return;
+    }
+
+    if (!moved) {
+      if (
+        !pointerStart ||
+        !hasExceededDragThreshold(
+          pointerStart.x,
+          pointerStart.y,
+          event.clientX,
+          event.clientY,
+        )
+      ) {
+        return;
+      }
+
+      moved = true;
+      circle.classList.add('is-dragging');
     }
 
     const hubRect = hub.getBoundingClientRect();
@@ -132,8 +153,6 @@ function enableDragging(circle, hub, onMove) {
 
     circle.style.left = `${left}%`;
     circle.style.top = `${top}%`;
-    circle.classList.add('is-dragging');
-    moved = true;
     onMove();
   }
 
@@ -143,6 +162,7 @@ function enableDragging(circle, hub, onMove) {
     }
 
     activePointerId = null;
+    pointerStart = null;
     circle.classList.remove('is-dragging');
 
     if (moved) {
@@ -160,6 +180,7 @@ function enableDragging(circle, hub, onMove) {
 
     event.preventDefault();
     activePointerId = event.pointerId;
+    pointerStart = { x: event.clientX, y: event.clientY };
     moved = false;
     circle.setPointerCapture?.(event.pointerId);
   });
