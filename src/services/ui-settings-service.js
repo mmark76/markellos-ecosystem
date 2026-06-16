@@ -11,7 +11,7 @@ export const DEFAULT_UI_SETTINGS = Object.freeze({
   density: 'comfortable',
   font: 'classic',
   background: 'decorative',
-  positionMode: 'editable',
+  positionMode: 'locked',
   motion: 'standard',
 });
 
