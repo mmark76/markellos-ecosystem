@@ -6,35 +6,28 @@ const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 const connectionPaths = {
   blogs: [
-    { type: 'primary', d: 'M 50 38 C 50 28, 50 19, 50 10' },
-    { type: 'primary', d: 'M 50 38 C 38 38, 25 38, 14 38' },
-    { type: 'primary', d: 'M 50 38 C 62 38, 75 38, 86 38' },
-    { type: 'primary', d: 'M 50 38 C 50 48, 50 58, 50 67' },
+    { type: 'primary', d: 'M 50 44 C 50 32, 50 22, 50 12' },
+    { type: 'primary', d: 'M 50 44 C 36 44, 24 44, 14 44' },
+    { type: 'primary', d: 'M 50 44 C 64 44, 76 44, 86 44' },
+    { type: 'primary', d: 'M 50 44 C 50 56, 50 67, 50 76' },
   ],
   apps: [
-    { type: 'primary', d: 'M 50 38 C 43 25, 35 16, 28 10' },
-    { type: 'primary', d: 'M 50 38 C 57 25, 65 16, 72 10' },
-    { type: 'primary', d: 'M 50 38 C 35 38, 22 38, 10 38' },
-    { type: 'primary', d: 'M 50 38 C 65 38, 78 38, 90 38' },
-    { type: 'primary', d: 'M 50 38 C 44 50, 34 59, 24 67' },
-    { type: 'primary', d: 'M 50 38 C 54 50, 58 59, 62 67' },
-    { type: 'secondary', d: 'M 62 67 C 62 77, 40 80, 40 91' },
-    { type: 'secondary', d: 'M 62 67 C 62 78, 62 82, 62 91' },
-    { type: 'secondary', d: 'M 62 67 C 62 77, 84 80, 84 91' },
+    { type: 'primary', d: 'M 50 44 C 43 30, 35 20, 28 12' },
+    { type: 'primary', d: 'M 50 44 C 57 30, 65 20, 72 12' },
+    { type: 'primary', d: 'M 50 44 C 35 44, 22 44, 10 44' },
+    { type: 'primary', d: 'M 50 44 C 65 44, 78 44, 90 44' },
+    { type: 'primary', d: 'M 50 44 C 43 55, 33 64, 24 70' },
+    { type: 'primary', d: 'M 50 44 C 56 55, 62 63, 65 70' },
+    { type: 'secondary', d: 'M 65 70 C 62 79, 53 84, 45 88' },
+    { type: 'secondary', d: 'M 65 70 C 65 78, 65 83, 65 88' },
+    { type: 'secondary', d: 'M 65 70 C 70 79, 78 84, 85 88' },
   ],
 };
 
 const junctionPoints = {
   blogs: [],
-  apps: [{ x: 62, y: 75 }],
+  apps: [{ x: 65, y: 76 }],
 };
-
-const blogNodePositions = [
-  { top: '10%', left: '50%' },
-  { top: '38%', left: '14%' },
-  { top: '38%', left: '86%' },
-  { top: '67%', left: '50%' },
-];
 
 function createConnections(groupId) {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
@@ -73,22 +66,16 @@ function createHub(group) {
     classNames: ['ecosystem-hub__core'],
   });
 
-  const title = createElement('h2', {
-    classNames: ['ecosystem-hub__title'],
-    text: group.title,
-  });
-
-  if (group.id === 'blogs') {
-    title.style.fontSize = 'clamp(1.5rem, 2.15vw, 2.2rem)';
-  }
-
   core.append(
     createElement('span', {
       classNames: ['ecosystem-hub__icon'],
       text: group.icon,
       attributes: { 'aria-hidden': 'true' },
     }),
-    title,
+    createElement('h2', {
+      classNames: ['ecosystem-hub__title'],
+      text: group.title,
+    }),
     createElement('span', {
       classNames: ['ecosystem-hub__ornament'],
       attributes: { 'aria-hidden': 'true' },
@@ -99,15 +86,7 @@ function createHub(group) {
     }),
   );
 
-  const projectNodes = group.projects.map(createProjectNode);
-
-  if (group.id === 'blogs') {
-    projectNodes.forEach((node, index) => {
-      Object.assign(node.style, blogNodePositions[index]);
-    });
-  }
-
-  hub.append(createConnections(group.id), core, ...projectNodes);
+  hub.append(createConnections(group.id), core, ...group.projects.map(createProjectNode));
   return hub;
 }
 
@@ -117,12 +96,6 @@ export function createEcosystem(groups) {
     attributes: { 'aria-label': 'Markellos ecosystem links' },
   });
 
-  const bridge = createElement('div', {
-    classNames: ['ecosystem__bridge'],
-    text: 'M',
-    attributes: { 'aria-hidden': 'true' },
-  });
-
-  section.append(createHub(groups[0]), bridge, createHub(groups[1]));
+  section.append(createHub(groups[0]), createHub(groups[1]));
   return section;
 }
