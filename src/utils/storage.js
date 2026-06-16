@@ -14,3 +14,12 @@ export function writeStorage(key, value) {
     return false;
   }
 }
+
+export function removeStorage(key) {
+  try {
+    globalThis.localStorage?.removeItem(key);
+    return true;
+  } catch {
+    return false;
+  }
+}
