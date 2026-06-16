@@ -212,6 +212,57 @@
   left: 85%;
 }
 
+@media (min-width: 68rem) and (max-height: 52rem) {
+  .ecosystem {
+    min-height: 31rem;
+    max-width: 78rem;
+    grid-template-columns: repeat(2, minmax(25rem, 1fr));
+    gap: 1.4rem;
+  }
+
+  .ecosystem-hub {
+    min-height: 29.5rem;
+  }
+
+  .ecosystem-hub::before {
+    inset: 2.6rem;
+  }
+
+  .ecosystem-hub::after {
+    inset: 5.9rem;
+  }
+
+  .ecosystem-hub__core {
+    top: 44%;
+    width: 10.8rem;
+    height: 10.8rem;
+    padding: 0.95rem;
+    border-width: 2px;
+  }
+
+  .ecosystem-hub__icon {
+    margin-bottom: 0.2rem;
+    font-size: 1.55rem;
+  }
+
+  .ecosystem-hub__title {
+    font-size: 1.22rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ecosystem-hub__ornament {
+    width: 3rem;
+    margin-top: 0.42rem;
+  }
+
+  .ecosystem-hub__description {
+    max-width: 8.8rem;
+    margin-top: 0.42rem;
+    font-size: 0.64rem;
+    line-height: 1.24;
+  }
+}
+
 @media (max-width: 67.5rem) {
   .ecosystem {
     max-width: 48rem;
