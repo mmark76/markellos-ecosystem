@@ -6,13 +6,6 @@ export const ecosystemGroups = [
     description: 'Thoughts, reflections and knowledge shared.',
     projects: [
       {
-        id: 'the-blogs-root',
-        title: 'The Blogs Root',
-        icon: '♧',
-        url: 'https://theblogsroot.blogspot.com/',
-        position: 'root-main',
-      },
-      {
         id: 'personal-thoughts-and-writings',
         title: 'Personal Thoughts and Writings',
         icon: '✒',
