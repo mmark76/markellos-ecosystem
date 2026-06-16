@@ -6,28 +6,34 @@ export const ecosystemGroups = [
     description: 'Thoughts, reflections and knowledge shared.',
     projects: [
       {
+        id: 'the-blogs-root',
+        title: 'The Blogs Root',
+        url: 'https://theblogsroot.blogspot.com/',
+        position: 'root-main',
+      },
+      {
         id: 'personal-thoughts-and-writings',
         title: 'Personal Thoughts and Writings',
         url: 'https://personal-thoughts-and-writings.blogspot.com/',
-        position: 'top',
+        position: 'blog-sub-1',
       },
       {
         id: 'chess-reflections',
         title: 'Chess Reflections',
         url: 'https://chess-reflections.blogspot.com/',
-        position: 'left',
+        position: 'blog-sub-2',
       },
       {
         id: 'mnemonic-techniques',
         title: 'Mnemonic Techniques',
         url: 'https://mnemonic-techniques.blogspot.com/',
-        position: 'right',
+        position: 'blog-sub-3',
       },
       {
         id: 'markellos-chess-mnemonic-system',
         title: 'Markellos Chess Mnemonic System',
         url: 'https://markellos-chess-mnemonic-system.blogspot.com/',
-        position: 'bottom',
+        position: 'blog-sub-4',
       },
     ],
   },
