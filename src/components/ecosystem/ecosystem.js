@@ -2,6 +2,48 @@ import './ecosystem.css';
 import { createElement } from '../../utils/dom.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+
+const connectionPoints = {
+  blogs: [
+    [50, 50, 50, 8],
+    [50, 50, 12, 50],
+    [50, 50, 88, 50],
+    [50, 50, 50, 92],
+  ],
+  apps: [
+    [50, 38, 28, 10],
+    [50, 38, 72, 10],
+    [50, 38, 10, 38],
+    [50, 38, 90, 38],
+    [50, 38, 50, 67],
+    [50, 67, 14, 91],
+    [50, 67, 38, 91],
+    [50, 67, 62, 91],
+    [50, 67, 86, 91],
+  ],
+};
+
+function createConnections(groupId) {
+  const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
+  svg.classList.add('ecosystem-hub__connections');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.setAttribute('aria-hidden', 'true');
+
+  connectionPoints[groupId].forEach(([x1, y1, x2, y2]) => {
+    const line = document.createElementNS(SVG_NAMESPACE, 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('vector-effect', 'non-scaling-stroke');
+    svg.append(line);
+  });
+
+  return svg;
+}
+
 function createHub(group) {
   const hub = createElement('article', {
     classNames: ['ecosystem-hub', `ecosystem-hub--${group.id}`],
@@ -27,7 +69,7 @@ function createHub(group) {
     }),
   );
 
-  hub.append(core, ...group.projects.map(createProjectNode));
+  hub.append(createConnections(group.id), core, ...group.projects.map(createProjectNode));
   return hub;
 }
 
