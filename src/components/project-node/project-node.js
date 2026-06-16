@@ -14,6 +14,11 @@ export function createProjectNode(project) {
 
   node.append(
     createElement('span', {
+      classNames: ['project-node__icon'],
+      text: project.icon,
+      attributes: { 'aria-hidden': 'true' },
+    }),
+    createElement('span', {
       classNames: ['project-node__label'],
       text: project.title,
     }),
