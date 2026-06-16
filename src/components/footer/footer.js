@@ -13,7 +13,17 @@ export function createFooter() {
 
   const navigation = createElement('nav', {
     classNames: ['site-footer__navigation'],
-    attributes: { 'aria-label': 'Legal information' },
+    attributes: { 'aria-label': 'Footer links and preferences' },
+  });
+
+  const cookiePreferencesButton = createElement('button', {
+    classNames: ['site-footer__link', 'site-footer__button'],
+    text: 'Cookie preferences',
+    attributes: { type: 'button' },
+  });
+
+  cookiePreferencesButton.addEventListener('click', () => {
+    globalThis.dispatchEvent?.(new globalThis.Event('markellos:open-cookie-preferences'));
   });
 
   navigation.append(
@@ -27,6 +37,7 @@ export function createFooter() {
       text: 'Cookies',
       attributes: { href: '/cookies/' },
     }),
+    cookiePreferencesButton,
   );
 
   footer.append(copyright, navigation);
