@@ -3,8 +3,10 @@ import './styles/tokens.css';
 import './styles/global.css';
 import './styles/layout.css';
 
-import { createHero } from './components/hero/hero.js';
+import { createCookieBanner } from './components/cookie-banner/cookie-banner.js';
 import { createEcosystem } from './components/ecosystem/ecosystem.js';
+import { createFooter } from './components/footer/footer.js';
+import { createHero } from './components/hero/hero.js';
 import { ecosystemGroups } from './data/projects.js';
 import { createElement } from './utils/dom.js';
 
@@ -20,7 +22,13 @@ function renderApp() {
   });
 
   main.append(createHero(), createEcosystem(ecosystemGroups));
-  app.replaceChildren(main);
+  app.replaceChildren(main, createFooter());
+
+  const cookieBanner = createCookieBanner();
+
+  if (cookieBanner) {
+    app.append(cookieBanner);
+  }
 }
 
 renderApp();
