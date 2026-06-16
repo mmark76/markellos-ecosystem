@@ -9,7 +9,7 @@
 @media (min-width: 68rem) and (max-height: 52rem) {
   .page-shell {
     width: min(82rem, 96vw);
-    padding: 0.45rem 0 3.4rem;
+    padding: 0.45rem 0 0.3rem;
   }
 }
 
