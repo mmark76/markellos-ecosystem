@@ -14,6 +14,8 @@ const CONTROL_DEFINITIONS = [
     options: [
       ['natural', 'Natural'],
       ['light', 'Light'],
+      ['sepia', 'Sepia'],
+      ['dark', 'Dark'],
       ['contrast', 'High contrast'],
     ],
   },
@@ -24,14 +26,51 @@ const CONTROL_DEFINITIONS = [
       ['small', 'Small'],
       ['default', 'Default'],
       ['large', 'Large'],
+      ['extra-large', 'Extra large'],
+    ],
+  },
+  {
+    key: 'titleSize',
+    label: 'Title size',
+    options: [
+      ['small', 'Small'],
+      ['default', 'Default'],
+      ['large', 'Large'],
+    ],
+  },
+  {
+    key: 'nodeSize',
+    label: 'Circle size',
+    options: [
+      ['small', 'Small'],
+      ['default', 'Default'],
+      ['large', 'Large'],
     ],
   },
   {
     key: 'density',
     label: 'Layout spacing',
     options: [
-      ['comfortable', 'Comfortable'],
       ['compact', 'Compact'],
+      ['comfortable', 'Comfortable'],
+      ['spacious', 'Spacious'],
+    ],
+  },
+  {
+    key: 'font',
+    label: 'Font style',
+    options: [
+      ['classic', 'Classic'],
+      ['readable', 'Readable'],
+    ],
+  },
+  {
+    key: 'background',
+    label: 'Background detail',
+    options: [
+      ['decorative', 'Decorative'],
+      ['minimal', 'Minimal'],
+      ['plain', 'Plain'],
     ],
   },
   {
