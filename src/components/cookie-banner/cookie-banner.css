@@ -65,6 +65,28 @@
   outline: none;
 }
 
+html[data-ui-theme='dark'] .cookie-banner {
+  border-color: rgba(230, 189, 102, 0.48);
+  background: rgba(37, 42, 37, 0.98);
+  box-shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.4);
+}
+
+html[data-ui-theme='dark'] .cookie-banner__button--primary {
+  border-color: #8eae78;
+  background: #8eae78;
+  color: #101510;
+}
+
+html[data-ui-theme='dark'] .cookie-banner__button--secondary {
+  border-color: #d9efd0;
+  color: #d9efd0;
+}
+
+html[data-ui-theme='dark'] .cookie-banner__button:hover,
+html[data-ui-theme='dark'] .cookie-banner__button:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgba(142, 174, 120, 0.35);
+}
+
 @media (max-width: 45rem) {
   .cookie-banner {
     bottom: 7rem;
