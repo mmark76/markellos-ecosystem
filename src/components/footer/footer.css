@@ -10,35 +10,75 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 0.85rem max(3vw, calc((100vw - 90rem) / 2));
-  border-top: 1px solid var(--color-line);
-  background: rgba(243, 234, 220, 0.92);
+  gap: 0.32rem;
+  padding: 1rem max(3vw, calc((100vw - 96rem) / 2)) 0.8rem;
+  border-top: 1px solid rgba(199, 154, 66, 0.5);
+  background:
+    linear-gradient(180deg, rgba(250, 244, 232, 0.9), rgba(242, 231, 212, 0.96));
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.88rem;
   text-align: center;
-  backdrop-filter: blur(0.75rem);
+  backdrop-filter: blur(0.9rem);
+  box-shadow: 0 -0.75rem 2rem rgba(63, 44, 22, 0.07);
+}
+
+.site-footer::before {
+  position: absolute;
+  top: -0.42rem;
+  left: 50%;
+  width: min(14rem, 46vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  content: '';
+  transform: translateX(-50%);
+}
+
+.site-footer::after {
+  position: absolute;
+  top: -0.63rem;
+  left: 50%;
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid var(--color-gold-dark);
+  background: #f4ead9;
+  content: '';
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .site-footer__copyright {
   margin: 0;
+  color: #514b40;
+  letter-spacing: 0.015em;
 }
 
 .site-footer__navigation {
   display: flex;
   justify-content: center;
-  gap: var(--space-4);
+  gap: 0;
 }
 
 .site-footer__link {
-  color: inherit;
+  position: relative;
+  color: var(--color-green);
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
+}
+
+.site-footer__link + .site-footer__link {
+  margin-left: 1.5rem;
+}
+
+.site-footer__link + .site-footer__link::before {
+  position: absolute;
+  left: -0.78rem;
+  color: rgba(156, 109, 34, 0.62);
+  content: '|';
 }
 
 .site-footer__link:hover,
 .site-footer__link:focus-visible {
-  color: var(--color-ink);
+  color: var(--color-gold-dark);
 }
 
 @media (max-width: 45rem) {
