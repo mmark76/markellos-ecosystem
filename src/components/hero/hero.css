@@ -84,6 +84,16 @@ html[data-ui-title-size='extra-small'] .hero__title {
   letter-spacing: 0.035em;
 }
 
+html[data-ui-theme='dark'] .hero__title {
+  color: var(--color-ink);
+  text-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.28);
+}
+
+html[data-ui-theme='dark'] .hero__divider::before,
+html[data-ui-theme='dark'] .hero__divider::after {
+  background: #20241f;
+}
+
 @media (min-width: 68rem) and (max-height: 52rem) {
   .hero {
     margin-bottom: 0;
