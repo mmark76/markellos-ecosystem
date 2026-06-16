@@ -74,7 +74,8 @@ body {
   font-size: 14.4px;
 }
 
-.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+.project-node[data-project-id='chessmnemonics-app'] .project-node__label,
+.project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
   font-size: 0.69rem;
   line-height: 1.06;
 }
@@ -105,7 +106,8 @@ body {
     height: 5.44px;
   }
 
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+  .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
     font-size: 0.56rem;
   }
 }
@@ -127,7 +129,8 @@ body {
     padding-inline: 14px;
   }
 
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+  .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
     font-size: 0.92rem;
     line-height: 1.18;
   }
