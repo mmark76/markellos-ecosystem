@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 20;
   right: var(--space-4);
-  bottom: var(--space-4);
+  bottom: 5rem;
   left: var(--space-4);
   display: flex;
   width: min(58rem, calc(100% - 2rem));
@@ -67,6 +67,7 @@
 
 @media (max-width: 45rem) {
   .cookie-banner {
+    bottom: 7rem;
     align-items: stretch;
     flex-direction: column;
     gap: var(--space-4);
