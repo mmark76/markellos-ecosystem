@@ -79,8 +79,11 @@ const CONTROL_DEFINITIONS = [
     label: 'Font style',
     type: 'select',
     options: [
-      ['classic', 'Classic'],
-      ['readable', 'Readable'],
+      ['classic', 'Classic serif'],
+      ['readable', 'Modern sans'],
+      ['humanist', 'Humanist sans'],
+      ['book', 'Book serif'],
+      ['high-legibility', 'High legibility'],
     ],
   },
   {
