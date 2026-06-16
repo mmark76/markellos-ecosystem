@@ -78,7 +78,7 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics',
-        title: 'ChessMnemonics',
+        title: 'Chess Mnemonics',
         icon: '♞',
         url: 'https://chessmnemonics.net/index.html',
         position: 'bottom-main',
@@ -99,7 +99,7 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics-app',
-        title: 'ChessMnemonics App',
+        title: 'Chess Mnemonics App',
         icon: '▯',
         url: 'https://chessmnemonics.net/app.html',
         position: 'sub-3',
