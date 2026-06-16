@@ -14,6 +14,7 @@ import { clearConsent } from './services/consent-service.js';
 import { applyUiSettings } from './services/ui-settings-service.js';
 import { createElement, focusFirstInteractive } from './utils/dom.js';
 import './styles/default-scale.css';
+import './styles/font-options.css';
 
 applyUiSettings();
 
