@@ -234,11 +234,15 @@ function createHub(group) {
   globalThis.addEventListener?.('markellos:ui-settings-changed', () => {
     globalThis.requestAnimationFrame?.(refreshConnections);
   });
-  globalThis.addEventListener?.('markellos:circle-layout-reset', () => {
+  globalThis.addEventListener?.('markellos:circle-layout-reset', (event) => {
+    const resetLayout = event.detail ?? getCircleLayout();
+
     circles.forEach((circle) => {
       circle.style.removeProperty('left');
       circle.style.removeProperty('top');
+      applySavedPosition(circle, circle.dataset.circleId, resetLayout);
     });
+
     globalThis.requestAnimationFrame?.(refreshConnections);
   });
 
