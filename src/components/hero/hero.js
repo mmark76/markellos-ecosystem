@@ -9,7 +9,7 @@ export function createHero() {
 
   const eyebrow = createElement('p', {
     classNames: ['hero__eyebrow'],
-    text: 'Learn · Improve · Relax · Share',
+    text: 'Learn · Share · Improve · Remember · Relax',
   });
 
   const title = createElement('h1', {
