@@ -158,6 +158,32 @@ test('malformed stored circle layout falls back to defaults', (t) => {
   assert.deepEqual(getCircleLayout(), DEFAULT_CIRCLE_LAYOUT);
 });
 
+test('stored circle layout keeps only valid known positions', (t) => {
+  globalThis.localStorage = createMemoryStorage({
+    [CIRCLE_LAYOUT_KEY]: JSON.stringify({
+      'apps:core': { left: 12.345, top: 67.899 },
+      'blogs:core': { left: '10', top: 20 },
+      'apps:memory-palaces': { left: 999, top: 20 },
+      'unknown:circle': { left: 10, top: 10 },
+    }),
+  });
+  t.after(() => delete globalThis.localStorage);
+
+  const layout = getCircleLayout();
+
+  assert.deepEqual(layout['apps:core'], { left: 12.35, top: 67.9 });
+  assert.deepEqual(layout['blogs:core'], DEFAULT_CIRCLE_LAYOUT['blogs:core']);
+  assert.deepEqual(
+    layout['apps:memory-palaces'],
+    DEFAULT_CIRCLE_LAYOUT['apps:memory-palaces'],
+  );
+  assert.equal(Object.hasOwn(layout, 'unknown:circle'), false);
+  assert.equal(
+    Object.keys(layout).length,
+    Object.keys(DEFAULT_CIRCLE_LAYOUT).length,
+  );
+});
+
 test('circle positions are rounded and persisted', (t) => {
   const storage = createMemoryStorage();
   globalThis.localStorage = storage;
@@ -170,6 +196,34 @@ test('circle positions are rounded and persisted', (t) => {
   assert.deepEqual(
     JSON.parse(storage.getItem(CIRCLE_LAYOUT_KEY))['apps:core'],
     { left: 12.35, top: 67.9 },
+  );
+});
+
+test('circle position saving rejects unknown identifiers', (t) => {
+  globalThis.localStorage = createMemoryStorage();
+  t.after(() => delete globalThis.localStorage);
+
+  assert.throws(
+    () => saveCirclePosition('unknown:circle', { left: 10, top: 10 }),
+    TypeError,
+  );
+});
+
+test('circle position saving rejects invalid coordinates', (t) => {
+  globalThis.localStorage = createMemoryStorage();
+  t.after(() => delete globalThis.localStorage);
+
+  assert.throws(
+    () => saveCirclePosition('apps:core', { left: Number.NaN, top: 10 }),
+    TypeError,
+  );
+  assert.throws(
+    () => saveCirclePosition('apps:core', { left: 301, top: 10 }),
+    RangeError,
+  );
+  assert.throws(
+    () => saveCirclePosition('apps:core', { left: 10, top: -201 }),
+    RangeError,
   );
 });
 
