@@ -124,7 +124,10 @@
   border-radius: 0.65rem;
   background: transparent;
   color: var(--color-green-dark);
-  font: 700 0.78rem/1.1 inherit;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.1;
   cursor: pointer;
 }
 
