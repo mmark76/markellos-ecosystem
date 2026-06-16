@@ -1,5 +1,8 @@
 import './ui-settings.css';
-import { resetCircleLayout } from '../../services/circle-layout-service.js';
+import {
+  getCircleLayout,
+  resetCircleLayout,
+} from '../../services/circle-layout-service.js';
 import {
   DEFAULT_UI_SETTINGS,
   getUiSettings,
@@ -40,6 +43,15 @@ const CONTROL_DEFINITIONS = [
       ['small', 'Small'],
       ['default', 'Default'],
       ['large', 'Large'],
+    ],
+  },
+  {
+    key: 'titleLayout',
+    label: 'Title layout',
+    type: 'select',
+    options: [
+      ['one-line', 'One line'],
+      ['two-lines', 'Two lines'],
     ],
   },
   {
@@ -170,6 +182,27 @@ function createControl(definition, currentValue) {
   return { field, ...control };
 }
 
+function downloadSettings() {
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    uiSettings: getUiSettings(),
+    circleLayout: getCircleLayout(),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+    type: 'application/json',
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = 'markellos-ecosystem-settings.json';
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
 export function createUiSettings() {
   const currentSettings = getUiSettings();
   const wrapper = createElement('div', {
@@ -217,7 +250,7 @@ export function createUiSettings() {
 
   const description = createElement('p', {
     classNames: ['ui-settings__description'],
-    text: 'Adjust the page appearance. Enable “Drag to reposition” to move circles directly on the desktop layout.',
+    text: 'Adjust the page appearance. Enable “Drag to reposition” to move circles across the page area.',
   });
 
   const controls = new Map();
@@ -235,6 +268,12 @@ export function createUiSettings() {
     classNames: ['ui-settings__actions'],
   });
 
+  const downloadButton = createElement('button', {
+    classNames: ['ui-settings__reset'],
+    text: 'Download Settings',
+    attributes: { type: 'button' },
+  });
+
   const resetPositionsButton = createElement('button', {
     classNames: ['ui-settings__reset'],
     text: 'Reset circle positions',
@@ -247,7 +286,7 @@ export function createUiSettings() {
     attributes: { type: 'button' },
   });
 
-  actions.append(resetPositionsButton, resetButton);
+  actions.append(downloadButton, resetPositionsButton, resetButton);
   dialog.append(header, description, controlsContainer, actions);
   wrapper.append(launcher, dialog);
 
@@ -293,6 +332,8 @@ export function createUiSettings() {
       saveUiSettings(readControls());
     });
   });
+
+  downloadButton.addEventListener('click', downloadSettings);
 
   resetPositionsButton.addEventListener('click', () => {
     resetCircleLayout();
