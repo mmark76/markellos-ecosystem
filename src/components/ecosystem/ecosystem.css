@@ -3,7 +3,7 @@
   display: grid;
   min-height: 42rem;
   max-width: 82rem;
-  margin: 0 auto;
+  margin: clamp(1.25rem, 2.5vh, 2rem) auto 0;
   grid-template-columns: repeat(2, minmax(28rem, 1fr));
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3.5rem);
