@@ -147,6 +147,22 @@
   line-height: 1.06;
 }
 
+.project-node[data-project-id='chessmnemonics'] .project-node__label {
+  font-size: 0.86rem;
+  line-height: 1.08;
+}
+
+.project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label,
+.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
+  font-size: 0.72rem;
+  line-height: 1.08;
+}
+
+.project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
+  font-size: 0.78rem;
+  line-height: 1.08;
+}
+
 @media (max-width: 45rem) {
   .project-node,
   .ecosystem-hub--blogs .project-node--root-main,
@@ -192,6 +208,10 @@
   .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label,
   .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
   .project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label,
+  .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
   .ecosystem-hub--blogs .project-node--root-main .project-node__label,
   .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__label,
   .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__label,
