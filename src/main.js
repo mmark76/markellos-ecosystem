@@ -2,6 +2,7 @@ import './styles/reset.css';
 import './styles/tokens.css';
 import './styles/global.css';
 import './styles/layout.css';
+import './components/ui-settings/ui-settings-position.css';
 
 import { createCookieBanner } from './components/cookie-banner/cookie-banner.js';
 import { createEcosystem } from './components/ecosystem/ecosystem.js';
