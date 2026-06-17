@@ -27,7 +27,7 @@ export function createCookieBanner({ force = false } = {}) {
     }),
     createElement('p', {
       classNames: ['cookie-banner__text'],
-      text: 'This site stores your preference locally. No advertising cookies are currently used.',
+      text: 'This site uses necessary local storage. With your consent, Google Analytics is used to measure site usage. No advertising cookies are used.',
     }),
   );
 
