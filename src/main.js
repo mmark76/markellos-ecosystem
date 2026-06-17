@@ -10,6 +10,7 @@ import { createFooter } from './components/footer/footer.js';
 import { createHero } from './components/hero/hero.js';
 import { createUiSettings } from './components/ui-settings/ui-settings.js';
 import { ecosystemGroups } from './data/projects.js';
+import { initializeAnalytics } from './services/analytics-service.js';
 import { clearConsent } from './services/consent-service.js';
 import { applyUiSettings } from './services/ui-settings-service.js';
 import { createElement, focusFirstInteractive } from './utils/dom.js';
@@ -17,6 +18,7 @@ import './styles/default-scale.css';
 import './styles/font-options.css';
 
 applyUiSettings();
+initializeAnalytics();
 
 function appendCookieBanner({ resetConsent = false } = {}) {
   const app = document.querySelector('#app');
