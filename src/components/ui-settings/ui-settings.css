@@ -357,8 +357,9 @@ html[data-ui-motion='reduced'] *::after {
 
 @media (max-width: 45rem) {
   .ui-settings__launcher {
-    top: 0.65rem;
+    top: auto;
     right: 0.65rem;
+    bottom: max(0.65rem, env(safe-area-inset-bottom, 0px));
     padding: 0.5rem 0.7rem;
     font-size: 0.7rem;
   }
