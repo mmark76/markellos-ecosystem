@@ -26,6 +26,6 @@ test('font option styles are loaded on home and legal pages', async () => {
   assert.ok(css.includes("html[data-ui-font='humanist']"));
   assert.ok(css.includes("html[data-ui-font='book']"));
   assert.ok(css.includes("html[data-ui-font='high-legibility']"));
-  assert.ok(main.includes("./styles/font-options.css"));
-  assert.ok(legal.includes("../styles/font-options.css"));
+  assert.ok(main.includes('./styles/font-options.css'));
+  assert.ok(legal.includes('../styles/font-options.css'));
 });

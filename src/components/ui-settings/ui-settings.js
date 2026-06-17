@@ -1,8 +1,5 @@
 import './ui-settings.css';
-import {
-  getCircleLayout,
-  resetCircleLayout,
-} from '../../services/circle-layout-service.js';
+import { getCircleLayout, resetCircleLayout } from '../../services/circle-layout-service.js';
 import {
   DEFAULT_UI_SETTINGS,
   getUiSettings,
@@ -169,9 +166,10 @@ function createControl(definition, currentValue) {
     text: definition.label,
   });
 
-  const control = definition.type === 'range'
-    ? createRangeControl(definition, currentValue)
-    : createSelectControl(definition, currentValue);
+  const control =
+    definition.type === 'range'
+      ? createRangeControl(definition, currentValue)
+      : createSelectControl(definition, currentValue);
 
   field.append(label, control.element ?? control.input);
   return { field, ...control };

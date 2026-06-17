@@ -1,10 +1,7 @@
 import './ecosystem.css';
 import { getCircleLayout, saveCirclePosition } from '../../services/circle-layout-service.js';
 import { createElement } from '../../utils/dom.js';
-import {
-  hasExceededDragThreshold,
-  shouldPreventCircleLinkClick,
-} from '../../utils/interaction.js';
+import { hasExceededDragThreshold, shouldPreventCircleLinkClick } from '../../utils/interaction.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
@@ -107,9 +104,11 @@ function enableDragging(circle, hub, onMove) {
 
   function canDrag(event) {
     const mobileLayout = globalThis.matchMedia?.('(max-width: 45rem)').matches;
-    return document.documentElement.dataset.uiPositionMode === 'editable'
-      && !mobileLayout
-      && event.button === 0;
+    return (
+      document.documentElement.dataset.uiPositionMode === 'editable' &&
+      !mobileLayout &&
+      event.button === 0
+    );
   }
 
   function moveCircle(event) {
@@ -120,12 +119,7 @@ function enableDragging(circle, hub, onMove) {
     if (!moved) {
       if (
         !pointerStart ||
-        !hasExceededDragThreshold(
-          pointerStart.x,
-          pointerStart.y,
-          event.clientX,
-          event.clientY,
-        )
+        !hasExceededDragThreshold(pointerStart.x, pointerStart.y, event.clientX, event.clientY)
       ) {
         return;
       }
@@ -191,12 +185,7 @@ function enableDragging(circle, hub, onMove) {
 
   if (circle.matches('a')) {
     circle.addEventListener('click', (event) => {
-      if (
-        shouldPreventCircleLinkClick(
-          document.documentElement.dataset.uiPositionMode,
-          moved,
-        )
-      ) {
+      if (shouldPreventCircleLinkClick(document.documentElement.dataset.uiPositionMode, moved)) {
         event.preventDefault();
         moved = false;
       }
