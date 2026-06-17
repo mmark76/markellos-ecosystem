@@ -18,4 +18,40 @@
     width: min(100% - 1.5rem, 45rem);
     padding-top: 1.25rem;
   }
+
+  .ecosystem-hub--apps .project-node[data-project-id='organize-your-pc'] {
+    order: 1;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chessmnemonics'] {
+    order: 2;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chessmnemonics-app'] {
+    order: 3;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chessmnemonics-flashcards'] {
+    order: 4;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chessmnemonics-forum'] {
+    order: 5;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chess-flashcards'] {
+    order: 6;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='chess-pgn-audio-player'] {
+    order: 7;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='memory-palaces'] {
+    order: 8;
+  }
+
+  .ecosystem-hub--apps .project-node[data-project-id='relaxing-sounds'] {
+    order: 9;
+  }
 }
