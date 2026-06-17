@@ -27,7 +27,7 @@ jobs:
           npm ci --no-audit --no-fund
 
       - name: Format GA4 files
-        run: npm exec prettier -- --write package.json package-lock.json cookies/index.html privacy/index.html src/components/cookie-banner/cookie-banner.js src/main.js src/pages/legal-page.js src/services/analytics-service.js
+        run: npm exec prettier -- --write .github/workflows/quality.yml package.json package-lock.json cookies/index.html privacy/index.html src/components/cookie-banner/cookie-banner.js src/main.js src/pages/legal-page.js src/services/analytics-service.js
 
       - name: Upload prepared files
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
