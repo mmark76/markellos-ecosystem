@@ -15,11 +15,8 @@ test('default scale and exemptions are present', async () => {
 });
 
 test('home and legal pages load the scale stylesheet', async () => {
-  const [main, legal] = await Promise.all([
-    read('src/main.js'),
-    read('src/pages/legal-page.js'),
-  ]);
+  const [main, legal] = await Promise.all([read('src/main.js'), read('src/pages/legal-page.js')]);
 
-  assert.ok(main.includes("./styles/default-scale.css"));
-  assert.ok(legal.includes("../styles/default-scale.css"));
+  assert.ok(main.includes('./styles/default-scale.css'));
+  assert.ok(legal.includes('../styles/default-scale.css'));
 });

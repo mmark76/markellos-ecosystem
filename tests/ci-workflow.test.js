@@ -6,10 +6,7 @@ const CHECKOUT_SHA = '11bd71901bbe5b1630ceea73d27597364c9af683';
 const SETUP_NODE_SHA = '49933ea5288caeca8642d1e84afbd3f7d6820020';
 
 async function readWorkflow() {
-  return readFile(
-    new URL('../.github/workflows/quality.yml', import.meta.url),
-    'utf8',
-  );
+  return readFile(new URL('../.github/workflows/quality.yml', import.meta.url), 'utf8');
 }
 
 test('quality workflow cancels superseded runs and has a timeout', async () => {

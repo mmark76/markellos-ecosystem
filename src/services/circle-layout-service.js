@@ -28,11 +28,7 @@ function cloneLayout(layout) {
 }
 
 function isValidCoordinate(value) {
-  return (
-    Number.isFinite(value) &&
-    value >= MIN_POSITION_PERCENT &&
-    value <= MAX_POSITION_PERCENT
-  );
+  return Number.isFinite(value) && value >= MIN_POSITION_PERCENT && value <= MAX_POSITION_PERCENT;
 }
 
 function normalizePosition(position, fallback) {

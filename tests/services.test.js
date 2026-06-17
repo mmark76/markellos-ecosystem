@@ -1,10 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {
-  CONSENT_LEVELS,
-  getConsent,
-  saveConsent,
-} from '../src/services/consent-service.js';
+import { CONSENT_LEVELS, getConsent, saveConsent } from '../src/services/consent-service.js';
 import {
   DEFAULT_CIRCLE_LAYOUT,
   getCircleLayout,
@@ -143,10 +139,7 @@ test('default circle layouts are returned as independent copies', (t) => {
   const first = getCircleLayout();
   first['apps:core'].left = 0;
 
-  assert.equal(
-    getCircleLayout()['apps:core'].left,
-    DEFAULT_CIRCLE_LAYOUT['apps:core'].left,
-  );
+  assert.equal(getCircleLayout()['apps:core'].left, DEFAULT_CIRCLE_LAYOUT['apps:core'].left);
 });
 
 test('malformed stored circle layout falls back to defaults', (t) => {
@@ -173,15 +166,9 @@ test('stored circle layout keeps only valid known positions', (t) => {
 
   assert.deepEqual(layout['apps:core'], { left: 12.35, top: 67.9 });
   assert.deepEqual(layout['blogs:core'], DEFAULT_CIRCLE_LAYOUT['blogs:core']);
-  assert.deepEqual(
-    layout['apps:memory-palaces'],
-    DEFAULT_CIRCLE_LAYOUT['apps:memory-palaces'],
-  );
+  assert.deepEqual(layout['apps:memory-palaces'], DEFAULT_CIRCLE_LAYOUT['apps:memory-palaces']);
   assert.equal(Object.hasOwn(layout, 'unknown:circle'), false);
-  assert.equal(
-    Object.keys(layout).length,
-    Object.keys(DEFAULT_CIRCLE_LAYOUT).length,
-  );
+  assert.equal(Object.keys(layout).length, Object.keys(DEFAULT_CIRCLE_LAYOUT).length);
 });
 
 test('circle positions are rounded and persisted', (t) => {
@@ -189,42 +176,30 @@ test('circle positions are rounded and persisted', (t) => {
   globalThis.localStorage = storage;
   t.after(() => delete globalThis.localStorage);
 
-  assert.deepEqual(
-    saveCirclePosition('apps:core', { left: 12.345, top: 67.899 }),
-    { left: 12.35, top: 67.9 },
-  );
-  assert.deepEqual(
-    JSON.parse(storage.getItem(CIRCLE_LAYOUT_KEY))['apps:core'],
-    { left: 12.35, top: 67.9 },
-  );
+  assert.deepEqual(saveCirclePosition('apps:core', { left: 12.345, top: 67.899 }), {
+    left: 12.35,
+    top: 67.9,
+  });
+  assert.deepEqual(JSON.parse(storage.getItem(CIRCLE_LAYOUT_KEY))['apps:core'], {
+    left: 12.35,
+    top: 67.9,
+  });
 });
 
 test('circle position saving rejects unknown identifiers', (t) => {
   globalThis.localStorage = createMemoryStorage();
   t.after(() => delete globalThis.localStorage);
 
-  assert.throws(
-    () => saveCirclePosition('unknown:circle', { left: 10, top: 10 }),
-    TypeError,
-  );
+  assert.throws(() => saveCirclePosition('unknown:circle', { left: 10, top: 10 }), TypeError);
 });
 
 test('circle position saving rejects invalid coordinates', (t) => {
   globalThis.localStorage = createMemoryStorage();
   t.after(() => delete globalThis.localStorage);
 
-  assert.throws(
-    () => saveCirclePosition('apps:core', { left: Number.NaN, top: 10 }),
-    TypeError,
-  );
-  assert.throws(
-    () => saveCirclePosition('apps:core', { left: 301, top: 10 }),
-    RangeError,
-  );
-  assert.throws(
-    () => saveCirclePosition('apps:core', { left: 10, top: -201 }),
-    RangeError,
-  );
+  assert.throws(() => saveCirclePosition('apps:core', { left: Number.NaN, top: 10 }), TypeError);
+  assert.throws(() => saveCirclePosition('apps:core', { left: 301, top: 10 }), RangeError);
+  assert.throws(() => saveCirclePosition('apps:core', { left: 10, top: -201 }), RangeError);
 });
 
 test('reset circle layout persists and returns defaults', (t) => {
@@ -233,8 +208,5 @@ test('reset circle layout persists and returns defaults', (t) => {
   t.after(() => delete globalThis.localStorage);
 
   assert.deepEqual(resetCircleLayout(), DEFAULT_CIRCLE_LAYOUT);
-  assert.deepEqual(
-    JSON.parse(storage.getItem(CIRCLE_LAYOUT_KEY)),
-    DEFAULT_CIRCLE_LAYOUT,
-  );
+  assert.deepEqual(JSON.parse(storage.getItem(CIRCLE_LAYOUT_KEY)), DEFAULT_CIRCLE_LAYOUT);
 });
