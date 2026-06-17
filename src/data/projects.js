@@ -85,7 +85,7 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics-forum',
-        title: 'Forum',
+        title: 'Chess Mnemonics Forum',
         icon: '◯',
         url: 'https://forum.chessmnemonics.net/',
         position: 'sub-2',
