@@ -51,3 +51,18 @@
     line-height: 1.18;
   }
 }
+
+@media (max-width: 45rem) {
+  .project-node__label {
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  .project-node__label-line {
+    display: inline;
+  }
+
+  .project-node__label-line:not(:last-child)::after {
+    content: ' ';
+  }
+}
