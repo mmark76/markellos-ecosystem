@@ -43,14 +43,14 @@ export const ecosystemGroups = [
       },
       {
         id: 'memory-palaces',
-        title: 'Memory Palaces',
+        title: 'Memory Palaces Builder',
         icon: '⌂',
         url: 'https://memory-palaces.net/',
         position: 'top-right',
       },
       {
         id: 'chess-flashcards',
-        title: 'Chess Flashcards',
+        title: 'Chess Positions Flashcards',
         icon: '▤',
         url: 'https://chessflashcards.net/',
         position: 'left',
@@ -71,14 +71,14 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics',
-        title: 'Chess Mnemonics',
+        title: 'Chess Mnemonics Home Page',
         icon: '♞',
         url: 'https://chessmnemonics.net/index.html',
         position: 'bottom-main',
       },
       {
         id: 'chessmnemonics-flashcards',
-        title: 'Memory Palaces Trainer',
+        title: 'Chess Mnemonics Memory Palaces Trainer',
         icon: '▥',
         url: 'https://chessmnemonics.net/flashcards/index.html',
         position: 'sub-1',
