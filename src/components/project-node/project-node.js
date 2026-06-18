@@ -12,7 +12,7 @@ const PROJECT_LABEL_LINES = Object.freeze({
   'relaxing-sounds': ['Relaxing', 'Sounds'],
   'chess-pgn-audio-player': ['Chess PGN', 'Audio Player'],
   chessmnemonics: ['Chess Mnemonics', 'Home Page'],
-  'chessmnemonics-flashcards': ['Chess Mnemonics', 'Memory Palaces', 'Trainer'],
+  'chessmnemonics-flashcards': ['Chess Mnemonics', 'Trainer'],
   'chessmnemonics-forum': ['Chess Mnemonics', 'Forum'],
   'chessmnemonics-app': ['Chess Mnemonics', 'App'],
 });
