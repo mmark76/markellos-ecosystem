@@ -78,7 +78,7 @@ export const ecosystemGroups = [
       },
       {
         id: 'chessmnemonics-flashcards',
-        title: 'Chess Mnemonics Memory Palaces Trainer',
+        title: 'Chess Mnemonics Trainer',
         icon: '▥',
         url: 'https://chessmnemonics.net/flashcards/index.html',
         position: 'sub-1',
