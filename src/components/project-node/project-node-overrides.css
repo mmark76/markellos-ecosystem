@@ -4,12 +4,13 @@
 
 @media (min-width: 45.01rem) {
   .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-    font-size: 0.63rem;
-    line-height: 1.16;
+    font-size: 0.67rem;
+    line-height: 1.28;
   }
 
   .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
+    line-height: 1.22;
   }
 
   .project-node[data-project-id='chess-reflections'] .project-node__label,
@@ -18,18 +19,19 @@
   .project-node[data-project-id='relaxing-sounds'] .project-node__label,
   .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label,
   .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-    line-height: 1.14;
+    line-height: 1.24;
   }
 }
 
 @media (min-width: 68rem) and (max-height: 52rem) {
   .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-    font-size: 0.51rem;
-    line-height: 1.14;
+    font-size: 0.54rem;
+    line-height: 1.22;
   }
 
   .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-    font-size: 0.55rem;
+    font-size: 0.58rem;
+    line-height: 1.18;
   }
 
   .project-node[data-project-id='chess-reflections'] .project-node__label,
@@ -38,6 +40,6 @@
   .project-node[data-project-id='relaxing-sounds'] .project-node__label,
   .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label,
   .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-    line-height: 1.12;
+    line-height: 1.18;
   }
 }
