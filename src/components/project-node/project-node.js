@@ -4,10 +4,17 @@ import { createElement } from '../../utils/dom.js';
 
 const PROJECT_LABEL_LINES = Object.freeze({
   'personal-thoughts-and-writings': ['Personal', 'Thoughts and', 'Writings'],
+  'chess-reflections': ['Chess', 'Reflections'],
+  'mnemonic-techniques': ['Mnemonic', 'Techniques'],
+  'organize-your-pc': ['Organize', 'Your PC'],
   'memory-palaces': ['Memory Palaces', 'Builder'],
   'chess-flashcards': ['Chess Positions', 'Flashcards'],
+  'relaxing-sounds': ['Relaxing', 'Sounds'],
+  'chess-pgn-audio-player': ['Chess PGN', 'Audio Player'],
   chessmnemonics: ['Chess Mnemonics', 'Home Page'],
   'chessmnemonics-flashcards': ['Chess Mnemonics', 'Memory Palaces', 'Trainer'],
+  'chessmnemonics-forum': ['Chess Mnemonics', 'Forum'],
+  'chessmnemonics-app': ['Chess Mnemonics', 'App'],
 });
 
 function createProjectLabel(project) {
