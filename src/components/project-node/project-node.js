@@ -1,8 +1,13 @@
 import './project-node.css';
+import './project-node-overrides.css';
 import { createElement } from '../../utils/dom.js';
 
 const PROJECT_LABEL_LINES = Object.freeze({
   'personal-thoughts-and-writings': ['Personal', 'Thoughts and', 'Writings'],
+  'memory-palaces': ['Memory Palaces', 'Builder'],
+  'chess-flashcards': ['Chess Positions', 'Flashcards'],
+  chessmnemonics: ['Chess Mnemonics', 'Home Page'],
+  'chessmnemonics-flashcards': ['Chess Mnemonics', 'Memory Palaces', 'Trainer'],
 });
 
 function createProjectLabel(project) {
