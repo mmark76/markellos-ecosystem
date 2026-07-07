@@ -7,6 +7,7 @@ const PROJECT_LABEL_LINES = Object.freeze({
   'chess-reflections': ['Chess', 'Reflections'],
   'mnemonic-techniques': ['Mnemonic', 'Techniques'],
   'organize-your-pc': ['Organize', 'Your PC'],
+  'study-app': ['StudyApp'],
   'memory-palaces': ['Memory Palaces', 'Builder'],
   'chess-flashcards': ['Chess Positions', 'Flashcards'],
   'relaxing-sounds': ['Relaxing', 'Sounds'],
