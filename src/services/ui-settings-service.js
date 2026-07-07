@@ -58,10 +58,7 @@ export function getUiSettings() {
   }
 
   try {
-    return {
-      ...normalizeSettings(JSON.parse(storedValue)),
-      positionMode: DEFAULT_UI_SETTINGS.positionMode,
-    };
+    return normalizeSettings(JSON.parse(storedValue));
   } catch {
     return { ...DEFAULT_UI_SETTINGS };
   }
