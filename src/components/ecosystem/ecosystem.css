@@ -162,17 +162,18 @@
 
 .ecosystem-hub--apps .project-node--top-left {
   top: 12%;
-  left: 28%;
+  left: 20%;
 }
 
 .ecosystem-hub--apps .project-node--study-app {
   top: 12%;
   left: 50%;
+  z-index: 5;
 }
 
 .ecosystem-hub--apps .project-node--top-right {
   top: 12%;
-  left: 72%;
+  left: 80%;
 }
 
 .ecosystem-hub--apps .project-node--left {
