@@ -42,6 +42,13 @@ export const ecosystemGroups = [
         position: 'top-left',
       },
       {
+        id: 'study-app',
+        title: 'StudyApp',
+        icon: '✦',
+        url: 'https://studyapp.markellosecosystem.com/',
+        position: 'study-app',
+      },
+      {
         id: 'memory-palaces',
         title: 'Memory Palaces Builder',
         icon: '⌂',
