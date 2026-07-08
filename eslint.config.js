@@ -11,6 +11,7 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
+        __MARKELLOS_SITE_VERSION__: 'readonly',
         document: 'readonly',
       },
     },
