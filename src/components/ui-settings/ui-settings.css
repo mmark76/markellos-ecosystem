@@ -163,6 +163,17 @@
   cursor: pointer;
 }
 
+.ui-settings__save {
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: #fffaf0;
+}
+
+.ui-settings__save:hover,
+.ui-settings__save:focus-visible {
+  background: var(--color-green-dark);
+}
+
 .project-node,
 .ecosystem-hub__core {
   transform: translate(-50%, -50%) scale(var(--ui-circle-scale, 1));
@@ -184,20 +195,6 @@
 .ecosystem-hub--apps .project-node--sub-3 {
   width: 7.3rem;
   height: 7.3rem;
-}
-
-html[data-ui-position-mode='editable'] [data-circle-id] {
-  cursor: grab;
-  touch-action: none;
-  outline: 2px dashed rgba(168, 119, 39, 0.58);
-  outline-offset: 0.2rem;
-  user-select: none;
-}
-
-html[data-ui-position-mode='editable'] [data-circle-id].is-dragging {
-  z-index: 20;
-  cursor: grabbing;
-  outline-color: var(--color-green);
 }
 
 html[data-ui-text-size='small'] {
@@ -384,11 +381,5 @@ html[data-ui-motion='reduced'] *::after {
   .project-node:focus-visible,
   .ecosystem-hub__core {
     transform: none !important;
-  }
-
-  html[data-ui-position-mode='editable'] [data-circle-id] {
-    cursor: default;
-    outline: none;
-    touch-action: auto;
   }
 }
