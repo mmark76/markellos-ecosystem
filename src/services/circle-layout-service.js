@@ -1,8 +1,6 @@
-import { readStorage, writeStorage } from '../utils/storage.js';
+import { writeStorage } from '../utils/storage.js';
 
 const CIRCLE_LAYOUT_KEY = 'markellos-ecosystem:circle-layout';
-const MIN_POSITION_PERCENT = -200;
-const MAX_POSITION_PERCENT = 300;
 
 export const DEFAULT_CIRCLE_LAYOUT = Object.freeze({
   'apps:chessmnemonics-forum': { left: 98.9, top: 82.08 },
@@ -28,82 +26,16 @@ function cloneLayout(layout) {
   );
 }
 
-function isValidCoordinate(value) {
-  return Number.isFinite(value) && value >= MIN_POSITION_PERCENT && value <= MAX_POSITION_PERCENT;
+export function getCircleLayout() {
+  return cloneLayout(DEFAULT_CIRCLE_LAYOUT);
 }
 
-function normalizePosition(position, fallback) {
-  if (!position || typeof position !== 'object' || Array.isArray(position)) {
-    return { ...fallback };
-  }
-
-  if (!isValidCoordinate(position.left) || !isValidCoordinate(position.top)) {
-    return { ...fallback };
-  }
-
-  return {
-    left: Number(position.left.toFixed(2)),
-    top: Number(position.top.toFixed(2)),
-  };
-}
-
-function normalizeLayout(layout) {
-  if (!layout || typeof layout !== 'object' || Array.isArray(layout)) {
-    return cloneLayout(DEFAULT_CIRCLE_LAYOUT);
-  }
-
-  return Object.fromEntries(
-    Object.entries(DEFAULT_CIRCLE_LAYOUT).map(([circleId, fallback]) => [
-      circleId,
-      normalizePosition(layout[circleId], fallback),
-    ]),
-  );
-}
-
-function validatePosition(circleId, position) {
+export function saveCirclePosition(circleId) {
   if (!Object.hasOwn(DEFAULT_CIRCLE_LAYOUT, circleId)) {
     throw new TypeError(`Unknown circle identifier: ${circleId}`);
   }
 
-  if (!position || typeof position !== 'object' || Array.isArray(position)) {
-    throw new TypeError('Circle position must be an object.');
-  }
-
-  if (!Number.isFinite(position.left) || !Number.isFinite(position.top)) {
-    throw new TypeError('Circle coordinates must be finite numbers.');
-  }
-
-  if (!isValidCoordinate(position.left) || !isValidCoordinate(position.top)) {
-    throw new RangeError(
-      `Circle coordinates must be between ${MIN_POSITION_PERCENT}% and ${MAX_POSITION_PERCENT}%.`,
-    );
-  }
-
-  return {
-    left: Number(position.left.toFixed(2)),
-    top: Number(position.top.toFixed(2)),
-  };
-}
-
-export function getCircleLayout() {
-  const storedValue = readStorage(CIRCLE_LAYOUT_KEY);
-
-  if (!storedValue) {
-    return cloneLayout(DEFAULT_CIRCLE_LAYOUT);
-  }
-
-  try {
-    return normalizeLayout(JSON.parse(storedValue));
-  } catch {
-    return cloneLayout(DEFAULT_CIRCLE_LAYOUT);
-  }
-}
-
-export function saveCirclePosition(circleId, position) {
-  const layout = getCircleLayout();
-  layout[circleId] = validatePosition(circleId, position);
-  writeStorage(CIRCLE_LAYOUT_KEY, JSON.stringify(layout));
-  return layout[circleId];
+  return { ...DEFAULT_CIRCLE_LAYOUT[circleId] };
 }
 
 export function resetCircleLayout() {
