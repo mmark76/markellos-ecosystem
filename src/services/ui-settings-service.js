@@ -23,7 +23,7 @@ const VALID_OPTIONS = Object.freeze({
   density: ['compact', 'comfortable', 'spacious'],
   font: ['classic', 'readable', 'humanist', 'book', 'high-legibility'],
   background: ['decorative', 'minimal', 'plain'],
-  positionMode: ['locked', 'editable'],
+  positionMode: ['locked'],
   motion: ['standard', 'reduced'],
 });
 
@@ -50,13 +50,6 @@ function normalizeSettings(settings = {}) {
   );
 }
 
-function lockStoredPositionMode(settings) {
-  return {
-    ...settings,
-    positionMode: DEFAULT_UI_SETTINGS.positionMode,
-  };
-}
-
 export function getUiSettings() {
   const storedValue = readStorage(SETTINGS_KEY);
 
@@ -65,7 +58,7 @@ export function getUiSettings() {
   }
 
   try {
-    return lockStoredPositionMode(normalizeSettings(JSON.parse(storedValue)));
+    return normalizeSettings(JSON.parse(storedValue));
   } catch {
     return { ...DEFAULT_UI_SETTINGS };
   }
