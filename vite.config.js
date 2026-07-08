@@ -3,17 +3,28 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 
 const rootDirectory = fileURLToPath(new URL('.', import.meta.url));
+const VERSION_TIME_ZONE = 'Europe/Nicosia';
 
-function padDatePart(value) {
-  return String(value).padStart(2, '0');
+function getDatePart(parts, type) {
+  return parts.find((part) => part.type === type)?.value ?? '00';
 }
 
-function getBuildTimestamp(date = new Date()) {
-  const year = date.getUTCFullYear();
-  const month = padDatePart(date.getUTCMonth() + 1);
-  const day = padDatePart(date.getUTCDate());
-  const hour = padDatePart(date.getUTCHours());
-  const minute = padDatePart(date.getUTCMinutes());
+function getVersionTimestamp(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: VERSION_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).formatToParts(date);
+
+  const year = getDatePart(parts, 'year');
+  const month = getDatePart(parts, 'month');
+  const day = getDatePart(parts, 'day');
+  const hour = getDatePart(parts, 'hour');
+  const minute = getDatePart(parts, 'minute');
 
   return `${year}${month}${day}_${hour}${minute}`;
 }
@@ -36,7 +47,20 @@ function getCommitShortSha() {
   }
 }
 
-const siteVersion = `version_${getBuildTimestamp()}_commit_${getCommitShortSha()}`;
+function getCommitDate() {
+  try {
+    const commitDate = execSync('git show -s --format=%cI HEAD', {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+
+    return new Date(commitDate);
+  } catch {
+    return new Date();
+  }
+}
+
+const siteVersion = `version_${getVersionTimestamp(getCommitDate())}_commit_${getCommitShortSha()}`;
 
 export default defineConfig({
   define: {
