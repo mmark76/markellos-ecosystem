@@ -62,15 +62,6 @@ const CONTROL_DEFINITIONS = [
     suffix: '%',
   },
   {
-    key: 'positionMode',
-    label: 'Circle positions',
-    type: 'select',
-    options: [
-      ['locked', 'Locked'],
-      ['editable', 'Move circles'],
-    ],
-  },
-  {
     key: 'density',
     label: 'Layout spacing',
     type: 'select',
@@ -252,7 +243,7 @@ export function createUiSettings() {
 
   const description = createElement('p', {
     classNames: ['ui-settings__description'],
-    text: 'Adjust the page appearance and circle positions.',
+    text: 'Adjust the page appearance.',
   });
 
   const controls = new Map();
@@ -268,6 +259,12 @@ export function createUiSettings() {
 
   const actions = createElement('div', {
     classNames: ['ui-settings__actions'],
+  });
+
+  const saveButton = createElement('button', {
+    classNames: ['ui-settings__reset', 'ui-settings__save'],
+    text: 'Save settings',
+    attributes: { type: 'button' },
   });
 
   const downloadButton = createElement('button', {
@@ -288,7 +285,7 @@ export function createUiSettings() {
     attributes: { type: 'button' },
   });
 
-  actions.append(downloadButton, resetPositionsButton, resetButton);
+  actions.append(saveButton, downloadButton, resetPositionsButton, resetButton);
   dialog.append(header, description, controlsContainer, actions);
   wrapper.append(launcher, dialog);
 
@@ -309,6 +306,8 @@ export function createUiSettings() {
   }
 
   function openDialog() {
+    updateControls(getUiSettings());
+
     if (typeof dialog.showModal === 'function') {
       dialog.showModal();
     } else {
@@ -328,11 +327,9 @@ export function createUiSettings() {
   launcher.addEventListener('click', openDialog);
   closeButton.addEventListener('click', closeDialog);
 
-  controls.forEach((control) => {
-    const eventName = control.input.type === 'range' ? 'input' : 'change';
-    control.input.addEventListener(eventName, () => {
-      saveUiSettings(readControls());
-    });
+  saveButton.addEventListener('click', () => {
+    const savedSettings = saveUiSettings(readControls());
+    updateControls(savedSettings);
   });
 
   downloadButton.addEventListener('click', downloadSettings);
