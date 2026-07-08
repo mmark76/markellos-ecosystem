@@ -1,7 +1,10 @@
 import './footer.css';
 import { createElement } from '../../utils/dom.js';
 
-const SITE_VERSION = import.meta.env?.VITE_MARKELLOS_VERSION ?? 'version_development';
+const SITE_VERSION =
+  typeof __MARKELLOS_SITE_VERSION__ === 'string'
+    ? __MARKELLOS_SITE_VERSION__
+    : 'version_development';
 
 export function createFooter() {
   const footer = createElement('footer', {
