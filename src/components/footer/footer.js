@@ -1,6 +1,8 @@
 import './footer.css';
 import { createElement } from '../../utils/dom.js';
 
+const SITE_VERSION = import.meta.env?.VITE_MARKELLOS_VERSION ?? 'version_development';
+
 export function createFooter() {
   const footer = createElement('footer', {
     classNames: ['site-footer'],
@@ -22,6 +24,12 @@ export function createFooter() {
     attributes: { type: 'button' },
   });
 
+  const version = createElement('p', {
+    classNames: ['site-footer__version'],
+    text: SITE_VERSION,
+    attributes: { 'aria-label': `Site version ${SITE_VERSION}` },
+  });
+
   cookiePreferencesButton.addEventListener('click', () => {
     globalThis.dispatchEvent?.(new globalThis.Event('markellos:open-cookie-preferences'));
   });
@@ -40,6 +48,6 @@ export function createFooter() {
     cookiePreferencesButton,
   );
 
-  footer.append(copyright, navigation);
+  footer.append(copyright, navigation, version);
   return footer;
 }
