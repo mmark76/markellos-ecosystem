@@ -1,5 +1,5 @@
 import './ui-settings.css';
-import { getCircleLayout, resetCircleLayout } from '../../services/circle-layout-service.js';
+import { getCircleLayout } from '../../services/circle-layout-service.js';
 import {
   DEFAULT_UI_SETTINGS,
   getUiSettings,
@@ -273,19 +273,13 @@ export function createUiSettings() {
     attributes: { type: 'button' },
   });
 
-  const resetPositionsButton = createElement('button', {
-    classNames: ['ui-settings__reset'],
-    text: 'Reset circle positions',
-    attributes: { type: 'button' },
-  });
-
   const resetButton = createElement('button', {
     classNames: ['ui-settings__reset'],
     text: 'Reset all settings',
     attributes: { type: 'button' },
   });
 
-  actions.append(saveButton, downloadButton, resetPositionsButton, resetButton);
+  actions.append(saveButton, downloadButton, resetButton);
   dialog.append(header, description, controlsContainer, actions);
   wrapper.append(launcher, dialog);
 
@@ -334,13 +328,8 @@ export function createUiSettings() {
 
   downloadButton.addEventListener('click', downloadSettings);
 
-  resetPositionsButton.addEventListener('click', () => {
-    resetCircleLayout();
-  });
-
   resetButton.addEventListener('click', () => {
     const defaults = resetUiSettings();
-    resetCircleLayout();
     updateControls(defaults);
   });
 
