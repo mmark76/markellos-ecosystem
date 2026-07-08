@@ -15,7 +15,7 @@ export const DEFAULT_CIRCLE_LAYOUT = Object.freeze({
   'blogs:core': { left: 43.23, top: 45.91 },
   'apps:memory-palaces': { left: 62.02, top: 4.68 },
   'apps:organize-your-pc': { left: 8.71, top: 26.4 },
-  'apps:study-app': { left: 57, top: 24 },
+  'apps:study-app': { left: 60.5, top: 36.5 },
   'apps:relaxing-sounds': { left: 85.41, top: 23.75 },
   'apps:chessmnemonics-flashcards': { left: 66.45, top: 88.08 },
   'apps:chess-flashcards': { left: 11.84, top: 60.3 },
