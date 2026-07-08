@@ -50,6 +50,13 @@ function normalizeSettings(settings = {}) {
   );
 }
 
+function lockStoredPositionMode(settings) {
+  return {
+    ...settings,
+    positionMode: DEFAULT_UI_SETTINGS.positionMode,
+  };
+}
+
 export function getUiSettings() {
   const storedValue = readStorage(SETTINGS_KEY);
 
@@ -58,7 +65,7 @@ export function getUiSettings() {
   }
 
   try {
-    return normalizeSettings(JSON.parse(storedValue));
+    return lockStoredPositionMode(normalizeSettings(JSON.parse(storedValue)));
   } catch {
     return { ...DEFAULT_UI_SETTINGS };
   }
