@@ -36,11 +36,11 @@ function getCommitShortSha() {
   }
 }
 
-const siteVersion = `version_${getBuildTimestamp()}_${getCommitShortSha()}`;
+const siteVersion = `version_${getBuildTimestamp()}_commit_${getCommitShortSha()}`;
 
 export default defineConfig({
   define: {
-    'import.meta.env.VITE_MARKELLOS_VERSION': JSON.stringify(siteVersion),
+    __MARKELLOS_SITE_VERSION__: JSON.stringify(siteVersion),
   },
   build: {
     outDir: 'dist',
