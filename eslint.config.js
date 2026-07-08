@@ -22,6 +22,7 @@ export default [
       sourceType: 'module',
       globals: {
         URL: 'readonly',
+        process: 'readonly',
       },
     },
   },
