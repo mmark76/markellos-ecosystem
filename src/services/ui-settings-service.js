@@ -7,7 +7,7 @@ export const DEFAULT_UI_SETTINGS = Object.freeze({
   textSize: 'default',
   titleSize: 'extra-small',
   titleLayout: 'one-line',
-  circleScale: 125,
+  circleScale: 110,
   density: 'comfortable',
   font: 'classic',
   background: 'decorative',
