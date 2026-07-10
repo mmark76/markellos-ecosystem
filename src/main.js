@@ -4,7 +4,6 @@ import './styles/global.css';
 import './styles/layout.css';
 import './components/ui-settings/ui-settings-position.css';
 
-import { createAboutLink } from './components/about-link/about-link.js';
 import { createCookieBanner } from './components/cookie-banner/cookie-banner.js';
 import { createEcosystem } from './components/ecosystem/ecosystem.js';
 import { createFooter } from './components/footer/footer.js';
@@ -61,7 +60,7 @@ function renderApp() {
   });
 
   main.append(createHero(), createEcosystem(ecosystemGroups));
-  app.replaceChildren(main, createFooter(), createAboutLink(), createUiSettings());
+  app.replaceChildren(main, createFooter(), createUiSettings());
   appendCookieBanner();
 }
 
