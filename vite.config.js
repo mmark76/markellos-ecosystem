@@ -72,6 +72,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: `${rootDirectory}index.html`,
+        about: `${rootDirectory}about/index.html`,
         privacy: `${rootDirectory}privacy/index.html`,
         cookies: `${rootDirectory}cookies/index.html`,
       },
