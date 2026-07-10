@@ -48,6 +48,13 @@ export function createFooter() {
       text: 'Cookies',
       attributes: { href: '/cookies/' },
     }),
+    createElement('a', {
+      classNames: ['site-footer__link'],
+      text: 'Feedback',
+      attributes: {
+        href: 'mailto:markellos.markides@gmail.com?subject=Markellos%20Ecosystem%20Feedback',
+      },
+    }),
     cookiePreferencesButton,
   );
 
