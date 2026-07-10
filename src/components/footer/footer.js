@@ -40,6 +40,11 @@ export function createFooter() {
   navigation.append(
     createElement('a', {
       classNames: ['site-footer__link'],
+      text: 'About Markellos',
+      attributes: { href: '/about/' },
+    }),
+    createElement('a', {
+      classNames: ['site-footer__link'],
       text: 'Privacy',
       attributes: { href: '/privacy/' },
     }),
