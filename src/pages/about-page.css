@@ -153,6 +153,20 @@
   margin-top: 0;
 }
 
+.profile-section__resource {
+  font-size: 0.86rem;
+}
+
+.profile-section__resource a {
+  color: var(--color-muted);
+  text-underline-offset: 0.2em;
+}
+
+.profile-section__resource a:hover,
+.profile-section__resource a:focus-visible {
+  color: var(--color-gold-dark);
+}
+
 .profile-page__footer {
   display: flex;
   flex-wrap: wrap;
