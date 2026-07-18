@@ -49,6 +49,13 @@ export const ecosystemGroups = [
         position: 'study-app',
       },
       {
+        id: 'animals-within',
+        title: 'Animals Within',
+        icon: '◈',
+        url: 'https://animalswithin.markellosecosystem.com/',
+        position: 'animals-within',
+      },
+      {
         id: 'memory-palaces',
         title: 'Memory Palaces Builder',
         icon: '⌂',
