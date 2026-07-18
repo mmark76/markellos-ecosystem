@@ -3,7 +3,8 @@ export const ecosystemGroups = [
     id: 'blogs',
     title: 'Blogs',
     icon: '✒',
-    description: 'Personal writing, reflections and articles about chess, memory and everyday life.',
+    description:
+      'Personal writing, reflections and articles about chess, memory and everyday life.',
     projects: [
       {
         id: 'personal-thoughts-and-writings',
