@@ -15,6 +15,7 @@ const connectionEdges = {
   apps: [
     ['core', 'organize-your-pc', 'primary'],
     ['core', 'study-app', 'primary'],
+    ['core', 'animals-within', 'primary'],
     ['core', 'memory-palaces', 'primary'],
     ['core', 'chess-flashcards', 'primary'],
     ['core', 'relaxing-sounds', 'primary'],
