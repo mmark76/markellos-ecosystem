@@ -74,6 +74,21 @@ function createCategoryCard(group, index) {
   const heading = createElement('div', {
     classNames: ['ecosystem-card__heading'],
   });
+  const headingCopy = createElement('div', {
+    classNames: ['ecosystem-card__heading-copy'],
+  });
+
+  headingCopy.append(
+    createElement('p', {
+      classNames: ['ecosystem-card__index'],
+      text: `Category ${String(index + 1).padStart(2, '0')}`,
+    }),
+    createElement('h3', {
+      classNames: ['ecosystem-card__title'],
+      text: group.title,
+      attributes: { id: `${group.id}-title` },
+    }),
+  );
 
   heading.append(
     createElement('span', {
@@ -81,20 +96,7 @@ function createCategoryCard(group, index) {
       text: group.icon,
       attributes: { 'aria-hidden': 'true' },
     }),
-    createElement('div', {
-      classNames: ['ecosystem-card__heading-copy'],
-      children: [
-        createElement('p', {
-          classNames: ['ecosystem-card__index'],
-          text: `Category ${String(index + 1).padStart(2, '0')}`,
-        }),
-        createElement('h3', {
-          classNames: ['ecosystem-card__title'],
-          text: group.title,
-          attributes: { id: `${group.id}-title` },
-        }),
-      ],
-    }),
+    headingCopy,
     createElement('span', {
       classNames: ['ecosystem-card__count'],
       text: String(group.projects.length).padStart(2, '0'),
@@ -127,6 +129,20 @@ function createCore(groups) {
     classNames: ['ecosystem-360__core'],
     attributes: { 'aria-label': 'Markellos Ecosystem overview' },
   });
+  const metrics = createElement('div', {
+    classNames: ['ecosystem-360__metrics'],
+  });
+
+  metrics.append(
+    createElement('span', {
+      classNames: ['ecosystem-360__metric'],
+      text: `${groups.length} categories`,
+    }),
+    createElement('span', {
+      classNames: ['ecosystem-360__metric'],
+      text: `${projectCount} projects`,
+    }),
+  );
 
   core.append(
     createElement('p', {
@@ -142,19 +158,7 @@ function createCore(groups) {
       text: '360°',
       attributes: { 'aria-hidden': 'true' },
     }),
-    createElement('div', {
-      classNames: ['ecosystem-360__metrics'],
-      children: [
-        createElement('span', {
-          classNames: ['ecosystem-360__metric'],
-          text: `${groups.length} categories`,
-        }),
-        createElement('span', {
-          classNames: ['ecosystem-360__metric'],
-          text: `${projectCount} projects`,
-        }),
-      ],
-    }),
+    metrics,
   );
 
   return core;
