@@ -32,7 +32,7 @@ export function createHero() {
     attributes: { 'aria-label': 'Ecosystem summary' },
   });
 
-  ['6 categories', '14 projects', '11 apps & websites'].forEach((item) => {
+  ['6 categories', '14 projects', '360° connected view'].forEach((item) => {
     meta.append(
       createElement('span', {
         classNames: ['hero__meta-item'],
@@ -49,7 +49,7 @@ export function createHero() {
     title,
     createElement('p', {
       classNames: ['hero__subtitle'],
-      text: 'Blogs, chess projects, useful tools, entertainment, meditation and learning experiences — organized in one place.',
+      text: 'Blogs, chess projects, useful tools, entertainment, meditation and learning experiences — connected in one complete view.',
     }),
     meta,
   );
@@ -62,11 +62,11 @@ export function createHero() {
   visual.append(
     createElement('span', {
       classNames: ['hero__monogram'],
-      text: 'M',
+      text: '360°',
     }),
     createElement('span', {
       classNames: ['hero__visual-label'],
-      text: 'Learn · Create · Remember',
+      text: 'One hub · Six categories',
     }),
   );
 
