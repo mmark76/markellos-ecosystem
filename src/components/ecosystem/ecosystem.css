@@ -171,6 +171,12 @@
   z-index: 5;
 }
 
+.ecosystem-hub--apps .project-node--animals-within {
+  top: 12%;
+  left: 0;
+  z-index: 5;
+}
+
 .ecosystem-hub--apps .project-node--top-right {
   top: 12%;
   left: 80%;
