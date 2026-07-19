@@ -155,3 +155,32 @@ test('settings markup retains dialog relationships and focus restoration', async
   assert.match(source, /'aria-labelledby': 'ui-settings-title'/);
   assert.match(source, /dialog\.addEventListener\('close', \(\) => launcher\.focus\(\)\)/);
 });
+
+test('settings exposes circle editing, reset, and layout export controls', async () => {
+  const source = await readFile(
+    new URL('../src/components/ui-settings/ui-settings.js', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(source, /label: 'Circle positions'/);
+  assert.match(source, /\['locked', 'Locked'\]/);
+  assert.match(source, /\['editable', 'Move circles'\]/);
+  assert.match(source, /text: 'Reset circle positions'/);
+  assert.match(source, /resetPositionsButton\.addEventListener\('click'/);
+  assert.match(source, /circleLayout: getCircleLayout\(\)/);
+  assert.match(source, /text: 'Reset all settings and positions'/);
+});
+
+test('circle layout uses pointer dragging and a non-draggable small-screen fallback', async () => {
+  const [source, styles] = await Promise.all([
+    readFile(new URL('../src/components/ecosystem/ecosystem.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/ecosystem/ecosystem.css', import.meta.url), 'utf8'),
+  ]);
+
+  assert.match(source, /addEventListener\('pointerdown'/);
+  assert.match(source, /addEventListener\('pointermove'/);
+  assert.match(source, /addEventListener\('pointerup'/);
+  assert.match(source, /saveCirclePosition\(circle\.dataset\.circleId/);
+  assert.match(source, /matchMedia\?\.\('\(max-width: 45rem\)'\)/);
+  assert.match(styles, /@media \(max-width: 45rem\)[\s\S]*position: static/);
+});
