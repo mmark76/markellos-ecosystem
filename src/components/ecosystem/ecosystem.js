@@ -1,43 +1,17 @@
 import './ecosystem.css';
-import { getCircleLayout, saveCirclePosition } from '../../services/circle-layout-service.js';
 import { createElement } from '../../utils/dom.js';
-import { hasExceededDragThreshold, shouldPreventCircleLinkClick } from '../../utils/interaction.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
-const connectionEdges = {
-  blogs: [
-    ['core', 'personal-thoughts-and-writings', 'primary'],
-    ['core', 'chess-reflections', 'primary'],
-    ['core', 'mnemonic-techniques', 'primary'],
-  ],
-  apps: [
-    ['core', 'organize-your-pc', 'primary'],
-    ['core', 'study-app', 'primary'],
-    ['core', 'memory-palaces', 'primary'],
-    ['core', 'chess-flashcards', 'primary'],
-    ['core', 'relaxing-sounds', 'primary'],
-    ['core', 'chess-pgn-audio-player', 'primary'],
-    ['core', 'chessmnemonics', 'primary'],
-    ['chessmnemonics', 'chessmnemonics-flashcards', 'secondary'],
-    ['chessmnemonics', 'chessmnemonics-forum', 'secondary'],
-    ['chessmnemonics', 'chessmnemonics-app', 'secondary'],
-  ],
-};
-
-function createConnections(groupId) {
+function createConnections(groups) {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
-  svg.classList.add('ecosystem-hub__connections');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.classList.add('ecosystem-360__connections');
   svg.setAttribute('aria-hidden', 'true');
 
-  connectionEdges[groupId].forEach(([source, target, type]) => {
+  groups.forEach((group) => {
     const path = document.createElementNS(SVG_NAMESPACE, 'path');
-    path.classList.add(`ecosystem-hub__connection--${type}`);
-    path.dataset.sourceCircle = `${groupId}:${source}`;
-    path.dataset.targetCircle = `${groupId}:${target}`;
+    path.dataset.categoryId = group.id;
     path.setAttribute('vector-effect', 'non-scaling-stroke');
     svg.append(path);
   });
@@ -45,238 +19,199 @@ function createConnections(groupId) {
   return svg;
 }
 
-function getCircleCenter(circle, hubRect) {
-  const rect = circle.getBoundingClientRect();
+function getElementCenter(element, containerRect) {
+  const rect = element.getBoundingClientRect();
+
   return {
-    x: ((rect.left + rect.width / 2 - hubRect.left) / hubRect.width) * 100,
-    y: ((rect.top + rect.height / 2 - hubRect.top) / hubRect.height) * 100,
+    x: rect.left + rect.width / 2 - containerRect.left,
+    y: rect.top + rect.height / 2 - containerRect.top,
   };
 }
 
-function updateConnections(hub) {
-  const hubRect = hub.getBoundingClientRect();
+function updateConnections(stage) {
+  const stageRect = stage.getBoundingClientRect();
+  const core = stage.querySelector('.ecosystem-360__core');
+  const svg = stage.querySelector('.ecosystem-360__connections');
 
-  if (hubRect.width === 0 || hubRect.height === 0) {
+  if (!core || !svg || stageRect.width === 0 || stageRect.height === 0) {
     return;
   }
 
-  hub.querySelectorAll('.ecosystem-hub__connections path').forEach((path) => {
-    const source = hub.querySelector(`[data-circle-id="${path.dataset.sourceCircle}"]`);
-    const target = hub.querySelector(`[data-circle-id="${path.dataset.targetCircle}"]`);
+  svg.setAttribute('viewBox', `0 0 ${stageRect.width} ${stageRect.height}`);
+  const start = getElementCenter(core, stageRect);
 
-    if (!source || !target) {
+  svg.querySelectorAll('path').forEach((path) => {
+    const card = stage.querySelector(`[data-category-id="${path.dataset.categoryId}"]`);
+
+    if (!card) {
       return;
     }
 
-    const start = getCircleCenter(source, hubRect);
-    const end = getCircleCenter(target, hubRect);
-    const middleX = (start.x + end.x) / 2;
-    const middleY = (start.y + end.y) / 2;
+    const end = getElementCenter(card, stageRect);
+    const deltaX = end.x - start.x;
+    const deltaY = end.y - start.y;
 
     path.setAttribute(
       'd',
-      `M ${start.x} ${start.y} C ${middleX} ${start.y}, ${middleX} ${end.y}, ${end.x} ${end.y}`,
+      `M ${start.x} ${start.y} C ${start.x + deltaX * 0.38} ${start.y + deltaY * 0.12}, ${start.x + deltaX * 0.72} ${start.y + deltaY * 0.88}, ${end.x} ${end.y}`,
     );
-
-    if (Math.abs(start.x - end.x) < 2) {
-      path.setAttribute(
-        'd',
-        `M ${start.x} ${start.y} C ${start.x} ${middleY}, ${end.x} ${middleY}, ${end.x} ${end.y}`,
-      );
-    }
   });
 }
 
-function applySavedPosition(circle, circleId, layout) {
-  const position = layout[circleId];
-
-  if (!position) {
-    return;
-  }
-
-  circle.style.left = `${position.left}%`;
-  circle.style.top = `${position.top}%`;
-}
-
-function enableDragging(circle, hub, onMove) {
-  let activePointerId = null;
-  let pointerStart = null;
-  let moved = false;
-
-  function canDrag(event) {
-    const mobileLayout = globalThis.matchMedia?.('(max-width: 45rem)').matches;
-    return (
-      document.documentElement.dataset.uiPositionMode === 'editable' &&
-      !mobileLayout &&
-      event.button === 0
-    );
-  }
-
-  function moveCircle(event) {
-    if (event.pointerId !== activePointerId) {
-      return;
-    }
-
-    if (!moved) {
-      if (
-        !pointerStart ||
-        !hasExceededDragThreshold(pointerStart.x, pointerStart.y, event.clientX, event.clientY)
-      ) {
-        return;
-      }
-
-      moved = true;
-      circle.classList.add('is-dragging');
-    }
-
-    const hubRect = hub.getBoundingClientRect();
-    const pageShell = hub.closest('.page-shell') ?? document.documentElement;
-    const dragRect = pageShell.getBoundingClientRect();
-    const circleRect = circle.getBoundingClientRect();
-    const halfWidth = circleRect.width / 2;
-    const halfHeight = circleRect.height / 2;
-    const centerX = Math.min(
-      dragRect.right - halfWidth,
-      Math.max(dragRect.left + halfWidth, event.clientX),
-    );
-    const centerY = Math.min(
-      dragRect.bottom - halfHeight,
-      Math.max(dragRect.top + halfHeight, event.clientY),
-    );
-    const left = ((centerX - hubRect.left) / hubRect.width) * 100;
-    const top = ((centerY - hubRect.top) / hubRect.height) * 100;
-
-    circle.style.left = `${left}%`;
-    circle.style.top = `${top}%`;
-    onMove();
-  }
-
-  function finishDragging(event) {
-    if (event.pointerId !== activePointerId) {
-      return;
-    }
-
-    activePointerId = null;
-    pointerStart = null;
-    circle.classList.remove('is-dragging');
-
-    if (moved) {
-      saveCirclePosition(circle.dataset.circleId, {
-        left: Number.parseFloat(circle.style.left),
-        top: Number.parseFloat(circle.style.top),
-      });
-    }
-  }
-
-  circle.addEventListener('pointerdown', (event) => {
-    if (!canDrag(event)) {
-      return;
-    }
-
-    event.preventDefault();
-    activePointerId = event.pointerId;
-    pointerStart = { x: event.clientX, y: event.clientY };
-    moved = false;
-    circle.setPointerCapture?.(event.pointerId);
-  });
-
-  circle.addEventListener('pointermove', moveCircle);
-  circle.addEventListener('pointerup', finishDragging);
-  circle.addEventListener('pointercancel', finishDragging);
-
-  if (circle.matches('a')) {
-    circle.addEventListener('click', (event) => {
-      if (shouldPreventCircleLinkClick(document.documentElement.dataset.uiPositionMode, moved)) {
-        event.preventDefault();
-        moved = false;
-      }
-    });
-  }
-}
-
-function createHub(group) {
-  const hub = createElement('article', {
-    classNames: ['ecosystem-hub', `ecosystem-hub--${group.id}`],
-  });
-
-  const core = createElement('div', {
-    classNames: ['ecosystem-hub__core'],
+function createCategoryCard(group, index) {
+  const card = createElement('article', {
+    classNames: [
+      'ecosystem-card',
+      `ecosystem-card--${group.id}`,
+      `ecosystem-card--slot-${index + 1}`,
+    ],
     attributes: {
-      'data-circle-id': `${group.id}:core`,
-      'aria-label': `${group.title} central circle`,
+      'aria-labelledby': `${group.id}-title`,
+      'data-category-id': group.id,
     },
   });
 
-  core.append(
-    createElement('span', {
-      classNames: ['ecosystem-hub__icon'],
-      text: group.icon,
-      attributes: { 'aria-hidden': 'true' },
-    }),
-    createElement('h2', {
-      classNames: ['ecosystem-hub__title'],
-      text: group.title,
-    }),
-    createElement('span', {
-      classNames: ['ecosystem-hub__ornament'],
-      attributes: { 'aria-hidden': 'true' },
-    }),
+  const heading = createElement('div', {
+    classNames: ['ecosystem-card__heading'],
+  });
+  const headingCopy = createElement('div', {
+    classNames: ['ecosystem-card__heading-copy'],
+  });
+
+  headingCopy.append(
     createElement('p', {
-      classNames: ['ecosystem-hub__description'],
-      text: group.description,
+      classNames: ['ecosystem-card__index'],
+      text: `Category ${String(index + 1).padStart(2, '0')}`,
+    }),
+    createElement('h3', {
+      classNames: ['ecosystem-card__title'],
+      text: group.title,
+      attributes: { id: `${group.id}-title` },
     }),
   );
 
-  const projectNodes = group.projects.map((project) => {
-    const node = createProjectNode(project);
-    node.dataset.circleId = `${group.id}:${project.id}`;
-    return node;
+  heading.append(
+    createElement('span', {
+      classNames: ['ecosystem-card__icon'],
+      text: group.icon,
+      attributes: { 'aria-hidden': 'true' },
+    }),
+    headingCopy,
+    createElement('span', {
+      classNames: ['ecosystem-card__count'],
+      text: String(group.projects.length).padStart(2, '0'),
+      attributes: {
+        'aria-label': `${group.projects.length} ${group.projects.length === 1 ? 'project' : 'projects'}`,
+      },
+    }),
+  );
+
+  const projects = createElement('ul', {
+    classNames: ['ecosystem-card__projects'],
+  });
+  projects.append(...group.projects.map(createProjectNode));
+
+  card.append(
+    heading,
+    createElement('p', {
+      classNames: ['ecosystem-card__description'],
+      text: group.description,
+    }),
+    projects,
+  );
+
+  return card;
+}
+
+function createCore(groups) {
+  const projectCount = groups.reduce((total, group) => total + group.projects.length, 0);
+  const core = createElement('div', {
+    classNames: ['ecosystem-360__core'],
+    attributes: { 'aria-label': 'Markellos Ecosystem overview' },
+  });
+  const metrics = createElement('div', {
+    classNames: ['ecosystem-360__metrics'],
   });
 
-  const connections = createConnections(group.id);
-  const circles = [core, ...projectNodes];
-  const savedLayout = getCircleLayout();
+  metrics.append(
+    createElement('span', {
+      classNames: ['ecosystem-360__metric'],
+      text: `${groups.length} categories`,
+    }),
+    createElement('span', {
+      classNames: ['ecosystem-360__metric'],
+      text: `${projectCount} projects`,
+    }),
+  );
 
-  circles.forEach((circle) => {
-    applySavedPosition(circle, circle.dataset.circleId, savedLayout);
+  core.append(
+    createElement('p', {
+      classNames: ['ecosystem-360__core-eyebrow'],
+      text: 'Markellos',
+    }),
+    createElement('p', {
+      classNames: ['ecosystem-360__core-title'],
+      text: 'Ecosystem',
+    }),
+    createElement('span', {
+      classNames: ['ecosystem-360__degree'],
+      text: '360°',
+      attributes: { 'aria-hidden': 'true' },
+    }),
+    metrics,
+  );
+
+  return core;
+}
+
+export function createEcosystem(groups) {
+  const section = createElement('section', {
+    classNames: ['ecosystem'],
+    attributes: { 'aria-labelledby': 'ecosystem-title' },
   });
 
-  hub.append(connections, core, ...projectNodes);
+  const introduction = createElement('header', {
+    classNames: ['ecosystem__introduction'],
+  });
 
-  const refreshConnections = () => updateConnections(hub);
-  circles.forEach((circle) => enableDragging(circle, hub, refreshConnections));
+  introduction.append(
+    createElement('p', {
+      classNames: ['ecosystem__eyebrow'],
+      text: 'Complete ecosystem view',
+    }),
+    createElement('h2', {
+      classNames: ['ecosystem__title'],
+      text: 'Everything connected',
+      attributes: { id: 'ecosystem-title' },
+    }),
+    createElement('p', {
+      classNames: ['ecosystem__description'],
+      text: 'Six categories arranged around one central hub, with every project directly accessible.',
+    }),
+  );
+
+  const stage = createElement('div', {
+    classNames: ['ecosystem-360'],
+  });
+  const connections = createConnections(groups);
+  const core = createCore(groups);
+  const cards = groups.map(createCategoryCard);
+
+  stage.append(connections, core, ...cards);
+  section.append(introduction, stage);
+
+  const refreshConnections = () => updateConnections(stage);
   globalThis.requestAnimationFrame?.(refreshConnections);
   globalThis.addEventListener?.('resize', refreshConnections);
   globalThis.addEventListener?.('markellos:ui-settings-changed', () => {
-    globalThis.requestAnimationFrame?.(refreshConnections);
-  });
-  globalThis.addEventListener?.('markellos:circle-layout-reset', (event) => {
-    const resetLayout = event.detail ?? getCircleLayout();
-
-    circles.forEach((circle) => {
-      circle.style.removeProperty('left');
-      circle.style.removeProperty('top');
-      applySavedPosition(circle, circle.dataset.circleId, resetLayout);
-    });
-
     globalThis.requestAnimationFrame?.(refreshConnections);
   });
 
   const ResizeObserverConstructor = globalThis.ResizeObserver;
   if (ResizeObserverConstructor) {
     const observer = new ResizeObserverConstructor(refreshConnections);
-    observer.observe(hub);
+    observer.observe(stage);
   }
 
-  return hub;
-}
-
-export function createEcosystem(groups) {
-  const section = createElement('section', {
-    classNames: ['ecosystem'],
-    attributes: { 'aria-label': 'Markellos ecosystem links' },
-  });
-
-  section.append(createHub(groups[0]), createHub(groups[1]));
   return section;
 }
