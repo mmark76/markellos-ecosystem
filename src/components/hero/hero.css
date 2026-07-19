@@ -1,12 +1,54 @@
 .hero {
-  position: relative;
-  z-index: 2;
-  margin-bottom: 1rem;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-width: 0;
+  padding: calc(0.45rem + env(safe-area-inset-top, 0px)) clamp(80px, 10vw, 128px) 0.4rem;
+  border-bottom: 1px solid rgba(199, 154, 66, 0.5);
+  background: rgba(247, 239, 226, 0.97);
+  box-shadow: 0 0.65rem 1.6rem rgba(63, 44, 22, 0.07);
   text-align: center;
+  backdrop-filter: blur(0.85rem);
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 3;
+  top: 0.55rem;
+  left: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid var(--color-gold-dark);
+  border-radius: 0.55rem;
+  background: #fffdf7;
+  color: var(--color-green-dark);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 1rem));
+}
+
+.skip-link:focus {
+  outline: none;
+  transform: none;
+}
+
+.hero > .ui-settings {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  bottom: 0;
+  display: grid;
+  align-items: center;
+}
+
+.hero .ui-settings__launcher {
+  position: static;
 }
 
 .hero__eyebrow {
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.35rem;
   color: var(--color-green);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(0.68rem, 0.95vw, 0.9rem);
@@ -51,7 +93,7 @@ html[data-ui-title-size='extra-small'] .hero__title {
   display: block;
   width: min(17rem, 42vw);
   height: 1px;
-  margin: 1.5rem auto 0;
+  margin: 0.6rem auto 0;
   background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
 }
 
@@ -68,7 +110,7 @@ html[data-ui-title-size='extra-small'] .hero__title {
 }
 
 .hero__subtitle {
-  margin: 0.85rem auto 0;
+  margin: 0.35rem auto 0;
   color: var(--color-muted);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1rem, 1.35vw, 1.25rem);
@@ -81,6 +123,17 @@ html[data-ui-theme='dark'] .hero__title {
   text-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.28);
 }
 
+html[data-ui-theme='dark'] .hero {
+  border-color: rgba(230, 189, 102, 0.48);
+  background: rgba(22, 27, 23, 0.97);
+}
+
+html[data-ui-theme='contrast'] .hero {
+  border-color: #111111;
+  background: #ffffff;
+  box-shadow: none;
+}
+
 html[data-ui-theme='dark'] .hero__divider::before,
 html[data-ui-theme='dark'] .category-card__divider::after {
   background: #20241f;
@@ -88,7 +141,7 @@ html[data-ui-theme='dark'] .category-card__divider::after {
 
 @media (min-width: 68rem) and (max-height: 52rem) {
   .hero {
-    margin-bottom: 0;
+    padding-block: 0.35rem 0.3rem;
   }
 
   .hero__eyebrow {
@@ -115,12 +168,13 @@ html[data-ui-theme='dark'] .category-card__divider::after {
 
 @media (max-width: 45rem) {
   .hero {
-    margin-bottom: 1rem;
-    padding-top: 1.5rem;
+    padding: calc(0.4rem + env(safe-area-inset-top, 0px)) clamp(72px, 22vw, 84px) 0.4rem;
   }
 
   .hero__eyebrow {
-    letter-spacing: 0.18em;
+    margin-bottom: 0.25rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
   }
 
   .hero__title {
@@ -129,9 +183,34 @@ html[data-ui-theme='dark'] .category-card__divider::after {
 
   html[data-ui-title-layout='one-line'] .hero__title {
     font-size: clamp(1.35rem, 7.2vw, 2.3rem);
+    white-space: normal;
+  }
+
+  html[data-ui-title-layout='one-line'] .hero__title-line {
+    display: block;
+  }
+
+  html[data-ui-title-layout='one-line'] .hero__title-line + .hero__title-line {
+    margin-left: 0;
   }
 
   html[data-ui-title-layout='one-line'][data-ui-title-size='extra-small'] .hero__title {
     font-size: clamp(1.05rem, 5.2vw, 1.7rem);
+  }
+
+  .hero__divider {
+    width: min(9rem, 48vw);
+    margin-top: 0.4rem;
+  }
+
+  .hero__subtitle {
+    margin-top: 0.25rem;
+    font-size: 0.82rem;
+  }
+
+  .hero .ui-settings__launcher {
+    min-height: 44px;
+    padding: 8px 11px;
+    font-size: 13px;
   }
 }

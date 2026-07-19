@@ -12,6 +12,7 @@ import { createUiSettings } from './components/ui-settings/ui-settings.js';
 import { ecosystemGroups } from './data/projects.js';
 import { initializeAnalytics } from './services/analytics-service.js';
 import { clearConsent } from './services/consent-service.js';
+import { observeFixedShell } from './services/fixed-shell-service.js';
 import { applyUiSettings } from './services/ui-settings-service.js';
 import { createElement, focusFirstInteractive } from './utils/dom.js';
 import './styles/default-scale.css';
@@ -57,10 +58,15 @@ function renderApp() {
 
   const main = createElement('main', {
     classNames: ['page-shell'],
+    attributes: { id: 'main-content' },
   });
+  const header = createHero();
+  const footer = createFooter();
 
-  main.append(createHero(), createEcosystem(ecosystemGroups));
-  app.replaceChildren(main, createFooter(), createUiSettings());
+  header.append(createUiSettings());
+  main.append(createEcosystem(ecosystemGroups));
+  app.replaceChildren(header, main, footer);
+  observeFixedShell({ header, footer });
   appendCookieBanner();
 }
 

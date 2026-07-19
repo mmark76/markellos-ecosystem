@@ -27,6 +27,7 @@
 }
 
 .ui-settings__dialog {
+  z-index: 100;
   width: min(27rem, calc(100vw - 2rem));
   max-height: min(46rem, calc(100vh - 2rem));
   padding: 1.35rem;
@@ -279,28 +280,20 @@ html[data-ui-font='readable'] .ui-settings__title {
     sans-serif;
 }
 
-html[data-ui-density='compact'] .page-shell {
-  padding-top: 0.45rem;
-}
-
-html[data-ui-density='compact'] .hero {
-  margin-bottom: 0.45rem;
+html[data-ui-density='compact'] {
+  --fixed-content-gap: 0.35rem;
 }
 
 html[data-ui-density='compact'] .ecosystem {
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
-html[data-ui-density='spacious'] .page-shell {
-  padding-top: 2rem;
-}
-
-html[data-ui-density='spacious'] .hero {
-  margin-bottom: 3.5rem;
+html[data-ui-density='spacious'] {
+  --fixed-content-gap: 1.25rem;
 }
 
 html[data-ui-density='spacious'] .ecosystem {
-  gap: 4.5rem;
+  gap: 1.5rem;
 }
 
 html[data-ui-background='minimal'] body::before,
