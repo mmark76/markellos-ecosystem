@@ -23,7 +23,7 @@ const VALID_OPTIONS = Object.freeze({
   density: ['compact', 'comfortable', 'spacious'],
   font: ['classic', 'readable', 'humanist', 'book', 'high-legibility'],
   background: ['decorative', 'minimal', 'plain'],
-  positionMode: ['locked'],
+  positionMode: ['locked', 'editable'],
   motion: ['standard', 'reduced'],
 });
 

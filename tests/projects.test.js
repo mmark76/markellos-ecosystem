@@ -4,16 +4,9 @@ import test from 'node:test';
 import { URL } from 'node:url';
 import { ecosystemGroups } from '../src/data/projects.js';
 
-const EXPECTED_GROUP_IDS = [
-  'blogs',
-  'chess',
-  'tools-productivity',
-  'entertainment',
-  'meditation',
-  'learning-memory',
-];
+const EXPECTED_GROUP_IDS = ['blogs', 'apps'];
 
-test('ecosystem data contains the six expected categories', () => {
+test('ecosystem data contains the restored circle hubs', () => {
   assert.deepEqual(
     ecosystemGroups.map(({ id }) => id),
     EXPECTED_GROUP_IDS,
@@ -27,6 +20,19 @@ test('ecosystem data contains unique group and project identifiers', () => {
   assert.equal(new Set(groupIds).size, groupIds.length);
   assert.equal(new Set(projectIds).size, projectIds.length);
   assert.equal(projectIds.length, 14);
+});
+
+test('Animals Within remains a normal project in the apps hub', () => {
+  const apps = ecosystemGroups.find(({ id }) => id === 'apps');
+  const project = apps.projects.find(({ id }) => id === 'animals-within');
+
+  assert.deepEqual(project, {
+    id: 'animals-within',
+    title: 'Animals Within',
+    icon: '◉',
+    url: 'https://animalswithin.markellosecosystem.com/',
+    position: 'animals-within',
+  });
 });
 
 test('every project uses a valid HTTPS URL and complete display data', () => {

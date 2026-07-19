@@ -1,5 +1,5 @@
 import './ui-settings.css';
-import { getCircleLayout } from '../../services/circle-layout-service.js';
+import { getCircleLayout, resetCircleLayout } from '../../services/circle-layout-service.js';
 import {
   DEFAULT_UI_SETTINGS,
   getUiSettings,
@@ -60,6 +60,15 @@ const CONTROL_DEFINITIONS = [
     max: 135,
     step: 5,
     suffix: '%',
+  },
+  {
+    key: 'positionMode',
+    label: 'Circle positions',
+    type: 'select',
+    options: [
+      ['locked', 'Locked'],
+      ['editable', 'Move circles'],
+    ],
   },
   {
     key: 'density',
@@ -243,7 +252,7 @@ export function createUiSettings() {
 
   const description = createElement('p', {
     classNames: ['ui-settings__description'],
-    text: 'Adjust the page appearance.',
+    text: 'Adjust the page appearance and circle positions. Changes are applied when saved.',
   });
 
   const controls = new Map();
@@ -273,13 +282,19 @@ export function createUiSettings() {
     attributes: { type: 'button' },
   });
 
-  const resetButton = createElement('button', {
+  const resetPositionsButton = createElement('button', {
     classNames: ['ui-settings__reset'],
-    text: 'Reset all settings',
+    text: 'Reset circle positions',
     attributes: { type: 'button' },
   });
 
-  actions.append(saveButton, downloadButton, resetButton);
+  const resetButton = createElement('button', {
+    classNames: ['ui-settings__reset'],
+    text: 'Reset all settings and positions',
+    attributes: { type: 'button' },
+  });
+
+  actions.append(saveButton, downloadButton, resetPositionsButton, resetButton);
   dialog.append(header, description, controlsContainer, actions);
   wrapper.append(launcher, dialog);
 
@@ -328,8 +343,13 @@ export function createUiSettings() {
 
   downloadButton.addEventListener('click', downloadSettings);
 
+  resetPositionsButton.addEventListener('click', () => {
+    resetCircleLayout();
+  });
+
   resetButton.addEventListener('click', () => {
     const defaults = resetUiSettings();
+    resetCircleLayout();
     updateControls(defaults);
   });
 
