@@ -203,7 +203,9 @@ test('card links retain focus, touch-target, reduced-motion, and overflow safegu
   assert.match(projectStyles, /outline: 2px solid/);
   assert.match(projectStyles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(ecosystemStyles, /min-width: 0/);
-  assert.match(ecosystemStyles, /align-items: start/);
+  assert.match(ecosystemStyles, /\.ecosystem\s*{[^}]*align-items: stretch/);
+  assert.match(ecosystemStyles, /\.category-card\s*{[^}]*height: 100%/);
+  assert.doesNotMatch(ecosystemStyles, /align-items: start/);
   assert.match(ecosystemStyles, /gap: clamp\(0\.5rem, 1vw, 0\.75rem\)/);
   assert.match(ecosystemStyles, /padding: clamp\(0\.6rem, 1\.1vw, 0\.85rem\)/);
   assert.doesNotMatch(ecosystemStyles, /grid-auto-rows/);
