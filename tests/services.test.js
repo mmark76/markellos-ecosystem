@@ -74,7 +74,7 @@ test('consent service rejects unsupported preferences', () => {
   assert.throws(() => saveConsent('marketing'), TypeError);
 });
 
-test('UI settings default to locked circle positions', (t) => {
+test('UI settings default to editable circle positions', (t) => {
   globalThis.localStorage = createMemoryStorage();
   t.after(() => delete globalThis.localStorage);
 
@@ -118,7 +118,7 @@ test('UI settings are applied to the document root', (t) => {
   });
 
   assert.equal(globalThis.document.documentElement.dataset.uiTheme, 'dark');
-  assert.equal(globalThis.document.documentElement.dataset.uiPositionMode, 'locked');
+  assert.equal(globalThis.document.documentElement.dataset.uiPositionMode, 'editable');
   assert.equal(properties.get('--ui-circle-scale'), '1.1');
   assert.equal(settings.circleScale, 110);
 });
