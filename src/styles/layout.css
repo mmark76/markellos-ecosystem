@@ -1,18 +1,26 @@
+.page-shell,
+.page-shell :where(a, button, select, [tabindex]) {
+  scroll-margin-top: calc(var(--fixed-header-height) + var(--fixed-focus-gap));
+  scroll-margin-bottom: calc(var(--fixed-footer-height) + var(--fixed-focus-gap));
+}
+
+html {
+  scroll-padding-top: calc(var(--fixed-header-height) + var(--fixed-focus-gap));
+  scroll-padding-bottom: calc(var(--fixed-footer-height) + var(--fixed-focus-gap));
+}
+
 .page-shell {
   position: relative;
   isolation: isolate;
-  width: min(88rem, calc(100% - clamp(2rem, 5vw, 5rem)));
+  width: min(88rem, calc(100% - clamp(1.5rem, 4vw, 3rem)));
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: clamp(1.25rem, 2.5vw, 2rem) 0 clamp(2.5rem, 5vw, 4rem);
-}
-
-.page-shell + .site-footer {
-  position: relative;
+  padding: calc(var(--fixed-header-height) + var(--fixed-content-gap)) 0
+    calc(var(--fixed-footer-height) + var(--fixed-content-gap));
 }
 
 @media (max-width: 45rem) {
   .page-shell {
-    width: min(100% - 1.25rem, 36rem);
-    padding: 1.1rem 0 2rem;
+    width: min(100% - 1.5rem, 36rem);
   }
 }

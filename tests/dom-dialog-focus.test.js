@@ -198,12 +198,16 @@ test('card links retain focus, touch-target, reduced-motion, and overflow safegu
     readFile(new URL('../src/styles/global.css', import.meta.url), 'utf8'),
   ]);
 
-  assert.match(projectStyles, /min-height: 2\.75rem/);
+  assert.match(projectStyles, /min-height: 44px/);
   assert.match(projectStyles, /\.project-node:focus-visible/);
   assert.match(projectStyles, /outline: 2px solid/);
   assert.match(projectStyles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(ecosystemStyles, /min-width: 0/);
-  assert.doesNotMatch(ecosystemStyles, /grid-auto-rows: 1fr/);
+  assert.match(ecosystemStyles, /align-items: start/);
+  assert.match(ecosystemStyles, /gap: clamp\(0\.5rem, 1vw, 0\.75rem\)/);
+  assert.match(ecosystemStyles, /padding: clamp\(0\.6rem, 1\.1vw, 0\.85rem\)/);
+  assert.doesNotMatch(ecosystemStyles, /grid-auto-rows/);
+  assert.doesNotMatch(ecosystemStyles, /\.category-card[^}]*min-height/);
   assert.doesNotMatch(ecosystemStyles, /min-height: 26rem/);
   assert.match(ecosystemStyles, /@media \(max-width: 24rem\)[\s\S]*overflow-wrap: anywhere/);
   assert.match(globalStyles, /overflow-x: hidden/);

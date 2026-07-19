@@ -21,4 +21,9 @@
   --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+
+  --fixed-header-height: 8rem;
+  --fixed-footer-height: 6.5rem;
+  --fixed-content-gap: clamp(0.6rem, 1.2vw, 0.9rem);
+  --fixed-focus-gap: 0.75rem;
 }

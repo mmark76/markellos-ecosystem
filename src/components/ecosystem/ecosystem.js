@@ -94,7 +94,11 @@ function createCategoryCard(group) {
 export function createEcosystem(groups) {
   const section = createElement('section', {
     classNames: ['ecosystem'],
-    attributes: { 'aria-label': 'Markellos ecosystem categories and project links' },
+    attributes: {
+      id: 'ecosystem-links',
+      tabindex: '-1',
+      'aria-label': 'Markellos ecosystem categories and project links',
+    },
   });
 
   section.append(...groups.map(createCategoryCard));

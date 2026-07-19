@@ -2,9 +2,15 @@ import './hero.css';
 import { createElement } from '../../utils/dom.js';
 
 export function createHero() {
-  const hero = createElement('section', {
+  const hero = createElement('header', {
     classNames: ['hero'],
     attributes: { 'aria-labelledby': 'main-title' },
+  });
+
+  const skipLink = createElement('a', {
+    classNames: ['skip-link'],
+    text: 'Skip to project categories',
+    attributes: { href: '#ecosystem-links' },
   });
 
   const eyebrow = createElement('p', {
@@ -38,6 +44,6 @@ export function createHero() {
     text: 'All in one place!',
   });
 
-  hero.append(eyebrow, title, divider, subtitle);
+  hero.append(skipLink, eyebrow, title, divider, subtitle);
   return hero;
 }
