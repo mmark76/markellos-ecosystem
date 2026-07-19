@@ -1,283 +1,102 @@
 import './ecosystem.css';
-import { getCircleLayout, saveCirclePosition } from '../../services/circle-layout-service.js';
 import { createElement } from '../../utils/dom.js';
-import { hasExceededDragThreshold, shouldPreventCircleLinkClick } from '../../utils/interaction.js';
 import { createProjectNode } from '../project-node/project-node.js';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
-const connectionEdges = {
+const ICON_PATHS = Object.freeze({
   blogs: [
-    ['core', 'personal-thoughts-and-writings', 'primary'],
-    ['core', 'chess-reflections', 'primary'],
-    ['core', 'mnemonic-techniques', 'primary'],
+    'M5 19c3.5-1 6.5-3.2 8.8-6.4L19 5l-1-1-7.6 5.2C7.2 11.5 5 15 5 19Z',
+    'M8.2 15.8 4 20m5.5-7.5 2 2',
   ],
-  apps: [
-    ['core', 'organize-your-pc', 'primary'],
-    ['core', 'study-app', 'primary'],
-    ['core', 'memory-palaces', 'primary'],
-    ['core', 'chess-flashcards', 'primary'],
-    ['core', 'relaxing-sounds', 'primary'],
-    ['core', 'animals-within', 'primary'],
-    ['core', 'chess-pgn-audio-player', 'primary'],
-    ['core', 'chessmnemonics', 'primary'],
-    ['chessmnemonics', 'chessmnemonics-flashcards', 'secondary'],
-    ['chessmnemonics', 'chessmnemonics-forum', 'secondary'],
-    ['chessmnemonics', 'chessmnemonics-app', 'secondary'],
+  chess: [
+    'M8 20h9m-8-3h7l-.8-4.3c-.3-1.7-1.3-3.2-2.8-4.1L10 7l1-3 4 2 2.5 5.5L16 17',
+    'M10 7 7.5 9.5 10 11',
   ],
-};
+  memory: [
+    'M9.5 5.2A3 3 0 0 0 5 7.8a3.2 3.2 0 0 0 .4 5.7A3.4 3.4 0 0 0 9 18.8c.8 0 1.5-.3 2-.8V6.5c0-.9-.7-1.5-1.5-1.3Z',
+    'M14.5 5.2A3 3 0 0 1 19 7.8a3.2 3.2 0 0 1-.4 5.7 3.4 3.4 0 0 1-3.6 5.3c-.8 0-1.5-.3-2-.8V6.5c0-.9.7-1.5 1.5-1.3Z',
+    'M7 10h4m2 3h4M8.5 15H11m2-7h2.5',
+  ],
+  productivity: [
+    'M3.5 5.5h13v9h-13zM8 18h4m-2-3.5V18',
+    'M19 12.5v1.2m0 4.6v1.2m3-3.5h-1.2m-3.6 0H16m5.1-2.1-.9.9m-2.4 2.4-.9.9m4.2 0-.9-.9m-2.4-2.4-.9-.9',
+    'M20.5 16a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z',
+  ],
+  entertainment: ['M4 8h16v11H4zM4 8l2-4h16l-2 4M8 4 6 8m7-4-2 4m7-4-2 4', 'm10 11 4 2.5-4 2.5Z'],
+  'well-being': [
+    'M12 20c0-4.2 2.4-7.2 6-9-.1 4-2 6.8-6 9Zm0 0c0-4.2-2.4-7.2-6-9 .1 4 2 6.8 6 9Z',
+    'M12 16c-2.5-3-2.5-6 0-9 2.5 3 2.5 6 0 9Zm-7 4h14',
+  ],
+});
 
-function createConnections(groupId) {
+function createCategoryIcon(iconName) {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
-  svg.classList.add('ecosystem-hub__connections');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.classList.add('category-card__icon-svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.6');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
   svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
 
-  connectionEdges[groupId].forEach(([source, target, type]) => {
+  for (const pathData of ICON_PATHS[iconName] ?? []) {
     const path = document.createElementNS(SVG_NAMESPACE, 'path');
-    path.classList.add(`ecosystem-hub__connection--${type}`);
-    path.dataset.sourceCircle = `${groupId}:${source}`;
-    path.dataset.targetCircle = `${groupId}:${target}`;
-    path.setAttribute('vector-effect', 'non-scaling-stroke');
+    path.setAttribute('d', pathData);
     svg.append(path);
-  });
+  }
 
   return svg;
 }
 
-function getCircleCenter(circle, hubRect) {
-  const rect = circle.getBoundingClientRect();
-  return {
-    x: ((rect.left + rect.width / 2 - hubRect.left) / hubRect.width) * 100,
-    y: ((rect.top + rect.height / 2 - hubRect.top) / hubRect.height) * 100,
-  };
-}
-
-function updateConnections(hub) {
-  const hubRect = hub.getBoundingClientRect();
-
-  if (hubRect.width === 0 || hubRect.height === 0) {
-    return;
-  }
-
-  hub.querySelectorAll('.ecosystem-hub__connections path').forEach((path) => {
-    const source = hub.querySelector(`[data-circle-id="${path.dataset.sourceCircle}"]`);
-    const target = hub.querySelector(`[data-circle-id="${path.dataset.targetCircle}"]`);
-
-    if (!source || !target) {
-      return;
-    }
-
-    const start = getCircleCenter(source, hubRect);
-    const end = getCircleCenter(target, hubRect);
-    const middleX = (start.x + end.x) / 2;
-    const middleY = (start.y + end.y) / 2;
-
-    path.setAttribute(
-      'd',
-      `M ${start.x} ${start.y} C ${middleX} ${start.y}, ${middleX} ${end.y}, ${end.x} ${end.y}`,
-    );
-
-    if (Math.abs(start.x - end.x) < 2) {
-      path.setAttribute(
-        'd',
-        `M ${start.x} ${start.y} C ${start.x} ${middleY}, ${end.x} ${middleY}, ${end.x} ${end.y}`,
-      );
-    }
+function createCategoryCard(group) {
+  const titleId = `category-${group.id}-title`;
+  const card = createElement('article', {
+    classNames: ['category-card', `category-card--${group.theme}`],
+    attributes: { 'aria-labelledby': titleId },
   });
-}
+  const icon = createElement('span', {
+    classNames: ['category-card__icon'],
+    attributes: { 'aria-hidden': 'true' },
+  });
+  icon.append(createCategoryIcon(group.icon));
 
-function applySavedPosition(circle, circleId, layout) {
-  const position = layout[circleId];
-
-  if (!position) {
-    return;
-  }
-
-  circle.style.left = `${position.left}%`;
-  circle.style.top = `${position.top}%`;
-}
-
-function enableDragging(circle, hub, onMove) {
-  let activePointerId = null;
-  let pointerStart = null;
-  let moved = false;
-
-  function canDrag(event) {
-    const mobileLayout = globalThis.matchMedia?.('(max-width: 45rem)').matches;
-    return (
-      document.documentElement.dataset.uiPositionMode === 'editable' &&
-      !mobileLayout &&
-      event.button === 0
-    );
-  }
-
-  function moveCircle(event) {
-    if (event.pointerId !== activePointerId) {
-      return;
-    }
-
-    if (!moved) {
-      if (
-        !pointerStart ||
-        !hasExceededDragThreshold(pointerStart.x, pointerStart.y, event.clientX, event.clientY)
-      ) {
-        return;
-      }
-
-      moved = true;
-      circle.classList.add('is-dragging');
-    }
-
-    const hubRect = hub.getBoundingClientRect();
-    const pageShell = hub.closest('.page-shell') ?? document.documentElement;
-    const dragRect = pageShell.getBoundingClientRect();
-    const circleRect = circle.getBoundingClientRect();
-    const halfWidth = circleRect.width / 2;
-    const halfHeight = circleRect.height / 2;
-    const centerX = Math.min(
-      dragRect.right - halfWidth,
-      Math.max(dragRect.left + halfWidth, event.clientX),
-    );
-    const centerY = Math.min(
-      dragRect.bottom - halfHeight,
-      Math.max(dragRect.top + halfHeight, event.clientY),
-    );
-    const left = ((centerX - hubRect.left) / hubRect.width) * 100;
-    const top = ((centerY - hubRect.top) / hubRect.height) * 100;
-
-    circle.style.left = `${left}%`;
-    circle.style.top = `${top}%`;
-    onMove();
-  }
-
-  function finishDragging(event) {
-    if (event.pointerId !== activePointerId) {
-      return;
-    }
-
-    activePointerId = null;
-    pointerStart = null;
-    circle.classList.remove('is-dragging');
-
-    if (moved) {
-      saveCirclePosition(circle.dataset.circleId, {
-        left: Number.parseFloat(circle.style.left),
-        top: Number.parseFloat(circle.style.top),
-      });
-    }
-  }
-
-  circle.addEventListener('pointerdown', (event) => {
-    if (!canDrag(event)) {
-      return;
-    }
-
-    event.preventDefault();
-    activePointerId = event.pointerId;
-    pointerStart = { x: event.clientX, y: event.clientY };
-    moved = false;
-    circle.setPointerCapture?.(event.pointerId);
+  const links = createElement('ul', {
+    classNames: ['category-card__links'],
+    attributes: { 'aria-label': `${group.title} projects` },
   });
 
-  circle.addEventListener('pointermove', moveCircle);
-  circle.addEventListener('pointerup', finishDragging);
-  circle.addEventListener('pointercancel', finishDragging);
-
-  if (circle.matches('a')) {
-    circle.addEventListener('click', (event) => {
-      if (shouldPreventCircleLinkClick(document.documentElement.dataset.uiPositionMode, moved)) {
-        event.preventDefault();
-        moved = false;
-      }
-    });
+  for (const project of group.projects) {
+    const item = createElement('li', { classNames: ['category-card__link-item'] });
+    item.append(createProjectNode(project));
+    links.append(item);
   }
-}
 
-function createHub(group) {
-  const hub = createElement('article', {
-    classNames: ['ecosystem-hub', `ecosystem-hub--${group.id}`],
-  });
-
-  const core = createElement('div', {
-    classNames: ['ecosystem-hub__core'],
-    attributes: {
-      'data-circle-id': `${group.id}:core`,
-      'aria-label': `${group.title} central circle`,
-    },
-  });
-
-  core.append(
-    createElement('span', {
-      classNames: ['ecosystem-hub__icon'],
-      text: group.icon,
-      attributes: { 'aria-hidden': 'true' },
-    }),
+  card.append(
+    icon,
     createElement('h2', {
-      classNames: ['ecosystem-hub__title'],
+      classNames: ['category-card__title'],
       text: group.title,
+      attributes: { id: titleId },
     }),
     createElement('span', {
-      classNames: ['ecosystem-hub__ornament'],
+      classNames: ['category-card__divider'],
       attributes: { 'aria-hidden': 'true' },
     }),
-    createElement('p', {
-      classNames: ['ecosystem-hub__description'],
-      text: group.description,
-    }),
+    links,
   );
 
-  const projectNodes = group.projects.map((project) => {
-    const node = createProjectNode(project);
-    node.dataset.circleId = `${group.id}:${project.id}`;
-    return node;
-  });
-
-  const connections = createConnections(group.id);
-  const circles = [core, ...projectNodes];
-  const savedLayout = getCircleLayout();
-
-  circles.forEach((circle) => {
-    applySavedPosition(circle, circle.dataset.circleId, savedLayout);
-  });
-
-  hub.append(connections, core, ...projectNodes);
-
-  const refreshConnections = () => updateConnections(hub);
-  circles.forEach((circle) => enableDragging(circle, hub, refreshConnections));
-  globalThis.requestAnimationFrame?.(refreshConnections);
-  globalThis.addEventListener?.('resize', refreshConnections);
-  globalThis.addEventListener?.('markellos:ui-settings-changed', () => {
-    globalThis.requestAnimationFrame?.(refreshConnections);
-  });
-  globalThis.addEventListener?.('markellos:circle-layout-reset', (event) => {
-    const resetLayout = event.detail ?? getCircleLayout();
-
-    circles.forEach((circle) => {
-      circle.style.removeProperty('left');
-      circle.style.removeProperty('top');
-      applySavedPosition(circle, circle.dataset.circleId, resetLayout);
-    });
-
-    globalThis.requestAnimationFrame?.(refreshConnections);
-  });
-
-  const ResizeObserverConstructor = globalThis.ResizeObserver;
-  if (ResizeObserverConstructor) {
-    const observer = new ResizeObserverConstructor(refreshConnections);
-    observer.observe(hub);
-  }
-
-  return hub;
+  return card;
 }
 
 export function createEcosystem(groups) {
   const section = createElement('section', {
     classNames: ['ecosystem'],
-    attributes: { 'aria-label': 'Markellos ecosystem links' },
+    attributes: { 'aria-label': 'Markellos ecosystem categories and project links' },
   });
 
-  section.append(createHub(groups[0]), createHub(groups[1]));
+  section.append(...groups.map(createCategoryCard));
   return section;
 }

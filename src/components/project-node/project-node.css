@@ -1,327 +1,73 @@
 .project-node {
-  position: absolute;
-  z-index: 3;
-  display: grid;
-  width: 8.25rem;
-  height: 8.25rem;
-  place-items: center;
-  align-content: center;
-  gap: 0.32rem;
-  padding: 0.9rem;
-  border: 2px solid rgba(199, 154, 66, 0.78);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.95), transparent 34%),
-    linear-gradient(145deg, rgba(255, 252, 244, 0.98), rgba(246, 235, 216, 0.96));
-  box-shadow:
-    var(--shadow-node),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.75);
-  color: var(--color-ink);
-  text-align: center;
+  display: flex;
+  min-width: 0;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  margin: 0 -0.45rem;
+  padding: 0.62rem 0.55rem;
+  border-radius: 0.65rem;
+  color: var(--color-green-dark);
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.25;
   text-decoration: none;
-  transform: translate(-50%, -50%);
   transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background 220ms ease;
+    background-color 170ms ease,
+    color 170ms ease;
 }
 
-.project-node::before {
-  position: absolute;
-  inset: 0.38rem;
-  border: 1px solid rgba(199, 154, 66, 0.35);
-  border-radius: 50%;
-  content: '';
-  pointer-events: none;
+.project-node:hover {
+  background: var(--category-soft);
+  color: color-mix(in srgb, var(--category-color) 78%, #172019);
 }
 
-.project-node:hover,
 .project-node:focus-visible {
-  border-color: var(--color-gold-dark);
-  background:
-    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 1), transparent 34%),
-    linear-gradient(145deg, #fffdf7, #f5e7cf);
-  box-shadow:
-    0 1.35rem 2.8rem rgba(63, 44, 22, 0.22),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  outline: none;
-  transform: translate(-50%, calc(-50% - 0.38rem)) scale(1.035);
-}
-
-.project-node__icon {
-  display: block;
-  color: var(--color-gold-dark);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.4rem;
-  line-height: 1;
-  text-shadow: 0 0.2rem 0.5rem rgba(111, 77, 31, 0.12);
+  background: var(--category-soft);
+  color: var(--color-green-dark);
+  outline: 2px solid var(--category-color);
+  outline-offset: 2px;
 }
 
 .project-node__label {
-  display: block;
-  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-node__chevron {
+  flex: 0 0 auto;
+  color: var(--category-color);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  line-height: 1.1;
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
-  white-space: normal;
-  text-wrap: balance;
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 170ms ease;
 }
 
-.project-node[data-project-id='chess-pgn-audio-player'] .project-node__label {
-  font-size: 0.72rem;
-  line-height: 1.08;
+.project-node:hover .project-node__chevron,
+.project-node:focus-visible .project-node__chevron {
+  transform: translateX(0.2rem);
 }
 
-.ecosystem-hub--blogs .project-node--root-main,
-.ecosystem-hub--apps .project-node--bottom-main {
-  width: 8.85rem;
-  height: 8.85rem;
-  border-width: 2px;
-  border-color: rgba(199, 154, 66, 0.9);
-  background:
-    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.98), transparent 35%),
-    linear-gradient(145deg, rgba(255, 251, 241, 0.99), rgba(241, 225, 197, 0.98));
-  box-shadow:
-    0 1.05rem 2.2rem rgba(62, 43, 21, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.82);
-}
-
-.ecosystem-hub--blogs .project-node--root-main .project-node__icon,
-.ecosystem-hub--apps .project-node--bottom-main .project-node__icon {
-  font-size: 1.6rem;
-}
-
-.ecosystem-hub--blogs .project-node--root-main .project-node__label,
-.ecosystem-hub--apps .project-node--bottom-main .project-node__label {
-  font-size: 0.82rem;
-  font-weight: 800;
-}
-
-.ecosystem-hub--blogs .project-node--blog-sub-1,
-.ecosystem-hub--blogs .project-node--blog-sub-2,
-.ecosystem-hub--blogs .project-node--blog-sub-3,
-.ecosystem-hub--blogs .project-node--blog-sub-4,
-.ecosystem-hub--apps .project-node--sub-1,
-.ecosystem-hub--apps .project-node--sub-2,
-.ecosystem-hub--apps .project-node--sub-3 {
-  width: 7.9rem;
-  height: 7.9rem;
-  gap: 0.28rem;
-  padding: 0.78rem;
-  border-color: rgba(199, 154, 66, 0.7);
-  box-shadow:
-    0 0.8rem 1.7rem rgba(63, 44, 22, 0.13),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.72);
-}
-
-.ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__icon,
-.ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__icon,
-.ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__icon,
-.ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__icon,
-.ecosystem-hub--apps .project-node--sub-1 .project-node__icon,
-.ecosystem-hub--apps .project-node--sub-2 .project-node__icon,
-.ecosystem-hub--apps .project-node--sub-3 .project-node__icon {
-  font-size: 1.32rem;
-}
-
-.ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__label,
-.ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__label,
-.ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__label,
-.ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__label,
-.ecosystem-hub--apps .project-node--sub-1 .project-node__label,
-.ecosystem-hub--apps .project-node--sub-2 .project-node__label,
-.ecosystem-hub--apps .project-node--sub-3 .project-node__label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  line-height: 1.08;
-}
-
-.project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
-.project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label {
-  font-size: 0.61rem;
-  line-height: 1.05;
-}
-
-.project-node[data-project-id='chessmnemonics'] .project-node__label {
-  font-size: 0.8rem;
-  line-height: 1.07;
-}
-
-.project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label {
-  font-size: 0.7rem;
-  line-height: 1.08;
-}
-
-.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-  font-size: 0.64rem;
-  line-height: 1.05;
-}
-
-.project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-  font-size: 0.76rem;
-  line-height: 1.08;
-}
-
-@media (min-width: 68rem) and (max-height: 52rem) {
-  .project-node {
-    width: 6.25rem;
-    height: 6.25rem;
-    gap: 0.18rem;
-    padding: 0.55rem;
-  }
-
-  .project-node__icon {
-    font-size: 1.05rem;
-  }
-
-  .project-node__label {
-    font-size: 0.63rem;
-    line-height: 1.06;
-  }
-
-  .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label {
-    font-size: 0.57rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--root-main,
-  .ecosystem-hub--apps .project-node--bottom-main {
-    width: 6.85rem;
-    height: 6.85rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--root-main .project-node__icon,
-  .ecosystem-hub--apps .project-node--bottom-main .project-node__icon {
-    font-size: 1.22rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--root-main .project-node__label,
-  .ecosystem-hub--apps .project-node--bottom-main .project-node__label {
-    font-size: 0.66rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--blog-sub-1,
-  .ecosystem-hub--blogs .project-node--blog-sub-2,
-  .ecosystem-hub--blogs .project-node--blog-sub-3,
-  .ecosystem-hub--blogs .project-node--blog-sub-4,
-  .ecosystem-hub--apps .project-node--sub-1,
-  .ecosystem-hub--apps .project-node--sub-2,
-  .ecosystem-hub--apps .project-node--sub-3 {
-    width: 6rem;
-    height: 6rem;
-    padding: 0.5rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-1 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-2 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-3 .project-node__icon {
-    font-size: 1rem;
-  }
-
-  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-1 .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-2 .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-3 .project-node__label {
-    font-size: 0.56rem;
-  }
-
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
-  .project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label {
-    font-size: 0.49rem;
-  }
-
-  .project-node[data-project-id='chessmnemonics'] .project-node__label {
-    font-size: 0.64rem;
-  }
-
-  .project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label {
-    font-size: 0.55rem;
-  }
-
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-    font-size: 0.52rem;
-  }
-
-  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-    font-size: 0.62rem;
-  }
+.category-card--brown .project-node {
+  min-height: 2.72rem;
+  padding-block: 0.52rem;
+  font-size: 0.86rem;
 }
 
 @media (max-width: 45rem) {
   .project-node,
-  .ecosystem-hub--blogs .project-node--root-main,
-  .ecosystem-hub--blogs .project-node--blog-sub-1,
-  .ecosystem-hub--blogs .project-node--blog-sub-2,
-  .ecosystem-hub--blogs .project-node--blog-sub-3,
-  .ecosystem-hub--blogs .project-node--blog-sub-4,
-  .ecosystem-hub--apps .project-node--bottom-main,
-  .ecosystem-hub--apps .project-node--sub-1,
-  .ecosystem-hub--apps .project-node--sub-2,
-  .ecosystem-hub--apps .project-node--sub-3 {
-    position: static;
-    width: auto;
-    height: auto;
-    min-height: 0;
-    grid-template-columns: auto 1fr;
-    justify-items: start;
-    gap: 0.7rem;
-    padding: var(--space-4);
-    border-width: 1px;
-    border-radius: var(--radius-card);
-    transform: none !important;
-  }
-
-  .project-node::before {
-    display: none;
-  }
-
-  .project-node__icon,
-  .ecosystem-hub--blogs .project-node--root-main .project-node__icon,
-  .ecosystem-hub--apps .project-node--bottom-main .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__icon,
-  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-1 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-2 .project-node__icon,
-  .ecosystem-hub--apps .project-node--sub-3 .project-node__icon {
-    font-size: 1.25rem;
-  }
-
-  .project-node__label,
-  .project-node[data-project-id='chess-pgn-audio-player'] .project-node__label,
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
-  .project-node[data-project-id='markellos-chess-mnemonic-system'] .project-node__label,
-  .project-node[data-project-id='chessmnemonics'] .project-node__label,
-  .project-node[data-project-id='chessmnemonics-flashcards'] .project-node__label,
-  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label,
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
-  .ecosystem-hub--blogs .project-node--root-main .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-1 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-2 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-3 .project-node__label,
-  .ecosystem-hub--blogs .project-node--blog-sub-4 .project-node__label,
-  .ecosystem-hub--apps .project-node--bottom-main .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-1 .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-2 .project-node__label,
-  .ecosystem-hub--apps .project-node--sub-3 .project-node__label {
+  .category-card--brown .project-node {
+    min-height: 2.75rem;
+    padding-block: 0.65rem;
     font-size: 0.92rem;
-    line-height: 1.18;
   }
+}
 
-  .project-node:hover,
-  .project-node:focus-visible {
-    transform: translateY(-0.2rem) !important;
+@media (prefers-reduced-motion: reduce) {
+  .project-node,
+  .project-node__chevron {
+    transition: none;
   }
 }

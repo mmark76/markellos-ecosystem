@@ -21,21 +21,5 @@ html[data-ui-font]:not([data-ui-font='classic']) :where(body, body *) {
 
 html[data-ui-font='high-legibility'] .project-node__label {
   letter-spacing: 0.01em;
-  line-height: 1.12;
-}
-
-@media (max-width: 45rem) {
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-    display: flex;
-    max-width: none;
-    flex-wrap: nowrap;
-    gap: 0.25em;
-    font-size: clamp(0.78rem, 3.5vw, 0.92rem);
-    white-space: nowrap;
-    text-wrap: nowrap;
-  }
-
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label-line {
-    display: inline;
-  }
+  line-height: 1.25;
 }

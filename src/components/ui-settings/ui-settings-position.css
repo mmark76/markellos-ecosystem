@@ -14,9 +14,9 @@ dialog.ui-settings__dialog {
 
 @media (max-width: 45rem) {
   body button.ui-settings__launcher {
-    top: auto;
+    top: 0.65rem;
     right: 0.65rem;
-    bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+    bottom: auto;
     padding: 0.58rem 0.82rem;
     font-size: 0.76rem;
   }

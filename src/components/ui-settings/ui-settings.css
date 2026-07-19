@@ -174,29 +174,6 @@
   background: var(--color-green-dark);
 }
 
-.project-node,
-.ecosystem-hub__core {
-  transform: translate(-50%, -50%) scale(var(--ui-circle-scale, 1));
-  transform-origin: center;
-}
-
-.project-node:hover,
-.project-node:focus-visible {
-  transform: translate(-50%, calc(-50% - 0.38rem)) scale(var(--ui-circle-scale, 1));
-}
-
-.ecosystem-hub--apps .project-node--bottom-main {
-  width: 8.4rem;
-  height: 8.4rem;
-}
-
-.ecosystem-hub--apps .project-node--sub-1,
-.ecosystem-hub--apps .project-node--sub-2,
-.ecosystem-hub--apps .project-node--sub-3 {
-  width: 7.3rem;
-  height: 7.3rem;
-}
-
 html[data-ui-text-size='small'] {
   font-size: 90%;
 }
@@ -238,7 +215,7 @@ html[data-ui-theme='dark'] body {
   background: linear-gradient(135deg, #151915 0%, #20241f 52%, #161d19 100%);
 }
 
-html[data-ui-theme='dark'] .project-node,
+html[data-ui-theme='dark'] .category-card,
 html[data-ui-theme='dark'] .ui-settings__dialog,
 html[data-ui-theme='dark'] .ui-settings__launcher,
 html[data-ui-theme='dark'] .ui-settings__select {
@@ -250,6 +227,11 @@ html[data-ui-theme='dark'] .ui-settings__select {
 html[data-ui-theme='dark'] .site-footer {
   background: rgba(22, 27, 23, 0.96);
   color: #d7d0c3;
+}
+
+html[data-ui-theme='dark'] .project-node:hover,
+html[data-ui-theme='dark'] .project-node:focus-visible {
+  color: var(--color-green-dark);
 }
 
 html[data-ui-theme='contrast'] {
@@ -265,7 +247,7 @@ html[data-ui-theme='contrast'] body {
   background: #ffffff;
 }
 
-html[data-ui-theme='contrast'] .project-node,
+html[data-ui-theme='contrast'] .category-card,
 html[data-ui-theme='contrast'] .ui-settings__dialog,
 html[data-ui-theme='contrast'] .ui-settings__launcher {
   border-color: #111111;
@@ -273,17 +255,16 @@ html[data-ui-theme='contrast'] .ui-settings__launcher {
   box-shadow: none;
 }
 
-html[data-ui-theme='contrast'] .ecosystem-hub__core {
-  border-color: #111111;
-  box-shadow: none;
+html[data-ui-theme='contrast'] .project-node:focus-visible {
+  outline-color: #111111;
 }
 
 html[data-ui-font='readable'] body,
 html[data-ui-font='readable'] .hero__title,
 html[data-ui-font='readable'] .hero__eyebrow,
 html[data-ui-font='readable'] .hero__subtitle,
-html[data-ui-font='readable'] .ecosystem-hub__title,
-html[data-ui-font='readable'] .ecosystem-hub__description,
+html[data-ui-font='readable'] .category-card__title,
+html[data-ui-font='readable'] .category-card__description,
 html[data-ui-font='readable'] .project-node__label,
 html[data-ui-font='readable'] .site-footer,
 html[data-ui-font='readable'] .ui-settings__launcher,
@@ -322,7 +303,6 @@ html[data-ui-density='spacious'] .ecosystem {
   gap: 4.5rem;
 }
 
-html[data-ui-background='minimal'] .ecosystem-hub::after,
 html[data-ui-background='minimal'] body::before,
 html[data-ui-background='minimal'] body::after {
   display: none;
@@ -334,8 +314,7 @@ html[data-ui-background='plain'] body {
 
 html[data-ui-background='plain'] body::before,
 html[data-ui-background='plain'] body::after,
-html[data-ui-background='plain'] .ecosystem-hub::before,
-html[data-ui-background='plain'] .ecosystem-hub::after {
+html[data-ui-background='plain'] .category-card__divider {
   display: none;
 }
 
@@ -348,25 +327,11 @@ html[data-ui-motion='reduced'] *::after {
   transition-duration: 0.01ms !important;
 }
 
-@media (min-width: 68rem) and (max-height: 56rem) {
-  .ecosystem-hub--apps .project-node--bottom-main {
-    width: 6.2rem;
-    height: 6.2rem;
-  }
-
-  .ecosystem-hub--apps .project-node--sub-1,
-  .ecosystem-hub--apps .project-node--sub-2,
-  .ecosystem-hub--apps .project-node--sub-3 {
-    width: 5.2rem;
-    height: 5.2rem;
-  }
-}
-
 @media (max-width: 45rem) {
   .ui-settings__launcher {
-    top: auto;
+    top: 0.65rem;
     right: 0.65rem;
-    bottom: max(0.65rem, env(safe-area-inset-bottom, 0px));
+    bottom: auto;
     padding: 0.5rem 0.7rem;
     font-size: 0.7rem;
   }
@@ -374,12 +339,5 @@ html[data-ui-motion='reduced'] *::after {
   .ui-settings__field {
     grid-template-columns: 1fr;
     gap: 0.35rem;
-  }
-
-  .project-node,
-  .project-node:hover,
-  .project-node:focus-visible,
-  .ecosystem-hub__core {
-    transform: none !important;
   }
 }

@@ -11,7 +11,7 @@ html[data-ui-text-size='extra-large'] {
   font-size: 150%;
 }
 
-/* Keep page titles at their previous visual size. */
+/* Keep page titles and shared navigation at their established visual scale. */
 .hero__title {
   font-size: clamp(36.8px, 5vw, 83.2px);
 }
@@ -36,9 +36,12 @@ html[data-ui-title-size='large'] .hero__title {
   font-size: clamp(32px, 6vw, 64px);
 }
 
-/* Keep the fixed footer at its previous visual size. */
 body {
   padding-bottom: 80px;
+}
+
+body:has(.page-shell) {
+  padding-bottom: 0;
 }
 
 .site-footer {
@@ -47,6 +50,10 @@ body {
   font-size: 14.08px;
   backdrop-filter: blur(14.4px);
   box-shadow: 0 -12px 32px rgba(63, 44, 22, 0.07);
+}
+
+.page-shell + .site-footer {
+  backdrop-filter: none;
 }
 
 .site-footer::before {
@@ -74,45 +81,13 @@ body {
   font-size: 14.4px;
 }
 
-.project-node__icon,
-.ecosystem-hub__icon {
-  display: none;
-}
-
-.ecosystem-hub--blogs .project-node__label {
-  max-width: 6.1rem;
-  font-size: 0.82rem;
-  line-height: 1.08;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
-.project-node__label-line {
-  display: block;
-}
-
-.project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-  max-width: 4.6rem;
-  font-size: 0.72rem;
-  line-height: 1.04;
-  text-wrap: wrap;
-}
-
-.project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-  max-width: 6.1rem;
-  font-size: 0.84rem;
-  line-height: 1.2;
-  text-wrap: balance;
-}
-
-.project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-  font-size: 0.69rem;
-  line-height: 1.06;
-}
-
 @media (min-width: 68rem) and (max-height: 52rem) {
   body {
     padding-bottom: 54.4px;
+  }
+
+  body:has(.page-shell) {
+    padding-bottom: 0;
   }
 
   .hero__title {
@@ -135,26 +110,6 @@ body {
     width: 5.44px;
     height: 5.44px;
   }
-
-  .ecosystem-hub--blogs .project-node__label {
-    max-width: 4.8rem;
-    font-size: 0.66rem;
-  }
-
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label {
-    max-width: 3.9rem;
-    font-size: 0.58rem;
-  }
-
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-    max-width: 4.8rem;
-    font-size: 0.69rem;
-    line-height: 1.16;
-  }
-
-  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-    font-size: 0.56rem;
-  }
 }
 
 @media (max-width: 45rem) {
@@ -172,19 +127,5 @@ body {
 
   .site-footer {
     padding-inline: 14px;
-  }
-
-  .ecosystem-hub--blogs .project-node__label,
-  .project-node[data-project-id='chessmnemonics-app'] .project-node__label,
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label,
-  .project-node[data-project-id='chessmnemonics-forum'] .project-node__label {
-    max-width: none;
-    font-size: 0.96rem;
-    line-height: 1.2;
-  }
-
-  .project-node[data-project-id='personal-thoughts-and-writings'] .project-node__label {
-    font-size: 1rem;
-    line-height: 1.24;
   }
 }
