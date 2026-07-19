@@ -156,31 +156,75 @@ test('settings markup retains dialog relationships and focus restoration', async
   assert.match(source, /dialog\.addEventListener\('close', \(\) => launcher\.focus\(\)\)/);
 });
 
-test('settings exposes circle editing, reset, and layout export controls', async () => {
+test('settings keeps appearance controls and backward-compatible layout exports', async () => {
   const source = await readFile(
     new URL('../src/components/ui-settings/ui-settings.js', import.meta.url),
     'utf8',
   );
 
-  assert.match(source, /label: 'Circle positions'/);
-  assert.match(source, /\['locked', 'Locked'\]/);
-  assert.match(source, /\['editable', 'Move circles'\]/);
-  assert.match(source, /text: 'Reset circle positions'/);
-  assert.match(source, /resetPositionsButton\.addEventListener\('click'/);
+  assert.match(source, /label: 'Colour theme'/);
+  assert.match(source, /label: 'Text size'/);
+  assert.match(source, /label: 'Font style'/);
   assert.match(source, /circleLayout: getCircleLayout\(\)/);
-  assert.match(source, /text: 'Reset all settings and positions'/);
+  assert.match(source, /text: 'Reset all settings'/);
+  assert.doesNotMatch(source, /label: 'Circle positions'/);
 });
 
-test('circle layout uses pointer dragging and a non-draggable small-screen fallback', async () => {
-  const [source, styles] = await Promise.all([
+test('category layout renders data-driven cards and responsive grid breakpoints', async () => {
+  const [source, styles, projectSource] = await Promise.all([
     readFile(new URL('../src/components/ecosystem/ecosystem.js', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/ecosystem/ecosystem.css', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/project-node/project-node.js', import.meta.url), 'utf8'),
   ]);
 
-  assert.match(source, /addEventListener\('pointerdown'/);
-  assert.match(source, /addEventListener\('pointermove'/);
-  assert.match(source, /addEventListener\('pointerup'/);
-  assert.match(source, /saveCirclePosition\(circle\.dataset\.circleId/);
-  assert.match(source, /matchMedia\?\.\('\(max-width: 45rem\)'\)/);
-  assert.match(styles, /@media \(max-width: 45rem\)[\s\S]*position: static/);
+  assert.match(source, /groups\.map\(createCategoryCard\)/);
+  assert.match(source, /createElement\('article'/);
+  assert.match(source, /createElement\('h2'/);
+  assert.match(source, /createElement\('ul'/);
+  assert.doesNotMatch(source, /category-card__description/);
+  assert.match(source, /createElementNS\(SVG_NAMESPACE, 'svg'\)/);
+  assert.match(source, /svg\.setAttribute\('aria-hidden', 'true'\)/);
+  assert.match(projectSource, /createElement\('a'/);
+  assert.match(projectSource, /text: '›'/);
+  assert.match(styles, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(max-width: 67\.5rem\)[\s\S]*repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /@media \(max-width: 45rem\)[\s\S]*grid-template-columns: 1fr/);
+});
+
+test('card links retain focus, touch-target, reduced-motion, and overflow safeguards', async () => {
+  const [projectStyles, ecosystemStyles, globalStyles] = await Promise.all([
+    readFile(new URL('../src/components/project-node/project-node.css', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/ecosystem/ecosystem.css', import.meta.url), 'utf8'),
+    readFile(new URL('../src/styles/global.css', import.meta.url), 'utf8'),
+  ]);
+
+  assert.match(projectStyles, /min-height: 2\.75rem/);
+  assert.match(projectStyles, /\.project-node:focus-visible/);
+  assert.match(projectStyles, /outline: 2px solid/);
+  assert.match(projectStyles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(ecosystemStyles, /min-width: 0/);
+  assert.doesNotMatch(ecosystemStyles, /grid-auto-rows: 1fr/);
+  assert.doesNotMatch(ecosystemStyles, /min-height: 26rem/);
+  assert.match(ecosystemStyles, /@media \(max-width: 24rem\)[\s\S]*overflow-wrap: anywhere/);
+  assert.match(globalStyles, /overflow-x: hidden/);
+  assert.match(globalStyles, /body::before,[\s\S]*pointer-events: none/);
+});
+
+test('home footer retains all navigation, consent, copyright, and version content', async () => {
+  const source = await readFile(
+    new URL('../src/components/footer/footer.js', import.meta.url),
+    'utf8',
+  );
+
+  for (const text of [
+    'Markellos Markides. All rights reserved.',
+    'About Markellos',
+    'Privacy',
+    'Cookies',
+    'Feedback',
+    'Cookie preferences',
+    'SITE_VERSION',
+  ]) {
+    assert.ok(source.includes(text));
+  }
 });

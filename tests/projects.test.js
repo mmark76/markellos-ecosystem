@@ -4,16 +4,40 @@ import test from 'node:test';
 import { URL } from 'node:url';
 import { ecosystemGroups } from '../src/data/projects.js';
 
-const EXPECTED_GROUP_IDS = ['blogs', 'apps'];
+const EXPECTED_GROUP_IDS = [
+  'blogs',
+  'chess',
+  'memory-learning',
+  'productivity-tools',
+  'entertainment',
+  'well-being',
+];
 
-test('ecosystem data contains the restored circle hubs', () => {
+const EXPECTED_PROJECT_URLS = Object.freeze({
+  'personal-thoughts-and-writings': 'https://personal-thoughts-and-writings.blogspot.com/',
+  'chess-reflections': 'https://chess-reflections.blogspot.com/',
+  'mnemonic-techniques': 'https://mnemonic-techniques.blogspot.com/',
+  'chess-flashcards': 'https://chessflashcards.net/',
+  'chess-pgn-audio-player': 'https://chessmnemonics.net/chess_games_tts_app/index.html',
+  chessmnemonics: 'https://chessmnemonics.net/index.html',
+  'chessmnemonics-app': 'https://chessmnemonics.net/app.html',
+  'chessmnemonics-flashcards': 'https://chessmnemonics.net/flashcards/index.html',
+  'chessmnemonics-forum': 'https://forum.chessmnemonics.net/',
+  'memory-palaces': 'https://memory-palaces.net/',
+  'study-app': 'https://studyapp.markellosecosystem.com/',
+  'organize-your-pc': 'https://organizeyourpc.com/',
+  'animals-within': 'https://animalswithin.markellosecosystem.com/',
+  'relaxing-sounds': 'https://relaxing-sounds.net/',
+});
+
+test('ecosystem data contains the six requested categories in display order', () => {
   assert.deepEqual(
     ecosystemGroups.map(({ id }) => id),
     EXPECTED_GROUP_IDS,
   );
 });
 
-test('ecosystem data contains unique group and project identifiers', () => {
+test('ecosystem data contains unique categories and all 14 unique projects', () => {
   const groupIds = ecosystemGroups.map(({ id }) => id);
   const projectIds = ecosystemGroups.flatMap(({ projects }) => projects.map(({ id }) => id));
 
@@ -22,31 +46,38 @@ test('ecosystem data contains unique group and project identifiers', () => {
   assert.equal(projectIds.length, 14);
 });
 
-test('Animals Within remains a normal project in the apps hub', () => {
-  const apps = ecosystemGroups.find(({ id }) => id === 'apps');
-  const project = apps.projects.find(({ id }) => id === 'animals-within');
+test('every existing project URL remains unchanged', () => {
+  const actualUrls = Object.fromEntries(
+    ecosystemGroups.flatMap(({ projects }) => projects.map(({ id, url }) => [id, url])),
+  );
 
-  assert.deepEqual(project, {
-    id: 'animals-within',
-    title: 'Animals Within',
-    icon: '◉',
-    url: 'https://animalswithin.markellosecosystem.com/',
-    position: 'animals-within',
-  });
+  assert.deepEqual(actualUrls, EXPECTED_PROJECT_URLS);
 });
 
-test('every project uses a valid HTTPS URL and complete display data', () => {
+test('Animals Within remains the Entertainment project', () => {
+  const entertainment = ecosystemGroups.find(({ id }) => id === 'entertainment');
+
+  assert.deepEqual(entertainment.projects, [
+    {
+      id: 'animals-within',
+      title: 'Animals Within',
+      url: 'https://animalswithin.markellosecosystem.com/',
+    },
+  ]);
+});
+
+test('every category and project has complete display data', () => {
   for (const group of ecosystemGroups) {
     assert.ok(group.title.trim().length > 0);
     assert.ok(group.description.trim().length > 0);
     assert.ok(group.icon.trim().length > 0);
+    assert.ok(group.theme.trim().length > 0);
     assert.ok(group.projects.length > 0);
 
     for (const project of group.projects) {
       const url = new URL(project.url);
       assert.equal(url.protocol, 'https:');
       assert.ok(project.title.trim().length > 0);
-      assert.ok(project.icon.trim().length > 0);
     }
   }
 });
@@ -56,6 +87,7 @@ test('the no-JavaScript fallback includes every category and project link', asyn
   const noScriptContent = homePage.match(/<noscript>([\s\S]*?)<\/noscript>/)?.[1];
 
   assert.ok(noScriptContent);
+  assert.ok(homePage.includes('href="/src/styles/noscript.css"'));
 
   for (const group of ecosystemGroups) {
     assert.ok(noScriptContent.includes(group.title.replace('&', '&amp;')));

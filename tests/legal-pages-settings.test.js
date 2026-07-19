@@ -36,3 +36,15 @@ test('readable font setting covers legal page content and headings', async () =>
   assert.match(legalStyles, /html\[data-ui-font='readable'\] \.legal-page__title,/);
   assert.match(legalStyles, /html\[data-ui-font='readable'\] \.legal-page__section h2/);
 });
+
+test('legal pages explain legacy circle data without describing it as a current control', async () => {
+  const [privacyPage, cookiesPage] = await Promise.all([
+    readRepositoryFile('privacy/index.html'),
+    readRepositoryFile('cookies/index.html'),
+  ]);
+
+  assert.match(privacyPage, /current card layout does not use editable circle positions/);
+  assert.match(cookiesPage, /Legacy layout data/);
+  assert.match(cookiesPage, /not used by the current card[\s\S]*layout/);
+  assert.doesNotMatch(cookiesPage, /title layout, circle size, spacing/);
+});

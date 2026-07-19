@@ -55,8 +55,7 @@ html[data-ui-title-size='extra-small'] .hero__title {
   background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
 }
 
-.hero__divider::before,
-.hero__divider::after {
+.hero__divider::before {
   position: absolute;
   top: 50%;
   width: 0.42rem;
@@ -64,15 +63,8 @@ html[data-ui-title-size='extra-small'] .hero__title {
   border: 1px solid var(--color-gold-dark);
   background: #f7eddc;
   content: '';
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.hero__divider::before {
-  left: 47%;
-}
-
-.hero__divider::after {
-  right: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .hero__subtitle {
@@ -90,7 +82,7 @@ html[data-ui-theme='dark'] .hero__title {
 }
 
 html[data-ui-theme='dark'] .hero__divider::before,
-html[data-ui-theme='dark'] .hero__divider::after {
+html[data-ui-theme='dark'] .category-card__divider::after {
   background: #20241f;
 }
 
@@ -124,6 +116,7 @@ html[data-ui-theme='dark'] .hero__divider::after {
 @media (max-width: 45rem) {
   .hero {
     margin-bottom: 1rem;
+    padding-top: 1.5rem;
   }
 
   .hero__eyebrow {
